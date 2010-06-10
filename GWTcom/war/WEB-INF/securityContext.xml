@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+	<!--
+		Dummy class created purely because security namespace tag "http"
+		requires an AuthenticationEntryPoint. Note that this class never gets
+		used as we are not (we cannot!) relying on Spring Security to redirect
+		the user to the login page. Remember that here we are dealing with GWT
+		RPC requests and NOT normal web requests. The only sensible thing to
+		do is to, in GWT server-side code, explicitly handle exceptions thrown
+		by the AbstractSecurityInterceptor (Method Security interceptor in
+		this case) to either "redirect" the user to the login page or display
+		"access denied" messages.
+	-->
+	<bean id="authenticationEntryPoint"
+		class="org.gwtcom.server.SimpleAuthenticationEntryPoint" />
+
+	<!--
+		An AuthenticationProvider must be present in order to specify Spring
+		Security declaratively using the security namespace, even though this
+		provider will never be used as we are not relying on the filter chain
+		mechanism for authentication - we have not defined any
+		"authenticating" SpringSecurityFilter in the filter chain.
+		Furthermore, Spring Method Security interceptor does not
+		reauthenticate by default; it will happily accept any authenticated
+		"Authentication" found in the security context, which our own
+		authentication mechanism will have created.
+	-->
+	<bean id="authenticationProvider"
+		class="org.gwtcom.server.SimpleAuthenticationProvider" />
+
+	<security:global-method-security
+		secured-annotations="enabled" jsr250-annotations="disabled" />
+
+	<!--
+		Note: forcing eager session creation in
+		HttpSessionContextIntegrationFilter to ensure that session cookie is
+		set at the completion of the authenticate call.
+	-->
+	<security:http entry-point-ref="authenticationEntryPoint"
+		create-session="always" />
+
+	<security:authentication-manager>
+		<security:authentication-provider
+			ref="authenticationProvider" />
+	</security:authentication-manager>
+</beans>
