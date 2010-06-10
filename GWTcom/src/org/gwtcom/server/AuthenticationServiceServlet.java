@@ -1,6 +1,6 @@
 package org.gwtcom.server;
 
-import org.gwtcom.client.AuthenticationService;
+import org.gwtcom.client.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("serial")

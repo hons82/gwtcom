@@ -1,6 +1,6 @@
 	package org.gwtcom.server;
 
-import org.gwtcom.client.DocumentService;
+import org.gwtcom.client.service.DocumentService;
 import org.springframework.security.access.annotation.Secured;
 
 public class DocumentServiceImpl implements DocumentService {

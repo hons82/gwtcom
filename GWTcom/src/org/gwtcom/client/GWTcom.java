@@ -1,20 +1,30 @@
 package org.gwtcom.client;
 
+import org.gwtcom.client.panel.TopPanel;
+import org.gwtcom.client.service.AuthenticationService;
+import org.gwtcom.client.service.DocumentService;
+import org.gwtcom.client.service.GreetingService;
 import org.gwtcom.shared.FieldVerifier;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style.Overflow;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -23,6 +33,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class GWTcom implements EntryPoint {
+	
+	interface Binder extends UiBinder<DockLayoutPanel, GWTcom> { }
+	private static final Binder binder = GWT.create(Binder.class);
+
+	@UiField TopPanel topPanel;
+	
 	/**
 	 * The message displayed to the user when the server cannot be reached or
 	 * returns an error.
@@ -30,16 +46,31 @@ public class GWTcom implements EntryPoint {
 	private static final String SERVER_ERROR = "An error occurred while " + "attempting to contact the server. Please check your network "
 			+ "connection and try again.";
 
-	/**
-	 * Create a remote service proxy to talk to the server-side Greeting
-	 * service.
-	 */
-	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
-
+	
+	
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		// Inject global styles.
+	    //GWT.<GlobalResources>create(GlobalResources.class).css().ensureInjected();
+
+	    // Create the UI defined in Mail.ui.xml.
+	    DockLayoutPanel outer = binder.createAndBindUi(this);
+
+	    // Get rid of scrollbars, and clear out the window's built-in margin,
+	    // because we want to take advantage of the entire client area.
+	    Window.enableScrolling(false);
+	    Window.setMargin("0px");
+
+	    // Special-case stuff to make topPanel overhang a bit.
+	    Element topElem = outer.getWidgetContainerElement(topPanel);
+	    topElem.getStyle().setZIndex(2);
+	    topElem.getStyle().setOverflow(Overflow.VISIBLE);
+		
+	    RootLayoutPanel root = RootLayoutPanel.get();
+	    root.add(outer);
+	    
 		final Button sendButton = new Button("Send");
 		final Button publicButton = new Button("Get Public");
 		final Button privateButton = new Button("Get Private");
@@ -64,7 +95,7 @@ public class GWTcom implements EntryPoint {
 		RootPanel.get("moreButtonsContainer").add(privateButton);
 		RootPanel.get("moreButtonsContainer").add(loginButton);
 		RootPanel.get("moreButtonsContainer").add(logoutButton);
-
+		
 		// Focus the cursor on the name field when the app loads
 		nameField.setFocus(true);
 		nameField.selectAll();

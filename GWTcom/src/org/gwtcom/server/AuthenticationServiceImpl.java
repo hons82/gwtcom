@@ -1,6 +1,6 @@
 package org.gwtcom.server;
 
-import org.gwtcom.client.AuthenticationService;
+import org.gwtcom.client.service.AuthenticationService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

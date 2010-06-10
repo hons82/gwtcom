@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 
-import org.gwtcom.client.GreetingService;
+import org.gwtcom.client.service.GreetingService;
 import org.gwtcom.server.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaCallback;
