@@ -1,5 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gwtcom='urn:import:org.gwtcom.client.panel'>
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' 
+	xmlns:gwtcom='urn:import:org.gwtcom.client.panel'>
 
 	<g:DockLayoutPanel unit='EM'>
 		<g:north size='5'>
@@ -12,10 +13,14 @@
 					<gwtcom:Shortcuts ui:field='shortcuts' />
 				</g:west>
 				<!--
-					<g:north size='200'> <gwtcom:MailList ui:field='mailList' />
-					</g:north> <g:center> <gwtcom:MailDetail ui:field='mailDetail' />
+					<g:north size='200'> <gwtcom:NewsList ui:field='details' />
+					</g:north>
+					
+					 <g:center> <gwtcom:Details ui:field='details' />
 					</g:center>
 				-->
+				<g:center> <g:LayoutPanel ui:field="container" />
+					</g:center>
 			</g:SplitLayoutPanel>
 		</g:center>
 	</g:DockLayoutPanel>

@@ -4,7 +4,7 @@
 <ui:UiBinder
   xmlns:ui='urn:ui:com.google.gwt.uibinder'
   xmlns:g='urn:import:com.google.gwt.user.client.ui'
-  xmlns:mail='urn:import:org.gwtcom.client'>
+  xmlns:gwtcom='urn:import:org.gwtcom.client.panel'>
 
   <ui:image field='logo' src='logo.png'/>
 
