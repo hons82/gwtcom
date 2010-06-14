@@ -1,4 +1,4 @@
-package org.gwtcom.client.panel;
+package org.gwtcom.client.panel.news;
 
 import java.util.ArrayList;
 

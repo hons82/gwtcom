@@ -1,8 +1,8 @@
 package org.gwtcom.client;
 
-import org.gwtcom.client.panel.NewsList;
 import org.gwtcom.client.panel.Shortcuts;
 import org.gwtcom.client.panel.TopPanel;
+import org.gwtcom.client.panel.news.NewsList;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -59,4 +59,5 @@ public class GWTcom implements EntryPoint {
 	    RootLayoutPanel root = RootLayoutPanel.get();
 	    root.add(outer);
 	}
+
 }

@@ -1,4 +1,4 @@
-package org.gwtcom.client.panel;
+package org.gwtcom.client.panel.news;
 
 public final class NewsItem {
 	

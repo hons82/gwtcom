@@ -1,6 +1,12 @@
 package org.gwtcom.client.panel;
 
+import org.gwtcom.client.panel.event.INavigationMenuItemChange;
+import org.gwtcom.client.panel.event.NavigationMenuChangeEvent;
+
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
@@ -41,6 +47,7 @@ public class CommonStack extends Composite {
 	}
 
 	private Tree tree;
+	private HandlerManager eventbus = new HandlerManager(this);
 
 	/**
 	 * Constructs a new mailboxes widget with a bundle of images.
@@ -62,6 +69,17 @@ public class CommonStack extends Composite {
 		addImageItem(root, "Trash", images.trash());
 
 		root.setState(true);
+		
+		
+		tree.addSelectionHandler(new SelectionHandler<TreeItem>() {
+			
+			@Override
+			public void onSelection(SelectionEvent<TreeItem> event) {
+				NavigationMenuChangeEvent event2 = new NavigationMenuChangeEvent();
+				eventbus.fireEvent(event2);
+			}
+		});
+		
 		initWidget(tree);
 	}
 
@@ -91,5 +109,9 @@ public class CommonStack extends Composite {
 	 */
 	private String imageItemHTML(ImageResource imageProto, String title) {
 		return AbstractImagePrototype.create(imageProto).getHTML() + " " + title;
+	}
+	
+	public void addNavigationMenuChangedHandler(INavigationMenuItemChange handler){
+		eventbus.addHandler(NavigationMenuChangeEvent.TYPE, handler);
 	}
 }

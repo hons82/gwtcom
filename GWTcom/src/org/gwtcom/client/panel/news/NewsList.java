@@ -1,4 +1,4 @@
-package org.gwtcom.client.panel;
+package org.gwtcom.client.panel.news;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

@@ -1,5 +1,8 @@
 package org.gwtcom.client.panel;
 
+import org.gwtcom.client.panel.event.INavigationMenuItemChange;
+import org.gwtcom.client.panel.event.NavigationMenuChangeEvent;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -28,5 +31,13 @@ public class Shortcuts extends ResizeComposite {
    */
   public Shortcuts() {
     initWidget(binder.createAndBindUi(this));
+    commonStack.addNavigationMenuChangedHandler(new INavigationMenuItemChange() {
+		
+		@Override
+		public void onCategoryChange(NavigationMenuChangeEvent event) {
+			// TODO Auto-generated method stub
+			System.out.println("blabla");
+		}
+	});
   }
 }

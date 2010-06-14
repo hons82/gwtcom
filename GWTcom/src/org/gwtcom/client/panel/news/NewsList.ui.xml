@@ -3,7 +3,7 @@
   xmlns:g='urn:import:com.google.gwt.user.client.ui'
   xmlns:gwtcom='urn:import:org.gwtcom.client.panel'>
   
-    <ui:image field='gradient' src='gradient_bg_dark.png' repeatStyle='Horizontal'/>
+    <ui:image field='gradient' src='../gradient_bg_dark.png' repeatStyle='Horizontal'/>
 
   <ui:style>
   .outer {
@@ -42,7 +42,7 @@
   </ui:style>
 
   <ui:style field='selectionStyle'
-    type='org.gwtcom.client.panel.NewsList.SelectionStyle'>
+    type='org.gwtcom.client.panel.news.NewsList.SelectionStyle'>
 
   .selectedRow {
     background: #adcce7;
