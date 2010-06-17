@@ -10,7 +10,7 @@
 		<param-value>/WEB-INF/applicationContext.xml,
 			/WEB-INF/securityContext.xml</param-value>
 	</context-param>
-
+	
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -51,6 +51,17 @@
 	<servlet-mapping>
 		<servlet-name>documentService</servlet-name>
 		<url-pattern>/gwtcom/documentService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>newsService</servlet-name>
+		<servlet-class>
+			org.gwtcom.server.NewsServiceServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>newsService</servlet-name>
+		<url-pattern>/gwtcom/newsService</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->

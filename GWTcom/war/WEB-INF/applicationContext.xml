@@ -13,6 +13,7 @@
 	<!-- Service layer -->
 	<bean id="authenticationService" class="org.gwtcom.server.AuthenticationServiceImpl" />
 	<bean id="documentService" class="org.gwtcom.server.DocumentServiceImpl" />
+	<bean id="newsService" class="org.gwtcom.server.NewsServiceImpl" />
 	<bean id="greetingService" class="org.gwtcom.server.GreetingServiceImpl" />
 
 </beans>

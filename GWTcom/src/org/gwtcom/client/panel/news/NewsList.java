@@ -1,7 +1,14 @@
 package org.gwtcom.client.panel.news;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.gwtcom.client.presenter.NewsListPresenter;
+import org.gwtcom.shared.NewsDetail;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -19,177 +26,219 @@ import com.google.gwt.user.client.ui.HTMLTable.Cell;
  * {@link com.google.gwt.user.client.ui.StackPanel},
  * {@link com.google.gwt.user.client.ui.Tree}, and other custom widgets.
  */
-public class NewsList extends ResizeComposite {
+public class NewsList extends ResizeComposite implements NewsListPresenter.Display {
 
 	/**
-	   * Callback when mail items are selected. 
-	   */
-	  public interface Listener {
-	    void onItemSelected(NewsItem item);
-	  }
+	 * Callback when mail items are selected.
+	 */
+	public interface Listener {
+		void onItemSelected(NewsDetail item);
+	}
 
-	  interface SelectionStyle extends CssResource {
-		    String selectedRow();
-		  }
-	  interface Binder extends UiBinder<Widget, NewsList> { }
-	  private static final Binder binder = GWT.create(Binder.class);
-	  
-	  static final int VISIBLE_EMAIL_COUNT = 20;
+	interface SelectionStyle extends CssResource {
+		String selectedRow();
+	}
 
-	  @UiField FlexTable header;
-	  @UiField FlexTable table;
-	  @UiField SelectionStyle selectionStyle;
+	interface Binder extends UiBinder<Widget, NewsList> {
+	}
 
-	  private Listener listener;
-	  private int startIndex, selectedRow = -1;
-	  private NavBar navBar;
+	private static final Binder binder = GWT.create(Binder.class);
 
-	  public NewsList() {
-	    initWidget(binder.createAndBindUi(this));
-	    navBar = new NavBar(this);
+	static final int VISIBLE_EMAIL_COUNT = 20;
 
-	    initTable();
-	    update();
-	  }
+	@UiField
+	FlexTable header;
+	@UiField
+	FlexTable table;
+	@UiField
+	SelectionStyle selectionStyle;
 
-	  /**
-	   * Sets the listener that will be notified when an item is selected.
-	   */
-	  public void setListener(Listener listener) {
-	    this.listener = listener;
-	  }
+	private Listener listener;
+	private int startIndex, selectedRow = -1;
+	private NavBar navBar;
 
-	  @Override
-	  protected void onLoad() {
-	    // Select the first row if none is selected.
-	    if (selectedRow == -1) {
-	      selectRow(0);
-	    }
-	  }
+	private List<NewsDetail> _list;
 
-	  void newer() {
-	    // Move back a page.
-	    startIndex -= VISIBLE_EMAIL_COUNT;
-	    if (startIndex < 0) {
-	      startIndex = 0;
-	    } else {
-	      styleRow(selectedRow, false);
-	      selectedRow = -1;
-	      update();
-	    }
-	  }
+	public NewsList() {
+		initWidget(binder.createAndBindUi(this));
+		navBar = new NavBar(this);
+		_list = new ArrayList<NewsDetail>();
 
-	  void older() {
-	    // Move forward a page.
-	    startIndex += VISIBLE_EMAIL_COUNT;
-	    //TODO
-	    if (startIndex >= NewsItems.getNewsItemCount()) {
-	      startIndex -= VISIBLE_EMAIL_COUNT;
-	    } else {
-	      styleRow(selectedRow, false);
-	      selectedRow = -1;
-	      update();
-	    }
-	  }
+		initTable();
+	}
 
-	  @UiHandler("table")
-	  void onTableClicked(ClickEvent event) {
-	    // Select the row that was clicked (-1 to account for header row).
-	    Cell cell = table.getCellForEvent(event);
-	    if (cell != null) {
-	      int row = cell.getRowIndex();
-	      selectRow(row);
-	    }
-	  }
+	/**
+	 * Sets the listener that will be notified when an item is selected.
+	 */
+	public void setListener(Listener listener) {
+		this.listener = listener;
+	}
 
-	  /**
-	   * Initializes the table so that it contains enough rows for a full page of
-	   * emails. Also creates the images that will be used as 'read' flags.
-	   */
-	  private void initTable() {
-	    // Initialize the header.
-	    header.getColumnFormatter().setWidth(0, "128px");
-	    header.getColumnFormatter().setWidth(1, "192px");
-	    header.getColumnFormatter().setWidth(3, "256px");
+	@Override
+	protected void onLoad() {
+		// Select the first row if none is selected.
+		if (selectedRow == -1) {
+			selectRow(0);
+		}
+	}
 
-	    header.setText(0, 0, "Sender");
-	    header.setText(0, 1, "Email");
-	    header.setText(0, 2, "Subject");
-	    header.setWidget(0, 3, navBar);
-	    header.getCellFormatter().setHorizontalAlignment(0, 3, HasHorizontalAlignment.ALIGN_RIGHT);
+	void newer() {
+		// Move back a page.
+		startIndex -= VISIBLE_EMAIL_COUNT;
+		if (startIndex < 0) {
+			startIndex = 0;
+		} else {
+			styleRow(selectedRow, false);
+			selectedRow = -1;
+		}
+	}
 
-	    // Initialize the table.
-	    table.getColumnFormatter().setWidth(0, "128px");
-	    table.getColumnFormatter().setWidth(1, "192px");
-	  }
+	void older() {
+		// Move forward a page.
+		startIndex += VISIBLE_EMAIL_COUNT;
+		// TODO
+		if (startIndex >= _list.size()) {
+			startIndex -= VISIBLE_EMAIL_COUNT;
+		} else {
+			styleRow(selectedRow, false);
+			selectedRow = -1;
+		}
+	}
 
-	  /**
-	   * Selects the given row (relative to the current page).
-	   * 
-	   * @param row the row to be selected
-	   */
-	  private void selectRow(int row) {
-	    // When a row (other than the first one, which is used as a header) is
-	    // selected, display its associated NewsItem.
-	    NewsItem item = NewsItems.getNewsItem(startIndex + row);
-	    if (item == null) {
-	      return;
-	    }
+	@UiHandler("table")
+	void onTableClicked(ClickEvent event) {
+		// Select the row that was clicked (-1 to account for header row).
+		Cell cell = table.getCellForEvent(event);
+		if (cell != null) {
+			int row = cell.getRowIndex();
+			selectRow(row);
+		}
+	}
 
-	    styleRow(selectedRow, false);
-	    styleRow(row, true);
+	/**
+	 * Initializes the table so that it contains enough rows for a full page of
+	 * emails. Also creates the images that will be used as 'read' flags.
+	 */
+	private void initTable() {
+		// Initialize the header.
+		header.getColumnFormatter().setWidth(0, "128px");
+		header.getColumnFormatter().setWidth(1, "192px");
+		header.getColumnFormatter().setWidth(3, "256px");
 
-	    item.read = true;
-	    selectedRow = row;
+		header.setText(0, 0, "Sender");
+		header.setText(0, 1, "Email");
+		header.setText(0, 2, "Subject");
+		header.setWidget(0, 3, navBar);
+		header.getCellFormatter().setHorizontalAlignment(0, 3, HasHorizontalAlignment.ALIGN_RIGHT);
 
-	    if (listener != null) {
-	      listener.onItemSelected(item);
-	    }
-	  }
+		// Initialize the table.
+		table.getColumnFormatter().setWidth(0, "128px");
+		table.getColumnFormatter().setWidth(1, "192px");
+	}
 
-	  private void styleRow(int row, boolean selected) {
-	    if (row != -1) {
-	      String style = selectionStyle.selectedRow();
+	/**
+	 * Selects the given row (relative to the current page).
+	 * 
+	 * @param row
+	 *            the row to be selected
+	 */
+	private void selectRow(int row) {
+		// When a row (other than the first one, which is used as a header) is
+		// selected, display its associated NewsItem.
+		if (startIndex + row >= _list.size()) {
+			return;
+		}
+		NewsDetail item = _list.get(startIndex + row);
+		if (item == null) {
+			return;
+		}
 
-	      if (selected) {
-	        table.getRowFormatter().addStyleName(row, style);
-	      } else {
-	        table.getRowFormatter().removeStyleName(row, style);
-	      }
-	    }
-	  }
+		styleRow(selectedRow, false);
+		styleRow(row, true);
 
-	  private void update() {
-	    // Update the older/newer buttons & label.
-	    int count = NewsItems.getNewsItemCount();
-	    int max = startIndex + VISIBLE_EMAIL_COUNT;
-	    if (max > count) {
-	      max = count;
-	    }
+		selectedRow = row;
 
-	    // Update the nav bar.
-	    navBar.update(startIndex, count, max);
+		if (listener != null) {
+			listener.onItemSelected(item);
+		}
+	}
 
-	    // Show the selected emails.
-	    int i = 0;
-	    for (; i < VISIBLE_EMAIL_COUNT; ++i) {
-	      // Don't read past the end.
-	      if (startIndex + i >= NewsItems.getNewsItemCount()) {
-	        break;
-	      }
+	private void styleRow(int row, boolean selected) {
+		if (row != -1) {
+			String style = selectionStyle.selectedRow();
 
-	      NewsItem item = NewsItems.getNewsItem(startIndex + i);
+			if (selected) {
+				table.getRowFormatter().addStyleName(row, style);
+			} else {
+				table.getRowFormatter().removeStyleName(row, style);
+			}
+		}
+	}
 
-	      // Add a new row to the table, then set each of its columns to the
-	      // email's sender and subject values.
-	      table.setText(i, 0, item.sender);
-	      table.setText(i, 1, item.email);
-	      table.setText(i, 2, item.subject);
-	    }
+	@Override
+	public HasClickHandlers getList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	    // Clear any remaining slots.
-	    for (; i < VISIBLE_EMAIL_COUNT; ++i) {
-	      table.removeRow(table.getRowCount() - 1);
-	    }
-	  }
+	@Override
+	public void setData(List<NewsDetail> data) {
+		// TODO Auto-generated method stub
+		System.out.println(">>>>> NewsList.setData");
+
+		_list = data;
+
+		// Update the older/newer buttons & label.
+		int count = _list.size();
+		int max = startIndex + VISIBLE_EMAIL_COUNT;
+		if (max > count) {
+			max = count;
+		}
+
+		// Update the nav bar.
+		navBar.update(startIndex, count, max);
+
+		// Show the selected emails.
+		int i = 0;
+		for (; i < VISIBLE_EMAIL_COUNT; ++i) {
+			// Don't read past the end.
+			if (startIndex + i >= _list.size()) {
+				break;
+			}
+
+			NewsDetail item = _list.get(startIndex + i);
+
+			// Add a new row to the table, then set each of its columns to the
+			// email's sender and subject values.
+			table.setText(i, 0, item.getId());
+			table.setText(i, 1, item.getDisplayName());
+			table.setText(i, 2, "");
+		}
+
+		// Clear any remaining slots.
+		for (; i < VISIBLE_EMAIL_COUNT; ++i) {
+			table.removeRow(table.getRowCount() - 1);
+		}
+		
+		selectRow(0);
+	}
+
+	@Override
+	public Widget asWidget() {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+	@Override
+	public void startProcessing() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stopProcessing() {
+		// TODO Auto-generated method stub
+
+	}
+
 }
