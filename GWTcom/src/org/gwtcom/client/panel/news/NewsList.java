@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.gwtcom.client.presenter.NewsListPresenter;
-import org.gwtcom.shared.NewsDetail;
+import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -15,6 +15,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.HTMLTable.Cell;
@@ -32,7 +33,7 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 	 * Callback when mail items are selected.
 	 */
 	public interface Listener {
-		void onItemSelected(NewsDetail item);
+		void onItemSelected(NewsItemRemote item);
 	}
 
 	interface SelectionStyle extends CssResource {
@@ -57,12 +58,12 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 	private int startIndex, selectedRow = -1;
 	private NavBar navBar;
 
-	private List<NewsDetail> _list;
+	private List<NewsItemRemote> _list;
 
 	public NewsList() {
 		initWidget(binder.createAndBindUi(this));
 		navBar = new NavBar(this);
-		_list = new ArrayList<NewsDetail>();
+		_list = new ArrayList<NewsItemRemote>();
 
 		initTable();
 	}
@@ -91,6 +92,7 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 			styleRow(selectedRow, false);
 			selectedRow = -1;
 		}
+		update();
 	}
 
 	void older() {
@@ -103,6 +105,7 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 			styleRow(selectedRow, false);
 			selectedRow = -1;
 		}
+		update();
 	}
 
 	@UiHandler("table")
@@ -121,19 +124,26 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 	 */
 	private void initTable() {
 		// Initialize the header.
-		header.getColumnFormatter().setWidth(0, "128px");
-		header.getColumnFormatter().setWidth(1, "192px");
+		header.getColumnFormatter().setWidth(0, "50px");
+		header.getColumnFormatter().setWidth(1, "200px");
+		header.getColumnFormatter().setWidth(2, "200px");
 		header.getColumnFormatter().setWidth(3, "256px");
 
-		header.setText(0, 0, "Sender");
-		header.setText(0, 1, "Email");
-		header.setText(0, 2, "Subject");
-		header.setWidget(0, 3, navBar);
-		header.getCellFormatter().setHorizontalAlignment(0, 3, HasHorizontalAlignment.ALIGN_RIGHT);
+		header.setText(0, 0, "ID");
+		header.setText(0, 1, "Author");
+		header.setText(0, 2, "Date Added");
+		header.setText(0, 3, "Title");
+		header.setWidget(0, 4, navBar);
+		header.getCellFormatter().setHorizontalAlignment(0, 4, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		// Initialize the table.
-		table.getColumnFormatter().setWidth(0, "128px");
-		table.getColumnFormatter().setWidth(1, "192px");
+		table.getColumnFormatter().setWidth(0, "50px");
+		table.getColumnFormatter().setWidth(1, "200px");
+		table.getColumnFormatter().setWidth(2, "200px");
+		//table.getColumnFormatter().setWidth(3, "256px");
+
+		//TODO
+		table.getCellFormatter().setVerticalAlignment(0, 0, HasVerticalAlignment.ALIGN_TOP);
 	}
 
 	/**
@@ -148,7 +158,7 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 		if (startIndex + row >= _list.size()) {
 			return;
 		}
-		NewsDetail item = _list.get(startIndex + row);
+		NewsItemRemote item = _list.get(startIndex + row);
 		if (item == null) {
 			return;
 		}
@@ -182,12 +192,19 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 	}
 
 	@Override
-	public void setData(List<NewsDetail> data) {
+	public void setData(List<NewsItemRemote> data) {
 		// TODO Auto-generated method stub
 		System.out.println(">>>>> NewsList.setData");
 
 		_list = data;
 
+		update();
+	}
+
+	/**
+	 * 
+	 */
+	private void update() {
 		// Update the older/newer buttons & label.
 		int count = _list.size();
 		int max = startIndex + VISIBLE_EMAIL_COUNT;
@@ -206,20 +223,22 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 				break;
 			}
 
-			NewsDetail item = _list.get(startIndex + i);
+			NewsItemRemote item = _list.get(startIndex + i);
 
 			// Add a new row to the table, then set each of its columns to the
 			// email's sender and subject values.
-			table.setText(i, 0, item.getId());
-			table.setText(i, 1, item.getDisplayName());
-			table.setText(i, 2, "");
+			table.setText(i, 0, Long.toString(item.getId()));
+			table.setText(i, 1, item.getAuthor());
+			table.setText(i, 2, item.getDateAdded().toString());
+			table.setText(i, 3, item.getTitle());
+
 		}
 
 		// Clear any remaining slots.
 		for (; i < VISIBLE_EMAIL_COUNT; ++i) {
-			table.removeRow(table.getRowCount() - 1);
+			table.removeRow((table.getRowCount() - 1 >= 0 ? table.getRowCount() - 1 : 0));
 		}
-		
+
 		selectRow(0);
 	}
 

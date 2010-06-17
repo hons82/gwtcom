@@ -1,7 +1,7 @@
 package org.gwtcom.client.panel;
 
-import org.gwtcom.client.panel.event.INavigationMenuItemChange;
-import org.gwtcom.client.panel.event.NavigationMenuChangeEvent;
+import org.gwtcom.client.event.INavigationMenuItemChange;
+import org.gwtcom.client.event.NavigationMenuChangeEvent;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.SelectionEvent;

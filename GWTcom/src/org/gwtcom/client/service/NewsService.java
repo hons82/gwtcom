@@ -3,8 +3,7 @@ package org.gwtcom.client.service;
 
 import java.util.List;
 
-import org.gwtcom.client.ServiceSecurityException;
-import org.gwtcom.shared.NewsDetail;
+import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -29,7 +28,7 @@ public interface NewsService extends RemoteService {
 	 * 
 	 * @return
 	 */
-	List<NewsDetail> getPublicNews();
+	List<NewsItemRemote> getPublicNews();
 
 	/**
 	 * Returns the number of private publications.
@@ -37,6 +36,6 @@ public interface NewsService extends RemoteService {
 	 * @return
 	 * @exception ServiceSecurityException
 	 */
-	List<NewsDetail> getPrivateNews() throws ServiceSecurityException;
+	List<NewsItemRemote> getPrivateNews() throws ServiceSecurityException;
 
 }

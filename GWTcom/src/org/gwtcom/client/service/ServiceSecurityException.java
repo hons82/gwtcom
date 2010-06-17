@@ -1,4 +1,4 @@
-package org.gwtcom.client;
+package org.gwtcom.client.service;
 
 /**
  * @author See Wah Cheng

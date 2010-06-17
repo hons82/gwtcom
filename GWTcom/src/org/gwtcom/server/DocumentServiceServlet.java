@@ -1,7 +1,7 @@
 package org.gwtcom.server;
 
-import org.gwtcom.client.ServiceSecurityException;
 import org.gwtcom.client.service.DocumentService;
+import org.gwtcom.client.service.ServiceSecurityException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("serial")

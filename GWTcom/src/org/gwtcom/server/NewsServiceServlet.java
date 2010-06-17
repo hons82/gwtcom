@@ -2,9 +2,9 @@ package org.gwtcom.server;
 
 import java.util.List;
 
-import org.gwtcom.client.ServiceSecurityException;
 import org.gwtcom.client.service.NewsService;
-import org.gwtcom.shared.NewsDetail;
+import org.gwtcom.client.service.ServiceSecurityException;
+import org.gwtcom.shared.NewsItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("serial")
@@ -13,7 +13,7 @@ public class NewsServiceServlet extends DependencyInjectionRemoteServiceServlet 
 	@Autowired
 	NewsService newsService;
 
-	public List<NewsDetail> getPrivateNews() throws ServiceSecurityException {
+	public List<NewsItemRemote> getPrivateNews() throws ServiceSecurityException {
 		try {
 			return newsService.getPrivateNews();
 		} catch (Throwable e) {
@@ -21,7 +21,7 @@ public class NewsServiceServlet extends DependencyInjectionRemoteServiceServlet 
 		}
 	}
 
-	public List<NewsDetail> getPublicNews() {
+	public List<NewsItemRemote> getPublicNews() {
 		return newsService.getPublicNews();
 	}
 

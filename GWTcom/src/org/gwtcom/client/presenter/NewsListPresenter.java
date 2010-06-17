@@ -1,13 +1,12 @@
 package org.gwtcom.client.presenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.gwtcom.client.event.EventBus;
 import org.gwtcom.client.place.Place;
 import org.gwtcom.client.place.PlaceRequest;
 import org.gwtcom.client.service.NewsService;
-import org.gwtcom.shared.NewsDetail;
+import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.Window;
@@ -24,10 +23,10 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 	{
 		HasClickHandlers getList();
 
-		void setData(List<NewsDetail> data);
+		void setData(List<NewsItemRemote> data);
 	}
 
-	private List<NewsDetail> _newslist;
+	private List<NewsItemRemote> _newslist;
 
 	public static final Place PLACE = new Place("News");
 
@@ -65,33 +64,24 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 	@Override
 	public void refreshDisplay()
 	{
-
 		System.out.println("Presenter.refresh");
-		ArrayList<NewsDetail> data = new ArrayList<NewsDetail>();
-		
-		for (int i = 0; i < _newslist.size(); ++i)
-		{
-			data.add(new NewsDetail(_newslist.get(i).getId(),_newslist.get(i).getDisplayName()));
-		}
-	
-		display.setData(data);
-	
+		display.setData(_newslist);
 	}
 	
-	public void setContactDetails(List<NewsDetail> contactDetails)
+	public void setContactDetails(List<NewsItemRemote> contactDetails)
 	{
 		_newslist = contactDetails;
 	}
 
-	public NewsDetail getContactDetail(int index)
+	public NewsItemRemote getContactDetail(int index)
 	{
 		return _newslist.get(index);
 	}
 
 	private void fetchContactDetails()
 	{
-		NewsService.Util.getInstance().getPublicNews(new AsyncCallback<List<NewsDetail>>() {
-            public void onSuccess(List<NewsDetail> result) {
+		NewsService.Util.getInstance().getPublicNews(new AsyncCallback<List<NewsItemRemote>>() {
+            public void onSuccess(List<NewsItemRemote> result) {
                     _newslist = result;
                     refreshDisplay();
             }
