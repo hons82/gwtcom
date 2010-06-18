@@ -21,8 +21,8 @@ public class Shortcuts extends ResizeComposite {
   interface Binder extends UiBinder<StackLayoutPanel, Shortcuts> { }
   private static final Binder binder = GWT.create(Binder.class);
 
+  @UiField PublicMenu publicMenu;
   @UiField CommonStack commonStack;
-  @UiField CommonStack common2Stack;
 
   /**
    * Constructs a new shortcuts widget using the specified images.

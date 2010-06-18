@@ -47,12 +47,12 @@
   <g:StackLayoutPanel styleName='{style.shortcuts}' unit='EM'>
     <g:stack>
       <g:header size='3'><div class='{style.stackHeader}'><div class='{style.commonStackIcon}'/> gwtcomboxes</div></g:header>
-      <gwtcom:CommonStack ui:field='commonStack'/>
+      <gwtcom:PublicMenu ui:field='publicMenu'/>
     </g:stack>
 
     <g:stack>
       <g:header size='3'><div class='{style.stackHeader}'><div class='{style.commonStackIcon}'/> Tasks</div></g:header>
-      <gwtcom:CommonStack ui:field='common2Stack'/>
+      <gwtcom:CommonStack ui:field='commonStack'/>
     </g:stack>
 
     <!-- <g:stack>

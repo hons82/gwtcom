@@ -72,6 +72,19 @@ h1 {
 	color: red;
 }
 
+/* Splitters */
+.gwt-SplitLayoutPanel-HDragger, .gwt-SplitLayoutPanel-VDragger {
+  background-color: white;
+}
+
+.gwt-SplitLayoutPanel-HDragger {
+  cursor: col-resize;
+}
+
+.gwt-SplitLayoutPanel-VDragger {
+  cursor: row-resize;
+}
+
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
 	margin: 15px 6px 6px;
