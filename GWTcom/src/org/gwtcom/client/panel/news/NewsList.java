@@ -1,7 +1,9 @@
 package org.gwtcom.client.panel.news;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.gwtcom.client.presenter.NewsListPresenter;
 import org.gwtcom.shared.NewsItemRemote;
@@ -14,9 +16,11 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.ResizeComposite;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.HTMLTable.Cell;
 
@@ -48,6 +52,8 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 	static final int VISIBLE_EMAIL_COUNT = 20;
 
 	@UiField
+	TabLayoutPanel tablaypan;
+	@UiField
 	FlexTable header;
 	@UiField
 	FlexTable table;
@@ -58,12 +64,15 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 	private int startIndex, selectedRow = -1;
 	private NavBar navBar;
 
+	private Map<NewsItemRemote, Integer> _newsitemsdisplayed;
 	private List<NewsItemRemote> _list;
 
 	public NewsList() {
 		initWidget(binder.createAndBindUi(this));
 		navBar = new NavBar(this);
+
 		_list = new ArrayList<NewsItemRemote>();
+		_newsitemsdisplayed = new HashMap<NewsItemRemote, Integer>();
 
 		initTable();
 	}
@@ -140,9 +149,9 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 		table.getColumnFormatter().setWidth(0, "50px");
 		table.getColumnFormatter().setWidth(1, "200px");
 		table.getColumnFormatter().setWidth(2, "200px");
-		//table.getColumnFormatter().setWidth(3, "256px");
+		// table.getColumnFormatter().setWidth(3, "256px");
 
-		//TODO
+		// TODO
 		table.getCellFormatter().setVerticalAlignment(0, 0, HasVerticalAlignment.ALIGN_TOP);
 	}
 
@@ -260,4 +269,40 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 
 	}
 
+	@Override
+	public FlexTable getNewsListTable() {
+		return table;
+	}
+
+	@Override
+	public int getClickedRow(ClickEvent event) {
+		int selectedRow = -1;
+		HTMLTable.Cell cell = table.getCellForEvent(event);
+
+		if (cell != null) {
+			// Suppress clicks if the user is actually selecting the
+			// check box
+			//
+			if (cell.getCellIndex() > 0) {
+				selectedRow = cell.getRowIndex();
+			}
+		}
+
+		return selectedRow;
+	}
+
+	@Override
+	public void showNewsItem(NewsItemRemote item) {
+		System.out.println(">>>>> NewsList.showNewsItem(item)");
+
+		if (_newsitemsdisplayed.containsKey(item)) {
+			tablaypan.selectTab(_newsitemsdisplayed.get(item).intValue());
+		} else {
+			NewsItem newsitem = new NewsItem(item);
+			String title = (item.getTitle().length() < 10 ? item.getTitle() : item.getTitle().substring(0, 7) + "...");
+			tablaypan.add(newsitem, title);
+			tablaypan.selectTab(newsitem);
+			_newsitemsdisplayed.put(item, tablaypan.getSelectedIndex());
+		}
+	}
 }

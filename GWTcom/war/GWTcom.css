@@ -1,34 +1,78 @@
 /** Add css rules here for your application. */
-
-
-/** Example rules used by the template application (remove for your app) */
+	/** Example rules used by the template application (remove for your app) */
 h1 {
-  font-size: 2em;
-  font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+	margin: 40px 0px 70px;
+	text-align: center;
 }
 
 .sendButton {
-  display: block;
-  font-size: 16pt;
+	display: block;
+	font-size: 16pt;
 }
 
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
-  width: 400px;
+	width: 400px;
+}
+
+.gwt-TabLayoutPanelTab,.gwt-TabLayoutPanelTab-selected {
+	height: 25px;
+}
+
+.gwt-TabLayoutPanelTab-selected .gwt-TabLayoutPanelTabInner {
+	height: 26px;
+	margin-left: 6px;
+}
+
+.gwt-TabLayoutPanelTab {
+	
+}
+
+.gwt-TabLayoutPanelTab .gwt-TabLayoutPanelTabInner {
+	margin-right: 10px;
+	margin-left: 6px;
+}
+
+.gwt-TabLayoutPanelTab-selected {
+	z-index: 1;
+}
+
+.gwt-TabLayoutPanelTabs {
+	padding-left: 10px;
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
+	
+
+.gwt-TabLayoutPanelTabInner div {
+	color: #444444;
+	height: 26px;
+	padding-top: 6px;
+	text-align: center;
+}
+
+.gwt-TabLayoutPanelTab-selected .gwt-TabLayoutPanelTabInner div {
+	width: 100%;
+	margin-left: -3px;
+	margin-right: 20px;
+}
+
+.tabContentWrapper {
+	margin: 35px;
 }
 
 .dialogVPanel {
-  margin: 5px;
+	margin: 5px;
 }
 
 .serverResponseLabelError {
-  color: red;
+	color: red;
 }
 
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
-  margin: 15px 6px 6px;
+	margin: 15px 6px 6px;
 }
