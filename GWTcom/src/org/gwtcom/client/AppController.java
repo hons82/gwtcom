@@ -1,15 +1,21 @@
 package org.gwtcom.client;
 
 import org.gwtcom.client.event.EventBus;
+import org.gwtcom.client.event.INewsItemShowEvent;
+import org.gwtcom.client.event.INewsListShowEvent;
+import org.gwtcom.client.event.NewsItemShowEvent;
+import org.gwtcom.client.event.NewsListShowEvent;
 import org.gwtcom.client.gin.GWTcomGinjector;
 import org.gwtcom.client.panel.GWTmainView;
 import org.gwtcom.client.place.PlaceRequestEvent;
 import org.gwtcom.client.place.PlaceRequestHandler;
 import org.gwtcom.client.presenter.Display;
 import org.gwtcom.client.presenter.GeneralPresenter;
+import org.gwtcom.client.presenter.NewsItemPresenter;
 import org.gwtcom.client.presenter.NewsListPresenter;
 import org.gwtcom.client.presenter.Presenter;
 import org.gwtcom.client.presenter.WidgetDisplay;
+import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -32,7 +38,7 @@ public class AppController implements Presenter, PlaceRequestHandler {
 	public AppController(EventBus eventbus, GWTcomGinjector injector) {
 		_eventbus = eventbus;
 		_injector = injector;
-		
+
 		bind();
 	}
 
@@ -54,12 +60,11 @@ public class AppController implements Presenter, PlaceRequestHandler {
 	public void onPlaceRequest(PlaceRequestEvent event) {
 		System.out.println(">>>>>AppController.onPlaceRequest");
 		String id = event.getRequest().getPlace().getId();
-		
 
-		if(id.equals(NewsListPresenter.PLACE.getId()))
-		_presenter = _injector.getNewsListPresenter();
-//		else if(id.equals(EditContactPresenter.PLACE.getId()))
-//			presenter = injector.getEditContactPresenter();
+		if (id.equals(NewsListPresenter.PLACE.getId()))
+			_presenter = _injector.getNewsListPresenter();
+		else if (id.equals(NewsItemPresenter.PLACE.getId()))
+			_presenter = _injector.getNewsItemPresenter();
 
 		refreshDisplay();
 	}
@@ -67,6 +72,30 @@ public class AppController implements Presenter, PlaceRequestHandler {
 	@Override
 	public void bind() {
 		_eventbus.addHandler(PlaceRequestEvent.getType(), this);
+
+		_eventbus.addHandler(NewsListShowEvent.TYPE, new INewsListShowEvent() {
+
+			@Override
+			public void onNewsListShow(NewsListShowEvent event) {
+				doShowNewsList();
+			}
+		});
+		
+		_eventbus.addHandler(NewsItemShowEvent.TYPE, new INewsItemShowEvent() {
+
+			@Override
+			public void onNewsItemShow(NewsItemShowEvent event) {
+				doShowNewsItem(event.getItem());
+			}
+		});
+	}
+
+	private void doShowNewsItem(NewsItemRemote item) {
+		History.newItem(NewsItemPresenter.PLACE.requestWith("newsId", item.getId().toString()).toString());
+	}
+	
+	private void doShowNewsList() {
+		History.newItem(NewsListPresenter.PLACE.toString());
 	}
 
 	@Override
@@ -78,8 +107,7 @@ public class AppController implements Presenter, PlaceRequestHandler {
 	@Override
 	public void refreshDisplay() {
 		_container.clear();
-		if(_presenter != null)
-		{
+		if (_presenter != null) {
 			_presenter.go(_container);
 		}
 	}
@@ -87,13 +115,13 @@ public class AppController implements Presenter, PlaceRequestHandler {
 	@Override
 	public void revealDisplay() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void unbind() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

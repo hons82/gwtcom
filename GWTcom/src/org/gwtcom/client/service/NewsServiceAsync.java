@@ -18,4 +18,6 @@ public interface NewsServiceAsync {
 
 	public void getPrivateNews(AsyncCallback<List<NewsItemRemote>> callback);
 
+	void getNewsItem(Long item, AsyncCallback<NewsItemRemote> callback);
+
 }

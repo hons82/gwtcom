@@ -1,4 +1,4 @@
-	package org.gwtcom.server;
+package org.gwtcom.server;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,7 +23,7 @@ public class NewsServiceImpl extends RemoteServiceServlet implements NewsService
 
 	// TODO: this is just a test
 	private boolean _first;
-	
+
 	protected EntityManager entityManager;
 
 	@Autowired
@@ -38,9 +38,9 @@ public class NewsServiceImpl extends RemoteServiceServlet implements NewsService
 	public NewsServiceImpl() {
 		_first = false;
 	}
-	
+
 	@Secured("ROLE_ADMIN")
-	public List<NewsItemRemote>  getPrivateNews() {
+	public List<NewsItemRemote> getPrivateNews() {
 		List<NewsItemRemote> ret = getPublicNews();
 		return ret;
 	}
@@ -64,7 +64,7 @@ public class NewsServiceImpl extends RemoteServiceServlet implements NewsService
 		_first = true;
 		//
 		for (NewsItem item : getNewsItems()) {
-			ret.add(new NewsItemRemote(item.getId(),item.getDateAdded(),item.getAuthor(),item.getTitle()));
+			ret.add(new NewsItemRemote(item.getId(), item.getDateAdded(), item.getAuthor(), item.getTitle()));
 		}
 		return ret;
 	}
@@ -77,7 +77,7 @@ public class NewsServiceImpl extends RemoteServiceServlet implements NewsService
 		newNewsItem.setDateAdded(new Date(System.currentTimeMillis()));
 		trx.begin();
 		entityManager.persist(newNewsItem);
-		trx.commit();		
+		trx.commit();
 	}
 
 	private void removeNewsItem(NewsItem item) {
@@ -92,8 +92,39 @@ public class NewsServiceImpl extends RemoteServiceServlet implements NewsService
 			@SuppressWarnings("unchecked")
 			@Override
 			public Collection<NewsItem> doInJpa(EntityManager arg0) throws PersistenceException {
-				Collection<NewsItem> resultList = (Collection<NewsItem>) entityManager.createQuery("SELECT news FROM org.gwtcom.server.domain.NewsItem news").getResultList();
+				Collection<NewsItem> resultList = (Collection<NewsItem>) entityManager.createQuery(
+						"SELECT news FROM org.gwtcom.server.domain.NewsItem news").getResultList();
 				return resultList;
+			}
+		});
+	}
+
+	@Override
+	public NewsItemRemote getNewsItem(Long id) {
+		System.out.println("Check for id <" + id + ">");
+		NewsItem item = getNewsItembyID(id);
+		if (item != null) {
+			System.out.println("item != null");
+			return new NewsItemRemote(item.getId(), item.getDateAdded(), item.getAuthor(), item.getTitle());
+		}
+		System.out.println("item == null");
+		return null;
+	}
+
+	public NewsItem getNewsItembyID(final Long id) {
+		return getTemplate().execute(new JpaCallback<NewsItem>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public NewsItem doInJpa(EntityManager arg0) throws PersistenceException {
+				Number count = (Number) entityManager.createQuery(
+						"SELECT count(distinct _id) FROM org.gwtcom.server.domain.NewsItem news WHERE news._id =" + id.toString()).getSingleResult();
+				System.out.println("int number " + count.intValue());
+				if (count.intValue() == 1) {
+					NewsItem result = (NewsItem) entityManager.createQuery(
+							"SELECT news FROM org.gwtcom.server.domain.NewsItem news WHERE news._id =" + id.toString()).getSingleResult();
+					return result;
+				} else
+					return null;
 			}
 		});
 	}

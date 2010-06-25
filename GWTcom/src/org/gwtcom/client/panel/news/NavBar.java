@@ -18,10 +18,9 @@ package org.gwtcom.client.panel.news;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Visibility;
-import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
@@ -30,7 +29,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * A simple widget representing prev/next page navigation.
  */
-class NavBar extends Composite {
+public class NavBar extends Composite {
   @UiTemplate("NavBar.ui.xml")
   interface Binder extends UiBinder<Widget, NavBar> { }
   private static final Binder binder = GWT.create(Binder.class);
@@ -39,11 +38,9 @@ class NavBar extends Composite {
   @UiField Anchor newerButton;
   @UiField Anchor olderButton;
 
-  private final NewsList outer;
 
-  public NavBar(NewsList outer) {
+  public NavBar() {
     initWidget(binder.createAndBindUi(this));
-    this.outer = outer;
   }
 
   public void update(int startIndex, int count, int max) {
@@ -54,15 +51,23 @@ class NavBar extends Composite {
         + count);
   }
 
-  @UiHandler("newerButton")
-  void onNewerClicked(ClickEvent event) {
-    outer.newer();
+  public void addNewerClickHandler(ClickHandler handler){
+	  newerButton.addClickHandler(handler);
   }
-
-  @UiHandler("olderButton")
-  void onOlderClicked(ClickEvent event) {
-    outer.older();
+  
+  public void addOlderClickHandler(ClickHandler handler){
+	  olderButton.addClickHandler(handler);
   }
+  
+//  @UiHandler("newerButton")
+//  void onNewerClicked(ClickEvent event) {
+//    outer.newer();
+//  }
+//
+//  @UiHandler("olderButton")
+//  void onOlderClicked(ClickEvent event) {
+//    outer.older();
+//  }
 
   private void setVisibility(Widget widget, boolean visible) {
     widget.getElement().getStyle().setVisibility(

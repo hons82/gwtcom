@@ -38,7 +38,6 @@
 			border-bottom: 1px solid #fff;
 			padding: 2px 0 2px 10px;
 		}
-		
 	</ui:style>
 
 	<ui:style field='selectionStyle'
@@ -53,22 +52,17 @@
 			}
 		</ui:style>
 
-	<g:TabLayoutPanel ui:field="tablaypan" barUnit='EM' barHeight='3'>
-		<g:tab>
-			<g:header size='7'>NEWS</g:header>
-			<g:DockLayoutPanel unit='EM'>
-				<g:north size='2'>
-					<g:FlexTable ui:field='header' styleName='{style.header}'
-						cellSpacing='0' cellPadding='0' />
-				</g:north>
+	<g:DockLayoutPanel unit='EM'>
+		<g:north size='2'>
+			<g:FlexTable ui:field='header' styleName='{style.header}'
+				cellSpacing='0' cellPadding='0' />
+		</g:north>
 
-				<g:center>
-					<g:ScrollPanel>
-						<g:FlexTable ui:field='table' styleName='{style.table}'
-							cellSpacing='0' cellPadding='0' />
-					</g:ScrollPanel>
-				</g:center>
-			</g:DockLayoutPanel>
-		</g:tab>
-	</g:TabLayoutPanel>
+		<g:center>
+			<g:ScrollPanel>
+				<g:FlexTable ui:field='table' styleName='{style.table}'
+					cellSpacing='0' cellPadding='0' />
+			</g:ScrollPanel>
+		</g:center>
+	</g:DockLayoutPanel>
 </ui:UiBinder>

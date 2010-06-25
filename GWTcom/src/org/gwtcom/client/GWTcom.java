@@ -1,6 +1,7 @@
 package org.gwtcom.client;
 
 import org.gwtcom.client.gin.GWTcomGinjector;
+import org.gwtcom.client.presenter.NewsItemPresenter;
 import org.gwtcom.client.presenter.NewsListPresenter;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -31,8 +32,8 @@ public class GWTcom implements EntryPoint {
 	//instantiated at the start of the application or else the Presenters will will not handle PlaceRequestEvent properly and history mechanism properly
 	//This is the current behavior of  gwt-presenter release 1.0. I hope future version will provide lazy-loading of Presenters
 	//
-	/**/	NewsListPresenter cPresenter = injector.getNewsListPresenter(); /**/
-//	/**/	EditContactPresenter ePresenter = injector.getEditContactPresenter(); /**/
+	/**/	NewsListPresenter nlPresenter = injector.getNewsListPresenter(); /**/
+	/**/	NewsItemPresenter niPresenter = injector.getNewsItemPresenter(); /**/
 	
 		AppController appPresenter = injector.getAppPresenter();
 		appPresenter.go(RootLayoutPanel.get());

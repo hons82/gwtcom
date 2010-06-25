@@ -1,9 +1,6 @@
 package org.gwtcom.client.panel.news;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.gwtcom.client.presenter.NewsListPresenter;
 import org.gwtcom.shared.NewsItemRemote;
@@ -20,7 +17,6 @@ import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.ResizeComposite;
-import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.HTMLTable.Cell;
 
@@ -32,13 +28,6 @@ import com.google.gwt.user.client.ui.HTMLTable.Cell;
  * {@link com.google.gwt.user.client.ui.Tree}, and other custom widgets.
  */
 public class NewsList extends ResizeComposite implements NewsListPresenter.Display {
-
-	/**
-	 * Callback when mail items are selected.
-	 */
-	public interface Listener {
-		void onItemSelected(NewsItemRemote item);
-	}
 
 	interface SelectionStyle extends CssResource {
 		String selectedRow();
@@ -52,36 +41,20 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 	static final int VISIBLE_EMAIL_COUNT = 20;
 
 	@UiField
-	TabLayoutPanel tablaypan;
-	@UiField
 	FlexTable header;
 	@UiField
 	FlexTable table;
 	@UiField
 	SelectionStyle selectionStyle;
 
-	private Listener listener;
 	private int startIndex, selectedRow = -1;
 	private NavBar navBar;
 
-	private Map<NewsItemRemote, Integer> _newsitemsdisplayed;
-	private List<NewsItemRemote> _list;
-
 	public NewsList() {
 		initWidget(binder.createAndBindUi(this));
-		navBar = new NavBar(this);
-
-		_list = new ArrayList<NewsItemRemote>();
-		_newsitemsdisplayed = new HashMap<NewsItemRemote, Integer>();
+		navBar = new NavBar();
 
 		initTable();
-	}
-
-	/**
-	 * Sets the listener that will be notified when an item is selected.
-	 */
-	public void setListener(Listener listener) {
-		this.listener = listener;
 	}
 
 	@Override
@@ -92,7 +65,7 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 		}
 	}
 
-	void newer() {
+	public void newer(List<NewsItemRemote> data) {
 		// Move back a page.
 		startIndex -= VISIBLE_EMAIL_COUNT;
 		if (startIndex < 0) {
@@ -101,20 +74,22 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 			styleRow(selectedRow, false);
 			selectedRow = -1;
 		}
-		update();
+		update(data);
+		selectRow(0);
 	}
 
-	void older() {
+	public void older(List<NewsItemRemote> data) {
 		// Move forward a page.
 		startIndex += VISIBLE_EMAIL_COUNT;
 		// TODO
-		if (startIndex >= _list.size()) {
+		if (startIndex >= data.size()) {
 			startIndex -= VISIBLE_EMAIL_COUNT;
 		} else {
 			styleRow(selectedRow, false);
 			selectedRow = -1;
 		}
-		update();
+		update(data);
+		selectRow(0);
 	}
 
 	@UiHandler("table")
@@ -164,11 +139,7 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 	private void selectRow(int row) {
 		// When a row (other than the first one, which is used as a header) is
 		// selected, display its associated NewsItem.
-		if (startIndex + row >= _list.size()) {
-			return;
-		}
-		NewsItemRemote item = _list.get(startIndex + row);
-		if (item == null) {
+		if (startIndex + row >= table.getRowCount()) {
 			return;
 		}
 
@@ -176,10 +147,6 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 		styleRow(row, true);
 
 		selectedRow = row;
-
-		if (listener != null) {
-			listener.onItemSelected(item);
-		}
 	}
 
 	private void styleRow(int row, boolean selected) {
@@ -204,18 +171,20 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 	public void setData(List<NewsItemRemote> data) {
 		// TODO Auto-generated method stub
 		System.out.println(">>>>> NewsList.setData");
-
-		_list = data;
-
-		update();
+		// startIndex = 0;
+		update(data);
+		if (selectedRow == -1) {
+			selectRow(0);
+		}
 	}
 
 	/**
+	 * @param data
 	 * 
 	 */
-	private void update() {
+	private void update(List<NewsItemRemote> data) {
 		// Update the older/newer buttons & label.
-		int count = _list.size();
+		int count = data.size();
 		int max = startIndex + VISIBLE_EMAIL_COUNT;
 		if (max > count) {
 			max = count;
@@ -226,13 +195,13 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 
 		// Show the selected emails.
 		int i = 0;
-		for (; i < VISIBLE_EMAIL_COUNT; ++i) {
+		for (i = 0; i < VISIBLE_EMAIL_COUNT; ++i) {
 			// Don't read past the end.
-			if (startIndex + i >= _list.size()) {
+			if (startIndex + i >= data.size()) {
 				break;
 			}
 
-			NewsItemRemote item = _list.get(startIndex + i);
+			NewsItemRemote item = data.get(startIndex + i);
 
 			// Add a new row to the table, then set each of its columns to the
 			// email's sender and subject values.
@@ -240,20 +209,20 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 			table.setText(i, 1, item.getAuthor());
 			table.setText(i, 2, item.getDateAdded().toString());
 			table.setText(i, 3, item.getTitle());
-
 		}
 
 		// Clear any remaining slots.
-		for (; i < VISIBLE_EMAIL_COUNT; ++i) {
-			table.removeRow((table.getRowCount() - 1 >= 0 ? table.getRowCount() - 1 : 0));
+		for (int j = i; j < VISIBLE_EMAIL_COUNT; ++j) {
+			if (i >= table.getRowCount()) {
+				break;
+			}
+			table.removeRow(i);
 		}
 
-		selectRow(0);
 	}
 
 	@Override
 	public Widget asWidget() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 
@@ -292,17 +261,8 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 	}
 
 	@Override
-	public void showNewsItem(NewsItemRemote item) {
-		System.out.println(">>>>> NewsList.showNewsItem(item)");
-
-		if (_newsitemsdisplayed.containsKey(item)) {
-			tablaypan.selectTab(_newsitemsdisplayed.get(item).intValue());
-		} else {
-			NewsItem newsitem = new NewsItem(item);
-			String title = (item.getTitle().length() < 10 ? item.getTitle() : item.getTitle().substring(0, 7) + "...");
-			tablaypan.add(newsitem, title);
-			tablaypan.selectTab(newsitem);
-			_newsitemsdisplayed.put(item, tablaypan.getSelectedIndex());
-		}
+	public NavBar getNavBar() {
+		return navBar;
 	}
+
 }

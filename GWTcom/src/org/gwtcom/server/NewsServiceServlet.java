@@ -25,4 +25,9 @@ public class NewsServiceServlet extends DependencyInjectionRemoteServiceServlet 
 		return newsService.getPublicNews();
 	}
 
+	@Override
+	public NewsItemRemote getNewsItem(Long item) {
+		return newsService.getNewsItem(item);
+	}
+
 }

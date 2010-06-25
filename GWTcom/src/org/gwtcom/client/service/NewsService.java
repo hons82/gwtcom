@@ -30,6 +30,8 @@ public interface NewsService extends RemoteService {
 	 */
 	List<NewsItemRemote> getPublicNews();
 
+	NewsItemRemote getNewsItem(Long item);
+	
 	/**
 	 * Returns the number of private publications.
 	 * 

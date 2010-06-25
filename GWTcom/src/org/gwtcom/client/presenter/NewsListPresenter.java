@@ -3,6 +3,8 @@ package org.gwtcom.client.presenter;
 import java.util.List;
 
 import org.gwtcom.client.event.EventBus;
+import org.gwtcom.client.event.NewsItemShowEvent;
+import org.gwtcom.client.panel.news.NavBar;
 import org.gwtcom.client.place.Place;
 import org.gwtcom.client.place.PlaceRequest;
 import org.gwtcom.client.service.NewsService;
@@ -27,9 +29,13 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 
 		void setData(List<NewsItemRemote> data);
 
-		void showNewsItem(NewsItemRemote item);
-
 		FlexTable getNewsListTable();
+		
+		NavBar getNavBar();
+		
+		public void newer(List<NewsItemRemote> data);
+
+		public void older(List<NewsItemRemote> data);
 
 		int getClickedRow(ClickEvent event);
 	}
@@ -54,11 +60,32 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 			public void onClick(ClickEvent event) {
 				System.out.println(">>>>>NewsListPresenter.onClick()");
 
-				openSelectedNews(event);
+				int selectedRow = display.getClickedRow(event);
+
+				if(selectedRow >= 0)
+				{
+					NewsItemRemote item = _newslist.get(display.getClickedRow(event));
+					eventBus.fireEvent(new NewsItemShowEvent(item));
+				}
 			}
 
 		});
+		
+		display.getNavBar().addNewerClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				display.newer(_newslist);
+			}
+		});
 
+		display.getNavBar().addOlderClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				display.older(_newslist);
+			}
+		});
 		// display.getAddButton().addClickHandler(new ClickHandler()
 		// {
 		// public void onClick(ClickEvent event)
@@ -67,15 +94,6 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 		// }
 		// });
 		//
-	}
-
-	private void openSelectedNews(ClickEvent event) {
-		int selected = display.getClickedRow(event);
-		System.out.println(">>>>> openSelectedNews " + selected + "(" + _newslist.size() + ")");
-		if (selected >= 0 && selected < _newslist.size()) {
-			NewsItemRemote item = _newslist.get(display.getClickedRow(event));
-			display.showNewsItem(item);
-		}
 	}
 
 	@Override
@@ -90,19 +108,11 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 
 	@Override
 	public void refreshDisplay() {
-		System.out.println("Presenter.refresh");
+		System.out.println(">>>>> NewsListPresenter.refresh");
 		display.setData(_newslist);
 	}
 
-	public void setContactDetails(List<NewsItemRemote> contactDetails) {
-		_newslist = contactDetails;
-	}
-
-	public NewsItemRemote getContactDetail(int index) {
-		return _newslist.get(index);
-	}
-
-	private void fetchContactDetails() {
+	private void fetchNewsList() {
 		NewsService.Util.getInstance().getPublicNews(new AsyncCallback<List<NewsItemRemote>>() {
 			public void onSuccess(List<NewsItemRemote> result) {
 				_newslist = result;
@@ -139,8 +149,8 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 
 	@Override
 	protected void onPlaceRequest(PlaceRequest request) {
-		System.out.println(">>>>>>>>>> NewsPresenter.onPlaceRequest(PlaceRequest request)");
-		fetchContactDetails();
+		System.out.println(">>>>>>>>>> NewsListPresenter.onPlaceRequest(PlaceRequest request)");
+		fetchNewsList();
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package org.gwtcom.client.gin;
 
 import org.gwtcom.client.AppController;
 import org.gwtcom.client.place.PlaceManager;
+import org.gwtcom.client.presenter.NewsItemPresenter;
 import org.gwtcom.client.presenter.NewsListPresenter;
 
 import com.google.gwt.inject.client.GinModules;
@@ -16,7 +17,7 @@ public interface GWTcomGinjector extends Ginjector
 	PlaceManager getPlaceManager();
 
     NewsListPresenter getNewsListPresenter();
-	//
-	// EditContactPresenter getEditContactPresenter();
+
+	NewsItemPresenter getNewsItemPresenter();
 
 }
