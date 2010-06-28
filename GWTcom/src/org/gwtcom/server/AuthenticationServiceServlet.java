@@ -17,4 +17,9 @@ public class AuthenticationServiceServlet extends DependencyInjectionRemoteServi
 		authenticationService.logout();
 	}
 
+	@Override
+	public boolean isLoggedIn() {
+		return authenticationService.isLoggedIn();
+	}
+
 }

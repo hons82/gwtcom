@@ -30,9 +30,9 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 		void setData(List<NewsItemRemote> data);
 
 		FlexTable getNewsListTable();
-		
+
 		NavBar getNavBar();
-		
+
 		public void newer(List<NewsItemRemote> data);
 
 		public void older(List<NewsItemRemote> data);
@@ -62,17 +62,16 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 
 				int selectedRow = display.getClickedRow(event);
 
-				if(selectedRow >= 0)
-				{
+				if (selectedRow >= 0) {
 					NewsItemRemote item = _newslist.get(display.getClickedRow(event));
 					eventBus.fireEvent(new NewsItemShowEvent(item));
 				}
 			}
 
 		});
-		
+
 		display.getNavBar().addNewerClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				display.newer(_newslist);
@@ -80,20 +79,12 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 		});
 
 		display.getNavBar().addOlderClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				display.older(_newslist);
 			}
 		});
-		// display.getAddButton().addClickHandler(new ClickHandler()
-		// {
-		// public void onClick(ClickEvent event)
-		// {
-		// eventBus.fireEvent(new AddContactEvent());
-		// }
-		// });
-		//
 	}
 
 	@Override
@@ -131,11 +122,11 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 		// _newslist = result.getNewsList();
 		// refreshDisplay();
 		// }
-		//	
+		//
 		// public void onFailure(Throwable caught)
 		// {
 		// caught.printStackTrace();
-		//	
+		//
 		// Window.alert("Error fetching contact details");
 		// }
 		// });

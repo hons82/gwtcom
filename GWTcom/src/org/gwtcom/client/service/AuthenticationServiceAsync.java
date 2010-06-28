@@ -9,4 +9,6 @@ public interface AuthenticationServiceAsync {
 
 	public void logout(AsyncCallback<Void> callback);
 
+	void isLoggedIn(AsyncCallback<Boolean> callback);
+
 }

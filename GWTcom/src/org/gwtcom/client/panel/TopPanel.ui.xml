@@ -38,10 +38,11 @@
 
     <div class="{style.statusDiv}">
       <div>
-        <b>Welcome back, foo@example.com</b>
+      	<g:Label ui:field="greet">Welcome!</g:Label>
       </div>
 
       <div class='{style.linksDiv}'>
+        <g:Anchor href='javascript:;' ui:field='signInLink'>Sign In</g:Anchor>
         <g:Anchor href='javascript:;' ui:field='signOutLink'>Sign Out</g:Anchor>
         &nbsp;
         <g:Anchor href='javascript:;' ui:field='aboutLink'>About</g:Anchor>

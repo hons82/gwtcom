@@ -2,12 +2,13 @@ package org.gwtcom.client.panel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -15,29 +16,58 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class TopPanel extends Composite {
 
-  interface Binder extends UiBinder<Widget, TopPanel> { }
-  private static final Binder binder = GWT.create(Binder.class);
+	interface Binder extends UiBinder<Widget, TopPanel> {
+	}
 
-  @UiField Anchor signOutLink;
-  @UiField Anchor aboutLink;
+	private static final Binder binder = GWT.create(Binder.class);
 
-  public TopPanel() {
-    initWidget(binder.createAndBindUi(this));
-  }
+	@UiField
+	Label greet;
+	@UiField
+	Anchor signInLink;
+	@UiField
+	Anchor signOutLink;
+	@UiField
+	Anchor aboutLink;
 
-  @UiHandler("aboutLink")
-  void onAboutClicked(ClickEvent event) {
-    // When the 'About' item is selected, show the AboutDialog.
-    // Note that showing a dialog box does not block -- execution continues
-    // normally, and the dialog fires an event when it is closed.
-//    AboutDialog dlg = new AboutDialog();
-//    dlg.show();
-//    dlg.center();
-  }
+	public TopPanel() {
+		initWidget(binder.createAndBindUi(this));
+		signOutLink.setVisible(false);
 
-  @UiHandler("signOutLink")
-  void onSignOutClicked(ClickEvent event) {
-    Window.alert("If this were implemented, you would be signed out now.");
-  }
+	}
+
+	@UiHandler("aboutLink")
+	void onAboutClicked(ClickEvent event) {
+		// When the 'About' item is selected, show the AboutDialog.
+		// Note that showing a dialog box does not block -- execution continues
+		// normally, and the dialog fires an event when it is closed.
+		// AboutDialog dlg = new AboutDialog();
+		// dlg.show();
+		// dlg.center();
+	}
+
+	void addLoginClickHandler(ClickHandler handler) {
+		signInLink.addClickHandler(handler);
+	}
+
+	void addLogoutClickHandler(ClickHandler handler) {
+		signOutLink.addClickHandler(handler);
+	}
+
+	@Override
+	protected void onLoad() {
+		System.out.println(">>>>> TopPanel.onLoad");
+	};
+
+	public void setLogedIn(boolean loggedIn) {
+		if (loggedIn) {
+			greet.setText("Welcome back, <LoggedInUser>");
+			signInLink.setVisible(false);
+			signOutLink.setVisible(true);
+		} else {
+			greet.setText("Welcome!");
+			signInLink.setVisible(true);
+			signOutLink.setVisible(false);
+		}
+	}
 }
-

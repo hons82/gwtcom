@@ -44,7 +44,7 @@ public class AppController implements Presenter, PlaceRequestHandler {
 
 	public void go(HasWidgets container) {
 		// TODO Auto-generated method stub
-		_gwtmain = new GWTmainView();
+		_gwtmain = new GWTmainView(_eventbus);
 		container.add((Widget) _gwtmain.asWidget());
 		_container = _gwtmain.getDetailContainer();
 

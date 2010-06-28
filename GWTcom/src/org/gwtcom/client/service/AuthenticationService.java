@@ -31,5 +31,7 @@ public interface AuthenticationService extends RemoteService {
 	 * Terminates a user's security session.
 	 */
 	public void logout();
+	
+	public boolean isLoggedIn();
 
 }

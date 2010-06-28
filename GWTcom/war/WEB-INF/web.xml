@@ -10,7 +10,7 @@
 		<param-value>/WEB-INF/applicationContext.xml,
 			/WEB-INF/securityContext.xml</param-value>
 	</context-param>
-	
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -52,7 +52,7 @@
 		<servlet-name>documentService</servlet-name>
 		<url-pattern>/gwtcom/documentService</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>newsService</servlet-name>
 		<servlet-class>
@@ -63,6 +63,11 @@
 		<servlet-name>newsService</servlet-name>
 		<url-pattern>/gwtcom/newsService</url-pattern>
 	</servlet-mapping>
+
+	<session-config>
+		<!-- Default to 5 minute session timeouts -->
+		<session-timeout>5</session-timeout>
+	</session-config>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>
