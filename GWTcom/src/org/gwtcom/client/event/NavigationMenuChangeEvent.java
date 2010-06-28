@@ -2,22 +2,18 @@ package org.gwtcom.client.event;
 
 import com.google.gwt.event.shared.GwtEvent;
 
-public class NavigationMenuChangeEvent extends GwtEvent<INavigationMenuItemChange> {
+public class NavigationMenuChangeEvent extends GwtEvent<INavigationMenuChangeEvent>{
 
-		public static final Type<INavigationMenuItemChange> TYPE = new Type<INavigationMenuItemChange>();
+	public static final Type<INavigationMenuChangeEvent> TYPE = new Type<INavigationMenuChangeEvent>();
+	
+	@Override
+	public Type<INavigationMenuChangeEvent> getAssociatedType() {
+		return TYPE;
+	}
 
-	    public NavigationMenuChangeEvent() {
-	        super();
-	    }
-
-	    @Override
-	    protected void dispatch(INavigationMenuItemChange handler) {
-	        handler.onCategoryChange(this);
-	    }
-
-	    @Override
-	    public com.google.gwt.event.shared.GwtEvent.Type<INavigationMenuItemChange> getAssociatedType() {
-	        return TYPE;
-	    }
+	@Override
+	protected void dispatch(INavigationMenuChangeEvent handler) {
+		handler.onCategoryChange(this);
+	}
 
 }

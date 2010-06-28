@@ -5,8 +5,10 @@ import org.gwtcom.client.event.NewsListShowEvent;
 import org.gwtcom.client.place.Place;
 import org.gwtcom.client.place.PlaceRequest;
 import org.gwtcom.client.service.NewsService;
+import org.gwtcom.client.service.NewsServiceAsync;
 import org.gwtcom.shared.NewsItemRemote;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -70,7 +72,8 @@ public class NewsItemPresenter extends GeneralPresenter<NewsItemPresenter.Displa
 
 	private void getNewsItem(Long id) {
 		System.out.println(">>>>> NewsItempresenter.getNewsItem");
-		NewsService.Util.getInstance().getNewsItem(id, new AsyncCallback<NewsItemRemote>() {
+		NewsServiceAsync service = GWT.create(NewsService.class);
+		service.getNewsItem(id, new AsyncCallback<NewsItemRemote>() {
 			public void onSuccess(NewsItemRemote result) {
 				_newsitem = result;
 				refreshDisplay();

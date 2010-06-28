@@ -16,10 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaCallback;
 import org.springframework.orm.jpa.JpaTemplate;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Service;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
-public class NewsServiceImpl extends RemoteServiceServlet implements NewsService {
+@Service("newsService")
+public class NewsServiceImpl implements NewsService {
 
 	// TODO: this is just a test
 	private boolean _first;

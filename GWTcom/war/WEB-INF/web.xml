@@ -21,49 +21,17 @@
 	</listener>
 
 	<!-- Servlets -->
+	<!-- SpringGwt remote service servlet -->
 	<servlet>
-		<servlet-name>greetServlet</servlet-name>
-		<servlet-class>org.gwtcom.server.GreetingServiceServlet</servlet-class>
+		<servlet-name>springGwtRemoteServiceServlet</servlet-name>
+		<servlet-class>org.spring4gwt.server.SpringGwtRemoteServiceServlet</servlet-class>
 	</servlet>
-
+	
 	<servlet-mapping>
-		<servlet-name>greetServlet</servlet-name>
-		<url-pattern>/gwtcom/greetingService</url-pattern>
+		<servlet-name>springGwtRemoteServiceServlet</servlet-name>
+		<url-pattern>/gwtcom/*</url-pattern>
 	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>authenticationService</servlet-name>
-		<servlet-class>
-			org.gwtcom.server.AuthenticationServiceServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>authenticationService</servlet-name>
-		<url-pattern>/gwtcom/authenticationService</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>documentService</servlet-name>
-		<servlet-class>
-			org.gwtcom.server.DocumentServiceServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>documentService</servlet-name>
-		<url-pattern>/gwtcom/documentService</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>newsService</servlet-name>
-		<servlet-class>
-			org.gwtcom.server.NewsServiceServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>newsService</servlet-name>
-		<url-pattern>/gwtcom/newsService</url-pattern>
-	</servlet-mapping>
-
+	
 	<session-config>
 		<!-- Default to 5 minute session timeouts -->
 		<session-timeout>5</session-timeout>

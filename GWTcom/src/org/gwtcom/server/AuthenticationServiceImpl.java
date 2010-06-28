@@ -12,7 +12,9 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Service;
 
+@Service("authenticationService")
 public class AuthenticationServiceImpl implements AuthenticationService {
 
 	public boolean authenticate(String username, String password) {

@@ -1,6 +1,6 @@
 package org.gwtcom.client.panel;
 
-import org.gwtcom.client.event.INavigationMenuItemChange;
+import org.gwtcom.client.event.INavigationMenuChangeEvent;
 import org.gwtcom.client.event.NavigationMenuChangeEvent;
 
 import com.google.gwt.core.client.GWT;
@@ -111,7 +111,7 @@ public class CommonStack extends Composite {
 		return AbstractImagePrototype.create(imageProto).getHTML() + " " + title;
 	}
 	
-	public void addNavigationMenuChangedHandler(INavigationMenuItemChange handler){
+	public void addNavigationMenuChangedHandler(INavigationMenuChangeEvent handler){
 		eventbus.addHandler(NavigationMenuChangeEvent.TYPE, handler);
 	}
 }

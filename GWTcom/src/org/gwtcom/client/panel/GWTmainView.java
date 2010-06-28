@@ -4,6 +4,7 @@ import org.gwtcom.client.event.EventBus;
 import org.gwtcom.client.event.ILoginLogoutClickEvent;
 import org.gwtcom.client.event.LoginLogoutClickEvent;
 import org.gwtcom.client.service.AuthenticationService;
+import org.gwtcom.client.service.AuthenticationServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -51,13 +52,13 @@ public class GWTmainView extends ResizeComposite {
 		topElem.getStyle().setOverflow(Overflow.VISIBLE);
 
 		initView();
-		
+
 		bind();
 	}
 
 	private void bind() {
 		_eventbus.addHandler(LoginLogoutClickEvent.TYPE, new ILoginLogoutClickEvent() {
-			
+
 			@Override
 			public void onLoginLogoutClick(LoginLogoutClickEvent event) {
 				topPanel.setLogedIn(event.isLoggedIn());
@@ -69,7 +70,8 @@ public class GWTmainView extends ResizeComposite {
 	 * 
 	 */
 	private void initView() {
-		AuthenticationService.Util.getInstance().isLoggedIn(new AsyncCallback<Boolean>() {
+		AuthenticationServiceAsync service = GWT.create(AuthenticationService.class);
+		service.isLoggedIn(new AsyncCallback<Boolean>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -81,38 +83,39 @@ public class GWTmainView extends ResizeComposite {
 				topPanel.setLogedIn(result);
 			}
 		});
-		
-		
+
 		topPanel.addLoginClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				AuthenticationService.Util.getInstance().authenticate("hons", "password", new AsyncCallback<Boolean>() {
-					
+				AuthenticationServiceAsync service = GWT.create(AuthenticationService.class);
+				service.authenticate("hons", "password", new AsyncCallback<Boolean>() {
+
 					@Override
 					public void onSuccess(Boolean result) {
 						_eventbus.fireEvent(new LoginLogoutClickEvent(result));
 					}
-					
+
 					@Override
 					public void onFailure(Throwable caught) {
 						Window.alert("Authentication failed");
 						_eventbus.fireEvent(new LoginLogoutClickEvent(false));
 					}
 				});
-				
+
 			}
 		});
-		
+
 		topPanel.addLogoutClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				AuthenticationService.Util.getInstance().logout(new AsyncCallback<Void>() {
+				AuthenticationServiceAsync service = GWT.create(AuthenticationService.class);
+				service.logout(new AsyncCallback<Void>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						//TODO: boh???
+						// TODO: boh???
 						Window.alert("Logout failed");
 					}
 
@@ -121,7 +124,7 @@ public class GWTmainView extends ResizeComposite {
 						_eventbus.fireEvent(new LoginLogoutClickEvent(false));
 					}
 				});
-				
+
 			}
 		});
 	}

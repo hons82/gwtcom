@@ -8,8 +8,10 @@ import org.gwtcom.client.panel.news.NavBar;
 import org.gwtcom.client.place.Place;
 import org.gwtcom.client.place.PlaceRequest;
 import org.gwtcom.client.service.NewsService;
+import org.gwtcom.client.service.NewsServiceAsync;
 import org.gwtcom.shared.NewsItemRemote;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -104,14 +106,15 @@ public class NewsListPresenter extends GeneralPresenter<NewsListPresenter.Displa
 	}
 
 	private void fetchNewsList() {
-		NewsService.Util.getInstance().getPublicNews(new AsyncCallback<List<NewsItemRemote>>() {
+		NewsServiceAsync service = GWT.create(NewsService.class);
+		service.getPublicNews(new AsyncCallback<List<NewsItemRemote>>() {
 			public void onSuccess(List<NewsItemRemote> result) {
 				_newslist = result;
 				refreshDisplay();
 			}
 
 			public void onFailure(Throwable caught) {
-				Window.alert(caught.getMessage());
+				Window.alert("Fail: " + caught.getMessage());
 			}
 		});
 		// dispatcher.execute(new GetNewsDetails(), new

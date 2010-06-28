@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-
-	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
-
-	<bean id="EMF" class="org.gwtcom.server.EMF" />
-	<bean id="entityManager" factory-bean="EMF" factory-method="entityManager" />
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+           
+	<!-- <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/> 
+		<bean id="EMF" class="org.gwtcom.server.EMF" /> <bean id="entityManager" 
+		factory-bean="EMF" factory-method="entityManager" /> -->
 
 	<!-- Service layer -->
-	<bean id="authenticationService" class="org.gwtcom.server.AuthenticationServiceImpl" />
-	<bean id="documentService" class="org.gwtcom.server.DocumentServiceImpl" />
-	<bean id="newsService" class="org.gwtcom.server.NewsServiceImpl" />
-	<bean id="greetingService" class="org.gwtcom.server.GreetingServiceImpl" />
+	<context:annotation-config />
+	<context:component-scan base-package="org.gwtcom.server" />
 
 </beans>

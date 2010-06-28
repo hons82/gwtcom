@@ -1,23 +1,11 @@
 package org.gwtcom.client.service;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
-import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+@RemoteServiceRelativePath("gwtcom/authenticationService")
 public interface AuthenticationService extends RemoteService {
 
-	public static final String SERVICE_URI = "authenticationService";
-
-	public static class Util {
-		public static AuthenticationServiceAsync getInstance() {
-			AuthenticationServiceAsync instance = (AuthenticationServiceAsync) GWT
-					.create(AuthenticationService.class);
-			ServiceDefTarget target = (ServiceDefTarget) instance;
-			target.setServiceEntryPoint(GWT.getModuleBaseURL() + SERVICE_URI);
-			return instance;
-		}
-	}
-	
 	/**
 	 * Authenticates user.
 	 * 
