@@ -11,6 +11,35 @@
 			/WEB-INF/securityContext.xml</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/log4j.properties</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>requestContextFilter</filter-name>
+		<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>requestContextFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -26,16 +55,11 @@
 		<servlet-name>springGwtRemoteServiceServlet</servlet-name>
 		<servlet-class>org.spring4gwt.server.SpringGwtRemoteServiceServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>springGwtRemoteServiceServlet</servlet-name>
 		<url-pattern>/gwtcom/*</url-pattern>
 	</servlet-mapping>
-	
-	<session-config>
-		<!-- Default to 5 minute session timeouts -->
-		<session-timeout>5</session-timeout>
-	</session-config>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>
