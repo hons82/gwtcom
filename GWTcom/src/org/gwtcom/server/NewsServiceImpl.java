@@ -39,7 +39,6 @@ public class NewsServiceImpl implements NewsService {
 		_first = false;
 	}
 
-	@Secured("ROLE_ADMIN")
 	public List<NewsItemRemote> getPrivateNews() {
 		List<NewsItemRemote> ret = getPublicNews();
 		return ret;
@@ -48,6 +47,7 @@ public class NewsServiceImpl implements NewsService {
 	/**
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	public List<NewsItemRemote> getPublicNews() {
 		List<NewsItemRemote> ret = new ArrayList<NewsItemRemote>();
 		// TODO: this is just a test
