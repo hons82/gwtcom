@@ -1,6 +1,8 @@
 package org.gwtcom.client;
 
 import org.gwtcom.client.gin.GWTcomGinjector;
+import org.gwtcom.client.presenter.DateItemPresenter;
+import org.gwtcom.client.presenter.DateListPresenter;
 import org.gwtcom.client.presenter.NewsItemPresenter;
 import org.gwtcom.client.presenter.NewsListPresenter;
 
@@ -34,6 +36,8 @@ public class GWTcom implements EntryPoint {
 	//
 	/**/	NewsListPresenter nlPresenter = injector.getNewsListPresenter(); /**/
 	/**/	NewsItemPresenter niPresenter = injector.getNewsItemPresenter(); /**/
+	/**/	DateListPresenter dlPresenter = injector.getDateListPresenter(); /**/
+	/**/	DateItemPresenter diPresenter = injector.getDateItemPresenter(); /**/
 	
 		AppController appPresenter = injector.getAppPresenter();
 		appPresenter.go(RootLayoutPanel.get());

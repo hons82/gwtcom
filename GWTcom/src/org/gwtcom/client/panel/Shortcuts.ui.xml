@@ -1,9 +1,12 @@
-<ui:UiBinder
-  xmlns:ui='urn:ui:com.google.gwt.uibinder'
-  xmlns:g='urn:import:com.google.gwt.user.client.ui'
-  xmlns:gwtcom='urn:import:org.gwtcom.client.panel'>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gwtcom='urn:import:org.gwtcom.client.panel'>
 
-  <ui:style>
+	<ui:image field='commonstackgroup' src='img/commonstackgroup.png' />
+	<ui:image field='publicstackgroup' src='img/publicstackgroup.png' />
+	<ui:image field='gradient' src='img/gradient_bg_dark.png'
+		repeatStyle='Horizontal' />
+
+	<ui:style>
   .shortcuts {
     border-left: 1px solid #999;
     border-right: 1px solid #999;
@@ -24,6 +27,23 @@
   }
 
   @if user.agent ie6 {
+	  .publicStackIcon {
+	    background-image: url(publicgroup_ie6.gif);
+	    width: 31px;
+	    height: 22px;
+	    float: left;
+	  }
+	
+
+  } @else {
+    @sprite .publicStackIcon {
+      gwt-image: 'publicstackgroup';
+      float: left;
+    }
+  
+ }
+ 
+   @if user.agent ie6 {
 	  .commonStackIcon {
 	    background-image: url(commongroup_ie6.gif);
 	    width: 31px;
@@ -41,23 +61,31 @@
  }
   </ui:style>
 
-  <ui:image field='commonstackgroup' src='commonstackgroup.png'/>
-  <ui:image field='gradient' src='gradient_bg_dark.png' repeatStyle='Horizontal'/>
 
-  <g:StackLayoutPanel styleName='{style.shortcuts}' unit='EM'>
-    <g:stack>
-      <g:header size='3'><div class='{style.stackHeader}'><div class='{style.commonStackIcon}'/> gwtcomboxes</div></g:header>
-      <gwtcom:PublicMenu ui:field='publicMenu'/>
-    </g:stack>
+	<g:StackLayoutPanel styleName='{style.shortcuts}'
+		unit='EM'>
+		<g:stack>
+			<g:header size='3'>
+				<div class='{style.stackHeader}'>
+					<div class='{style.publicStackIcon}' />
+					Public
+				</div>
+			</g:header>
+			<gwtcom:PublicMenu ui:field='publicMenu' />
+		</g:stack>
 
-    <g:stack>
-      <g:header size='3'><div class='{style.stackHeader}'><div class='{style.commonStackIcon}'/> Tasks</div></g:header>
-      <gwtcom:CommonStack ui:field='commonStack'/>
-    </g:stack>
+		<g:stack>
+			<g:header size='3'>
+				<div class='{style.stackHeader}'>
+					<div class='{style.commonStackIcon}' />
+					Tasks
+				</div>
+			</g:header>
+			<gwtcom:CommonStack ui:field='commonStack' />
+		</g:stack>
 
-    <!-- <g:stack>
-      <g:header size='3'><div class='{style.stackHeader}'><div class='{style.contactsIcon}'/> Contacts</div></g:header>
-      <gwtcom:Contacts ui:field='contacts'/>
-    </g:stack> -->
-  </g:StackLayoutPanel>
+		<!-- <g:stack> <g:header size='3'><div class='{style.stackHeader}'><div 
+			class='{style.contactsIcon}'/> Contacts</div></g:header> <gwtcom:Contacts 
+			ui:field='contacts'/> </g:stack> -->
+	</g:StackLayoutPanel>
 </ui:UiBinder>

@@ -10,15 +10,17 @@
 		secured-annotations="enabled" jsr250-annotations="disabled" />
 
 	<security:http auto-config="true" />
-	
+
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service id="userDetailsService">
-				<security:user name="root" password="root" authorities="ROLE_USER, ROLE_ADMIN" />
-				<security:user name="foo" password="bar" authorities="ROLE_USER" />
-			</security:user-service>
-		</security:authentication-provider>
+		<security:authentication-provider
+			user-service-ref="customUserDetailsService" />
 	</security:authentication-manager>
+
+	<!-- <security:authentication-manager> <security:authentication-provider> 
+		<security:user-service id="userDetailsService"> <security:user name="root" 
+		password="root" authorities="ROLE_USER, ROLE_ADMIN" /> <security:user name="foo" 
+		password="bar" authorities="ROLE_USER" /> </security:user-service> </security:authentication-provider> 
+		</security:authentication-manager> -->
 
 	<bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
 		<security:filter-chain-map path-type="ant">

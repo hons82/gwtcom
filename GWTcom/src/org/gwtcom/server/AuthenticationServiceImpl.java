@@ -1,17 +1,16 @@
 package org.gwtcom.server;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.gwtcom.client.service.AuthenticationService;
+import org.gwtcom.server.security.CustomUserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -20,18 +19,29 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Service("authenticationService")
 public class AuthenticationServiceImpl implements AuthenticationService {
 
+	protected CustomUserDetailService _customUserDetailsService;
+
+	@Autowired
+	public void setCustomUserDetailService(CustomUserDetailService customUserDetailsService) {
+		_customUserDetailsService = customUserDetailsService;
+	}
+
 	public boolean authenticate(String username, String password) {
 		System.out.println(">>>>> Authenticate called");
-		// creating an authenticated user token for demo
-		// regardless of username and password values
-		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		authorities.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
-		User user = new User("root", "root", true, true, true, true, authorities);
-		Authentication auth = new UsernamePasswordAuthenticationToken(user, password, authorities);
+		UserDetails userdetail = null;
+		try {
+			userdetail = _customUserDetailsService.loadUserByUsername(username);
+		} catch (UsernameNotFoundException e) {
+			return false;
+		} catch (DataAccessException e) {
+			return false;
+		}
+
+		Authentication auth = new UsernamePasswordAuthenticationToken(userdetail.getUsername(), userdetail.getPassword(), userdetail.getAuthorities());
 		SecurityContext sc = new SecurityContextImpl();
 
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		attr.getRequest().getSession().setAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY, username);
+		attr.getRequest().getSession().setAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY, userdetail.getUsername());
 
 		sc.setAuthentication(auth);
 		SecurityContextHolder.setContext(sc);
@@ -47,7 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Override
 	public boolean isLoggedIn() {
 		System.out.println(">>>>> AuthenticationService.isLoggedIn -> " + SecurityContextHolder.getContext().getAuthentication());
-		// TODO: That's maybe not enough of security 
+		// TODO: That's maybe not enough of security
 		if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
 			return true;
 		}

@@ -2,6 +2,7 @@ package org.gwtcom.client.panel.news;
 
 import java.util.List;
 
+import org.gwtcom.client.panel.NavBar;
 import org.gwtcom.client.presenter.NewsListPresenter;
 import org.gwtcom.shared.NewsItemRemote;
 
@@ -14,11 +15,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
+import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.HTMLTable.Cell;
 
 /**
  * A composite that contains the shortcut stack panel on the left side. The

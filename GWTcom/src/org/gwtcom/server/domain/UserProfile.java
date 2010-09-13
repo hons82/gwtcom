@@ -1,35 +1,66 @@
 package org.gwtcom.server.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import java.util.Set;
+import java.util.TreeSet;
 
-@Entity
-@SequenceGenerator( name="USERPROFILE_SEQ", sequenceName="userprofile_seq" )
-@Table(name="userprofile")
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+import com.google.appengine.api.datastore.Key;
+
+@PersistenceCapable(table = "userprofile")
 public class UserProfile {
 
-	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USERPROFILE_SEQ")
-	@Column(name="userprofile_id")
-	private int _id;
-	
-	@Column(name="name")
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key _id;
+
+	@Persistent(name = "name")
 	private String _name;
-	
-	public int getId() {
+
+	@Persistent(name = "pass")
+	private String _password;
+
+	@Persistent(name = "authorities")
+	private Set<Key> _authorities;
+
+
+	public UserProfile() {
+		_authorities = new TreeSet<Key>();
+	}
+
+	public Key getId() {
 		return _id;
 	}
-	public void setId(int id) {
+
+	public void setId(Key id) {
 		_id = id;
 	}
+
 	public String getName() {
 		return _name;
 	}
+
 	public void setName(String name) {
 		_name = name;
 	}
+
+	public void setPassword(String password) {
+		_password = password;
+	}
+
+	public String getPassword() {
+		return _password;
+	}
+
+	public void setAuthorities(Set<Key> authorities) {
+		_authorities = authorities;
+	}
+
+	public Set<Key> getAuthorities() {
+		return _authorities;
+	}
+
 }

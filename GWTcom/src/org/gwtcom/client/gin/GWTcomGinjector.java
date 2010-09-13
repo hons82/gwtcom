@@ -2,6 +2,8 @@ package org.gwtcom.client.gin;
 
 import org.gwtcom.client.AppController;
 import org.gwtcom.client.place.PlaceManager;
+import org.gwtcom.client.presenter.DateItemPresenter;
+import org.gwtcom.client.presenter.DateListPresenter;
 import org.gwtcom.client.presenter.NewsItemPresenter;
 import org.gwtcom.client.presenter.NewsListPresenter;
 
@@ -19,5 +21,9 @@ public interface GWTcomGinjector extends Ginjector
     NewsListPresenter getNewsListPresenter();
 
 	NewsItemPresenter getNewsItemPresenter();
+	
+    DateListPresenter getDateListPresenter();
+
+	DateItemPresenter getDateItemPresenter();
 
 }

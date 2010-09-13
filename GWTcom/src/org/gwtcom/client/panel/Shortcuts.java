@@ -1,5 +1,6 @@
 package org.gwtcom.client.panel;
 
+import org.gwtcom.client.event.EventBus;
 import org.gwtcom.client.event.INavigationMenuChangeEvent;
 import org.gwtcom.client.event.NavigationMenuChangeEvent;
 
@@ -18,26 +19,50 @@ import com.google.gwt.user.client.ui.StackLayoutPanel;
  */
 public class Shortcuts extends ResizeComposite {
 
-  interface Binder extends UiBinder<StackLayoutPanel, Shortcuts> { }
-  private static final Binder binder = GWT.create(Binder.class);
+	interface Binder extends UiBinder<StackLayoutPanel, Shortcuts> {
+	}
 
-  @UiField PublicMenu publicMenu;
-  @UiField CommonStack commonStack;
+	private static final Binder binder = GWT.create(Binder.class);
 
-  /**
-   * Constructs a new shortcuts widget using the specified images.
-   * 
-   * @param images a bundle that provides the images for this widget
-   */
-  public Shortcuts() {
-    initWidget(binder.createAndBindUi(this));
-    commonStack.addNavigationMenuChangedHandler(new INavigationMenuChangeEvent() {
+	@UiField(provided=true)
+	PublicMenu publicMenu;
+	@UiField(provided=true)
+	CommonStack commonStack;
+
+	private EventBus _eventbus;
+
+	/**
+	 * Constructs a new shortcuts widget using the specified images.
+	 * @param eventbus 
+	 * 
+	 * @param images
+	 *            a bundle that provides the images for this widget
+	 */
+	public Shortcuts(EventBus eventbus) {
+		_eventbus = eventbus;
 		
-		@Override
-		public void onCategoryChange(NavigationMenuChangeEvent event) {
-			// TODO Auto-generated method stub
-			System.out.println("blabla");
-		}
-	});
-  }
+		publicMenu = new PublicMenu(eventbus);
+		commonStack = new CommonStack(eventbus);
+		initWidget(binder.createAndBindUi(this));
+		
+		initView();
+	}
+	
+	private void initView(){
+		commonStack.addNavigationMenuChangedHandler(new INavigationMenuChangeEvent() {
+
+			@Override
+			public void onCategoryChange(NavigationMenuChangeEvent event) {
+				// TODO Auto-generated method stub
+				System.out.println("EventType: "+event.getAssociatedType());
+				
+			}});
+	
+	}
+
+	public void reload(boolean loggedIn) {
+		// TODO Auto-generated method stub
+
+	}
+	
 }

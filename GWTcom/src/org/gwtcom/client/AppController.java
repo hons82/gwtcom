@@ -9,6 +9,7 @@ import org.gwtcom.client.gin.GWTcomGinjector;
 import org.gwtcom.client.panel.GWTmainView;
 import org.gwtcom.client.place.PlaceRequestEvent;
 import org.gwtcom.client.place.PlaceRequestHandler;
+import org.gwtcom.client.presenter.DateListPresenter;
 import org.gwtcom.client.presenter.Display;
 import org.gwtcom.client.presenter.GeneralPresenter;
 import org.gwtcom.client.presenter.NewsItemPresenter;
@@ -43,7 +44,6 @@ public class AppController implements Presenter, PlaceRequestHandler {
 	}
 
 	public void go(HasWidgets container) {
-		// TODO Auto-generated method stub
 		_gwtmain = new GWTmainView(_eventbus);
 		container.add((Widget) _gwtmain.asWidget());
 		_container = _gwtmain.getDetailContainer();
@@ -63,6 +63,10 @@ public class AppController implements Presenter, PlaceRequestHandler {
 
 		if (id.equals(NewsListPresenter.PLACE.getId()))
 			_presenter = _injector.getNewsListPresenter();
+		else if (id.equals(NewsItemPresenter.PLACE.getId()))
+			_presenter = _injector.getNewsItemPresenter();
+		else if (id.equals(DateListPresenter.PLACE.getId()))
+			_presenter = _injector.getDateListPresenter();
 		else if (id.equals(NewsItemPresenter.PLACE.getId()))
 			_presenter = _injector.getNewsItemPresenter();
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.gwtcom.client.event.EventBus;
 import org.gwtcom.client.event.NewsItemShowEvent;
-import org.gwtcom.client.panel.news.NavBar;
+import org.gwtcom.client.panel.NavBar;
 import org.gwtcom.client.place.Place;
 import org.gwtcom.client.place.PlaceRequest;
 import org.gwtcom.client.service.NewsService;

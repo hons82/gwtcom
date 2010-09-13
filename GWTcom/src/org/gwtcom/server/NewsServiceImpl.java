@@ -5,16 +5,13 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceException;
+import javax.jdo.PersistenceManager;
+import javax.jdo.Transaction;
 
 import org.gwtcom.client.service.NewsService;
 import org.gwtcom.server.domain.NewsItem;
 import org.gwtcom.shared.NewsItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaCallback;
-import org.springframework.orm.jpa.JpaTemplate;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +21,11 @@ public class NewsServiceImpl implements NewsService {
 	// TODO: this is just a test
 	private boolean _first;
 
-	protected EntityManager entityManager;
+	protected PersistenceManager persistenceManager;
 
 	@Autowired
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
-
-	public JpaTemplate getTemplate() {
-		return new JpaTemplate(entityManager);
+	public void setpersistenceManager(PersistenceManager persistenceManager) {
+		this.persistenceManager = persistenceManager;
 	}
 
 	public NewsServiceImpl() {
@@ -47,7 +40,6 @@ public class NewsServiceImpl implements NewsService {
 	/**
 	 * @return
 	 */
-	@Secured("ROLE_ADMIN")
 	public List<NewsItemRemote> getPublicNews() {
 		List<NewsItemRemote> ret = new ArrayList<NewsItemRemote>();
 		// TODO: this is just a test
@@ -64,39 +56,35 @@ public class NewsServiceImpl implements NewsService {
 		_first = true;
 		//
 		for (NewsItem item : getNewsItems()) {
-			ret.add(new NewsItemRemote(item.getId(), item.getDateAdded(), item.getAuthor(), item.getTitle()));
+			ret.add(new NewsItemRemote(item.getId().getId(), item.getDateAdded(), item.getAuthor(), item.getTitle()));
 		}
 		return ret;
 	}
 
 	private void createCustomer() {
-		EntityTransaction trx = entityManager.getTransaction();
+		Transaction tx = persistenceManager.currentTransaction();
 		NewsItem newNewsItem = new NewsItem();
 		newNewsItem.setAuthor("Hannes Tribus " + System.currentTimeMillis());
 		newNewsItem.setTitle("Die Auswirkungen der Sonnenstrahlen auf das Liebesleben der Pflastersteine " + System.currentTimeMillis());
 		newNewsItem.setDateAdded(new Date(System.currentTimeMillis()));
-		trx.begin();
-		entityManager.persist(newNewsItem);
-		trx.commit();
+		tx.begin();
+		persistenceManager.makePersistent(newNewsItem);
+		tx.commit();
 	}
 
+	@Secured("ROLE_ADMIN")
 	private void removeNewsItem(NewsItem item) {
-		EntityTransaction trx = entityManager.getTransaction();
-		trx.begin();
-		entityManager.remove(item);
-		trx.commit();
+		Transaction tx = persistenceManager.currentTransaction();
+		tx.begin();
+		persistenceManager.deletePersistent(item);
+		tx.commit();
 	}
 
+	@SuppressWarnings("unchecked")
 	private Collection<NewsItem> getNewsItems() {
-		return getTemplate().execute(new JpaCallback<Collection<NewsItem>>() {
-			@SuppressWarnings("unchecked")
-			@Override
-			public Collection<NewsItem> doInJpa(EntityManager arg0) throws PersistenceException {
-				Collection<NewsItem> resultList = (Collection<NewsItem>) entityManager.createQuery(
-						"SELECT news FROM org.gwtcom.server.domain.NewsItem news").getResultList();
-				return resultList;
-			}
-		});
+		Collection<NewsItem> resultList = (Collection<NewsItem>) persistenceManager.newQuery(
+				"SELECT news FROM org.gwtcom.server.domain.NewsItem news").execute();
+		return resultList;
 	}
 
 	@Override
@@ -105,28 +93,22 @@ public class NewsServiceImpl implements NewsService {
 		NewsItem item = getNewsItembyID(id);
 		if (item != null) {
 			System.out.println("item != null");
-			return new NewsItemRemote(item.getId(), item.getDateAdded(), item.getAuthor(), item.getTitle());
+			return new NewsItemRemote(item.getId().getId(), item.getDateAdded(), item.getAuthor(), item.getTitle());
 		}
 		System.out.println("item == null");
 		return null;
 	}
 
 	public NewsItem getNewsItembyID(final Long id) {
-		return getTemplate().execute(new JpaCallback<NewsItem>() {
-			@SuppressWarnings("unchecked")
-			@Override
-			public NewsItem doInJpa(EntityManager arg0) throws PersistenceException {
-				Number count = (Number) entityManager.createQuery(
-						"SELECT count(distinct _id) FROM org.gwtcom.server.domain.NewsItem news WHERE news._id =" + id.toString()).getSingleResult();
-				System.out.println("int number " + count.intValue());
-				if (count.intValue() == 1) {
-					NewsItem result = (NewsItem) entityManager.createQuery(
-							"SELECT news FROM org.gwtcom.server.domain.NewsItem news WHERE news._id =" + id.toString()).getSingleResult();
-					return result;
-				} else
-					return null;
-			}
-		});
+		Number count = (Number) persistenceManager.newQuery(
+				"SELECT count(distinct _id) FROM org.gwtcom.server.domain.NewsItem news WHERE news._id =" + id.toString()).execute();
+		System.out.println("int number " + count.intValue());
+		if (count.intValue() == 1) {
+			NewsItem result = (NewsItem) persistenceManager.newQuery(
+					"SELECT news FROM org.gwtcom.server.domain.NewsItem news WHERE news._id =" + id.toString()).execute();
+			return result;
+		} else
+			return null;
 	}
 
 }

@@ -1,6 +1,8 @@
 package org.gwtcom.client.panel;
 
-import org.gwtcom.client.presenter.NewsListPresenter;
+import org.gwtcom.client.event.DateListShowEvent;
+import org.gwtcom.client.event.EventBus;
+import org.gwtcom.client.event.NewsListShowEvent;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -8,7 +10,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Composite;
@@ -37,7 +38,11 @@ public class PublicMenu extends Composite {
 
 	private Anchor _dates;
 
-	public PublicMenu() {
+	private EventBus _eventbus;
+
+	public PublicMenu(EventBus eventbus) {
+		_eventbus = eventbus;
+		
 		initWidget(binder.createAndBindUi(this));
 
 		_news = addItem("News");
@@ -46,7 +51,7 @@ public class PublicMenu extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				System.out.println(">>> PublicMenu.News.OnClick()");
-				History.newItem(NewsListPresenter.PLACE.getId());
+				_eventbus.fireEvent(new NewsListShowEvent());
 			}
 		});
 
@@ -56,7 +61,7 @@ public class PublicMenu extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				System.out.println(">>> PublicMenu.Termine.OnClick()");
-			//	History.newItem(DatesList.PLACE.getId());
+				_eventbus.fireEvent(new DateListShowEvent());
 			}
 		});
 

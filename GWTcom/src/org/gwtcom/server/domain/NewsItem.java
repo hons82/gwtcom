@@ -2,30 +2,37 @@ package org.gwtcom.server.domain;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
-@Entity
+import com.google.appengine.api.datastore.Key;
+
+@PersistenceCapable(table = "newsItem")
 public class NewsItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long _id;
-    
-    private Date _dateAdded;
 
-    private String _author;
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key _id;
 
-    private String _title;
-    
-    private String _content;
+	@Persistent(name = "dateAdded")
+	private Date _dateAdded;
 
-	public Long getId() {
+	@Persistent(name = "author")
+	private String _author;
+
+	@Persistent(name = "title")
+	private String _title;
+
+	@Persistent(name = "content")
+	private String _content;
+
+	public Key getId() {
 		return _id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Key id) {
 		_id = id;
 	}
 
@@ -61,5 +68,4 @@ public class NewsItem {
 		return _dateAdded;
 	}
 
-    
 }

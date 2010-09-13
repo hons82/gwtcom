@@ -1,12 +1,12 @@
 package org.gwtcom.client.panel;
 
+import org.gwtcom.client.event.EventBus;
 import org.gwtcom.client.event.INavigationMenuChangeEvent;
 import org.gwtcom.client.event.NavigationMenuChangeEvent;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
@@ -24,38 +24,41 @@ public class CommonStack extends Composite {
 	 * that tree's images should also be included in the same bundle.
 	 */
 	public interface Images extends ClientBundle, Tree.Resources {
-		@Source("home.png")
+		@Source("img/home.png")
 		ImageResource drafts();
 
-		@Source("home.png")
+		@Source("img/home.png")
 		ImageResource home();
 
-		@Source("home.png")
+		@Source("img/home.png")
 		ImageResource inbox();
 
-		@Source("home.png")
+		@Source("img/home.png")
 		ImageResource sent();
 
-		@Source("home.png")
+		@Source("img/home.png")
 		ImageResource templates();
 
-		@Source("home.png")
+		@Source("img/home.png")
 		ImageResource trash();
 
-		@Source("noimage.png")
+		@Source("img/noimage.png")
 		ImageResource treeLeaf();
 	}
 
 	private Tree tree;
-	private HandlerManager eventbus = new HandlerManager(this);
+	private EventBus _eventbus;
 
 	/**
 	 * Constructs a new mailboxes widget with a bundle of images.
+	 * @param eventbus2 
 	 * 
 	 * @param images
 	 *            a bundle that provides the images for this widget
 	 */
-	public CommonStack() {
+	public CommonStack(EventBus eventbus) {
+		_eventbus = eventbus;
+		
 		Images images = GWT.create(Images.class);
 
 		tree = new Tree(images);
@@ -76,7 +79,6 @@ public class CommonStack extends Composite {
 			@Override
 			public void onSelection(SelectionEvent<TreeItem> event) {
 				NavigationMenuChangeEvent event2 = new NavigationMenuChangeEvent();
-				eventbus.fireEvent(event2);
 			}
 		});
 		
@@ -112,6 +114,6 @@ public class CommonStack extends Composite {
 	}
 	
 	public void addNavigationMenuChangedHandler(INavigationMenuChangeEvent handler){
-		eventbus.addHandler(NavigationMenuChangeEvent.TYPE, handler);
+		_eventbus.addHandler(NavigationMenuChangeEvent.TYPE, handler);
 	}
 }
