@@ -5,11 +5,9 @@
 		repeatStyle='Horizontal' />
 
 	<ui:style>
-		.outer {
-			border-left: 1px solid #999;
-			border-bottom: 1px solid #999;
-			cursor: pointer;
-			cursor: hand;
+		.list {
+			border: 1px solid #999;
+			background-color: white;
 		}
 		
 		@sprite .header {
@@ -24,7 +22,6 @@
 			font-weight: bold;
 			text-shadow: #fff 0 2px 2px;
 			padding: 2px 0 1px 10px;
-			border-top: 1px solid #999;
 			border-bottom: 1px solid #999;
 		}
 		
@@ -52,7 +49,7 @@
 			}
 		</ui:style>
 
-	<g:DockLayoutPanel unit='EM'>
+	<g:DockLayoutPanel unit='EM' styleName='{style.list}'>
 		<g:north size='2'>
 			<g:FlexTable ui:field='header' styleName='{style.header}'
 				cellSpacing='0' cellPadding='0' />

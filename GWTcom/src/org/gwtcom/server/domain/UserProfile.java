@@ -25,6 +25,9 @@ public class UserProfile {
 
 	@Persistent(name = "authorities")
 	private Set<Key> _authorities;
+	
+	@Persistent(name = "userdata")
+	private UserData _userdata;
 
 
 	public UserProfile() {
@@ -61,6 +64,14 @@ public class UserProfile {
 
 	public Set<Key> getAuthorities() {
 		return _authorities;
+	}
+
+	public void setUserdata(UserData userdata) {
+		_userdata = userdata;
+	}
+
+	public UserData getUserdata() {
+		return _userdata;
 	}
 
 }

@@ -14,6 +14,7 @@
 		<class>org.gwtcom.server.domain.Authority</class>
 		<class>org.gwtcom.server.domain.DateItem</class>
 		<class>org.gwtcom.server.domain.NewsItem</class>
+		<class>org.gwtcom.server.domain.UserData</class>
 		<class>org.gwtcom.server.domain.UserProfile</class>
 	</persistence-manager-factory>
 </jdoconfig>

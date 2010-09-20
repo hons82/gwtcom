@@ -54,7 +54,7 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 	 * 
 	 */
 	private void initView() {
-		_noAccess.setText("You need to be logged in to use this menu");
+		_noAccess = new Label("You need to be logged in to use this menu");
 		panel.add(_noAccess);
 		
 		_profile = addItem("Profile");

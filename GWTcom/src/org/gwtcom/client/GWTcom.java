@@ -1,13 +1,12 @@
 package org.gwtcom.client;
 
 import org.gwtcom.client.gin.GWTcomGinjector;
-import org.gwtcom.client.presenter.DateItemPresenter;
-import org.gwtcom.client.presenter.DateListPresenter;
-import org.gwtcom.client.presenter.NewsItemPresenter;
-import org.gwtcom.client.presenter.NewsListPresenter;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.resources.client.CssResource.NotStrict;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
@@ -18,10 +17,19 @@ public class GWTcom implements EntryPoint {
 	
 	private final GWTcomGinjector injector = GWT.create(GWTcomGinjector.class);
 
+	interface GlobalResources extends ClientBundle {
+	    @NotStrict
+	    @Source("GWTcom.css")
+	    CssResource css();
+	  }
+	
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		
+		// Inject global styles.
+	    GWT.<GlobalResources>create(GlobalResources.class).css().ensureInjected();
 		
 		// Get rid of scrollbars, and clear out the window's built-in margin,
 		// because we want to take advantage of the entire client area.
@@ -34,10 +42,10 @@ public class GWTcom implements EntryPoint {
 	//instantiated at the start of the application or else the Presenters will will not handle PlaceRequestEvent properly and history mechanism properly
 	//This is the current behavior of  gwt-presenter release 1.0. I hope future version will provide lazy-loading of Presenters
 	//
-	/**/	NewsListPresenter nlPresenter = injector.getNewsListPresenter(); /**/
-	/**/	NewsItemPresenter niPresenter = injector.getNewsItemPresenter(); /**/
-	/**/	DateListPresenter dlPresenter = injector.getDateListPresenter(); /**/
-	/**/	DateItemPresenter diPresenter = injector.getDateItemPresenter(); /**/
+	/**/	injector.getNewsListPresenter(); /**/
+	/**/	injector.getNewsItemPresenter(); /**/
+	/**/	injector.getDateListPresenter(); /**/
+	/**/	injector.getDateItemPresenter(); /**/
 	
 		AppController appPresenter = injector.getAppPresenter();
 		appPresenter.go(RootLayoutPanel.get());

@@ -44,11 +44,8 @@ h1 {
 	padding-left: 10px;
 }
 
-.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
-	
-
-.gwt-TabLayoutPanelTabInner div {
-	color: #444444;
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected { .gwt-TabLayoutPanelTabInner
+	div { color:#444444;
 	height: 26px;
 	padding-top: 6px;
 	text-align: center;
@@ -73,16 +70,18 @@ h1 {
 }
 
 /* Splitters */
-.gwt-SplitLayoutPanel-HDragger, .gwt-SplitLayoutPanel-VDragger {
-  background-color: white;
+.gwt-SplitLayoutPanel-HDragger,.gwt-SplitLayoutPanel-VDragger {
+	background-color: white;
 }
 
 .gwt-SplitLayoutPanel-HDragger {
-  cursor: col-resize;
+	background: url("panel/img/noimage.png") center center no-repeat;
+	cursor: col-resize;
 }
 
 .gwt-SplitLayoutPanel-VDragger {
-  cursor: row-resize;
+	background: url("panel/img/noimage.png") center center no-repeat;
+	cursor: row-resize;
 }
 
 /** Set ids using widget.getElement().setId("idOfElement") */

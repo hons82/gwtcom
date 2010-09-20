@@ -65,7 +65,7 @@ public class GWTmainView extends ResizeComposite {
 			@Override
 			public void onLoginLogoutClick(LoginLogoutClickEvent event) {
 				topPanel.setLoggedIn(event.isLoggedIn());
-				shortcuts.reload(event.isLoggedIn());
+				shortcuts.setLoggedIn(event.isLoggedIn());
 			}
 		});
 	}

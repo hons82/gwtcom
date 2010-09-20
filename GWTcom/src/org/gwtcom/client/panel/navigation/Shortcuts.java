@@ -58,11 +58,6 @@ public class Shortcuts extends ResizeComposite {
 	
 	}
 
-	public void reload(boolean loggedIn) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void setLoggedIn(boolean b) {
 		publicMenu.setLoggedIn(b);
 		privateMenu.setLoggedIn(b);
