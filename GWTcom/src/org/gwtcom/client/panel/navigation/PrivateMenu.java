@@ -1,4 +1,4 @@
-package org.gwtcom.client.panel;
+package org.gwtcom.client.panel.navigation;
 
 import org.gwtcom.client.event.DateListShowEvent;
 import org.gwtcom.client.event.EventBus;
@@ -12,15 +12,14 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * A component that displays a list of contacts.
+ * A tree displaying a set of email folders.
  */
-public class PublicMenu extends Composite {
+public class PrivateMenu extends AbstractStackPanelInlay {
 
-	interface Binder extends UiBinder<Widget, PublicMenu> {
+	interface Binder extends UiBinder<Widget, PrivateMenu> {
 	}
 
 	interface Style extends CssResource {
@@ -40,7 +39,7 @@ public class PublicMenu extends Composite {
 
 	private EventBus _eventbus;
 
-	public PublicMenu(EventBus eventbus) {
+	public PrivateMenu(EventBus eventbus) {
 		_eventbus = eventbus;
 		
 		initWidget(binder.createAndBindUi(this));
@@ -72,5 +71,11 @@ public class PublicMenu extends Composite {
 		link.setStyleName(style.item());
 		panel.add(link);
 		return link;
+	}
+
+	@Override
+	public void setLoggedIn(boolean loggedIn) {
+		// TODO Auto-generated method stub
+		
 	}
 }

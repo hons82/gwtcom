@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
+import com.google.appengine.api.datastore.KeyFactory;
+
 @Service("datesService")
 public class DatesServiceImpl implements DatesService {
 
@@ -82,8 +84,7 @@ public class DatesServiceImpl implements DatesService {
 
 	@SuppressWarnings("unchecked")
 	private Collection<DateItem> getDateItems() {
-		Collection<DateItem> resultList = (Collection<DateItem>) persistenceManager.newQuery(
-				"SELECT Date FROM org.gwtcom.server.domain.DateItem Date").execute();
+		Collection<DateItem> resultList = (Collection<DateItem>) persistenceManager.newQuery("SELECT FROM " + DateItem.class.getName()).execute();
 		return resultList;
 	}
 
@@ -100,15 +101,7 @@ public class DatesServiceImpl implements DatesService {
 	}
 
 	public DateItem getDateItembyID(final Long id) {
-		Number count = (Number) persistenceManager.newQuery(
-				"SELECT count(distinct _id) FROM org.gwtcom.server.domain.DateItem Date WHERE Date._id =" + id.toString()).execute();
-		System.out.println("int number " + count.intValue());
-		if (count.intValue() == 1) {
-			DateItem result = (DateItem) persistenceManager.newQuery(
-					"SELECT Date FROM org.gwtcom.server.domain.DateItem Date WHERE Date._id =" + id.toString()).execute();
-			return result;
-		} else
-			return null;
+		return (DateItem) persistenceManager.getObjectById(DateItem.class, KeyFactory.createKey(DateItem.class.getSimpleName(), id));
 	}
 
 }

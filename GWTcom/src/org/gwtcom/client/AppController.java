@@ -1,6 +1,10 @@
 package org.gwtcom.client;
 
+import org.gwtcom.client.event.DateItemShowEvent;
+import org.gwtcom.client.event.DateListShowEvent;
 import org.gwtcom.client.event.EventBus;
+import org.gwtcom.client.event.IDateItemShowEvent;
+import org.gwtcom.client.event.IDateListShowEvent;
 import org.gwtcom.client.event.INewsItemShowEvent;
 import org.gwtcom.client.event.INewsListShowEvent;
 import org.gwtcom.client.event.NewsItemShowEvent;
@@ -9,6 +13,7 @@ import org.gwtcom.client.gin.GWTcomGinjector;
 import org.gwtcom.client.panel.GWTmainView;
 import org.gwtcom.client.place.PlaceRequestEvent;
 import org.gwtcom.client.place.PlaceRequestHandler;
+import org.gwtcom.client.presenter.DateItemPresenter;
 import org.gwtcom.client.presenter.DateListPresenter;
 import org.gwtcom.client.presenter.Display;
 import org.gwtcom.client.presenter.GeneralPresenter;
@@ -16,6 +21,7 @@ import org.gwtcom.client.presenter.NewsItemPresenter;
 import org.gwtcom.client.presenter.NewsListPresenter;
 import org.gwtcom.client.presenter.Presenter;
 import org.gwtcom.client.presenter.WidgetDisplay;
+import org.gwtcom.shared.DateItemRemote;
 import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.user.client.History;
@@ -67,8 +73,8 @@ public class AppController implements Presenter, PlaceRequestHandler {
 			_presenter = _injector.getNewsItemPresenter();
 		else if (id.equals(DateListPresenter.PLACE.getId()))
 			_presenter = _injector.getDateListPresenter();
-		else if (id.equals(NewsItemPresenter.PLACE.getId()))
-			_presenter = _injector.getNewsItemPresenter();
+		else if (id.equals(DateItemPresenter.PLACE.getId()))
+			_presenter = _injector.getDateItemPresenter();
 
 		refreshDisplay();
 	}
@@ -92,6 +98,22 @@ public class AppController implements Presenter, PlaceRequestHandler {
 				doShowNewsItem(event.getItem());
 			}
 		});
+		
+		_eventbus.addHandler(DateListShowEvent.TYPE, new IDateListShowEvent() {
+
+			@Override
+			public void onDateListShow(DateListShowEvent event) {
+				doShowDateList();
+			}
+		});
+		
+		_eventbus.addHandler(DateItemShowEvent.TYPE, new IDateItemShowEvent() {
+
+			@Override
+			public void onDateItemShow(DateItemShowEvent event) {
+				doShowDateItem(event.getItem());
+			}
+		});
 	}
 
 	private void doShowNewsItem(NewsItemRemote item) {
@@ -100,6 +122,14 @@ public class AppController implements Presenter, PlaceRequestHandler {
 	
 	private void doShowNewsList() {
 		History.newItem(NewsListPresenter.PLACE.toString());
+	}
+	
+	private void doShowDateItem(DateItemRemote item) {
+		History.newItem(DateItemPresenter.PLACE.requestWith("dateId", item.getId().toString()).toString());
+	}
+	
+	private void doShowDateList() {
+		History.newItem(DateListPresenter.PLACE.toString());
 	}
 
 	@Override

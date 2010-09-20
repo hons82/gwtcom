@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtcom.client.panel;
+package org.gwtcom.client.panel.navigation;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;

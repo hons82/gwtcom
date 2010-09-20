@@ -1,8 +1,6 @@
-package org.gwtcom.client.panel;
+package org.gwtcom.client.panel.navigation;
 
 import org.gwtcom.client.event.EventBus;
-import org.gwtcom.client.event.INavigationMenuChangeEvent;
-import org.gwtcom.client.event.NavigationMenuChangeEvent;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -27,7 +25,7 @@ public class Shortcuts extends ResizeComposite {
 	@UiField(provided=true)
 	PublicMenu publicMenu;
 	@UiField(provided=true)
-	CommonStack commonStack;
+	PrivateMenu privateMenu;
 
 	private EventBus _eventbus;
 
@@ -42,27 +40,32 @@ public class Shortcuts extends ResizeComposite {
 		_eventbus = eventbus;
 		
 		publicMenu = new PublicMenu(eventbus);
-		commonStack = new CommonStack(eventbus);
+		privateMenu = new PrivateMenu(eventbus);
 		initWidget(binder.createAndBindUi(this));
 		
 		initView();
 	}
 	
 	private void initView(){
-		commonStack.addNavigationMenuChangedHandler(new INavigationMenuChangeEvent() {
-
-			@Override
-			public void onCategoryChange(NavigationMenuChangeEvent event) {
-				// TODO Auto-generated method stub
-				System.out.println("EventType: "+event.getAssociatedType());
-				
-			}});
+//		privateMenu.addNavigationMenuChangedHandler(new INavigationMenuChangeEvent() {
+//
+//			@Override
+//			public void onCategoryChange(NavigationMenuChangeEvent event) {
+//				// TODO Auto-generated method stub
+//				System.out.println("EventType: "+event.getAssociatedType());
+//				
+//			}});
 	
 	}
 
 	public void reload(boolean loggedIn) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void setLoggedIn(boolean b) {
+		publicMenu.setLoggedIn(b);
+		privateMenu.setLoggedIn(b);
 	}
 	
 }

@@ -4,7 +4,7 @@
   xmlns:gwtcom='urn:import:org.gwtcom.client.panel'>
 
   <ui:style field='style'
-    type='org.gwtcom.client.panel.PublicMenu.Style'>
+    type='org.gwtcom.client.panel.navigation.PrivateMenu.Style'>
 
   .publicmenu {
     padding: 0.5em;

@@ -59,7 +59,7 @@ public class TopPanel extends Composite {
 		System.out.println(">>>>> TopPanel.onLoad");
 	};
 
-	public void setLogedIn(boolean loggedIn) {
+	public void setLoggedIn(boolean loggedIn) {
 		if (loggedIn) {
 			greet.setText("Welcome back, <LoggedInUser>");
 			signInLink.setVisible(false);

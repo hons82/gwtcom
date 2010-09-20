@@ -3,6 +3,7 @@ package org.gwtcom.client.panel;
 import org.gwtcom.client.event.EventBus;
 import org.gwtcom.client.event.ILoginLogoutClickEvent;
 import org.gwtcom.client.event.LoginLogoutClickEvent;
+import org.gwtcom.client.panel.navigation.Shortcuts;
 import org.gwtcom.client.service.AuthenticationService;
 import org.gwtcom.client.service.AuthenticationServiceAsync;
 
@@ -63,7 +64,7 @@ public class GWTmainView extends ResizeComposite {
 
 			@Override
 			public void onLoginLogoutClick(LoginLogoutClickEvent event) {
-				topPanel.setLogedIn(event.isLoggedIn());
+				topPanel.setLoggedIn(event.isLoggedIn());
 				shortcuts.reload(event.isLoggedIn());
 			}
 		});
@@ -78,12 +79,14 @@ public class GWTmainView extends ResizeComposite {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				topPanel.setLogedIn(false);
+				topPanel.setLoggedIn(false);
+				shortcuts.setLoggedIn(false);
 			}
 
 			@Override
 			public void onSuccess(Boolean result) {
-				topPanel.setLogedIn(result);
+				topPanel.setLoggedIn(result);
+				shortcuts.setLoggedIn(result);
 			}
 		});
 

@@ -2,7 +2,7 @@ package org.gwtcom.client.panel.news;
 
 import java.util.List;
 
-import org.gwtcom.client.panel.NavBar;
+import org.gwtcom.client.panel.navigation.NavBar;
 import org.gwtcom.client.presenter.NewsListPresenter;
 import org.gwtcom.shared.NewsItemRemote;
 
