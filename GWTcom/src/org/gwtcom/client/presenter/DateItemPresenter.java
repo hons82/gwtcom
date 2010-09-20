@@ -1,7 +1,7 @@
 package org.gwtcom.client.presenter;
 
 import org.gwtcom.client.event.DateListShowEvent;
-import org.gwtcom.client.event.EventBus;
+import org.gwtcom.client.event.bus.EventBus;
 import org.gwtcom.client.place.Place;
 import org.gwtcom.client.place.PlaceRequest;
 import org.gwtcom.client.service.DatesService;

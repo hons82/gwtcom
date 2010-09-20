@@ -3,7 +3,7 @@ package org.gwtcom.client.presenter;
 import java.util.List;
 
 import org.gwtcom.client.event.DateItemShowEvent;
-import org.gwtcom.client.event.EventBus;
+import org.gwtcom.client.event.bus.EventBus;
 import org.gwtcom.client.panel.navigation.NavBar;
 import org.gwtcom.client.place.Place;
 import org.gwtcom.client.place.PlaceRequest;

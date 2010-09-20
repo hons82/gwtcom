@@ -1,6 +1,6 @@
 package org.gwtcom.client.panel.navigation;
 
-import org.gwtcom.client.event.EventBus;
+import org.gwtcom.client.event.bus.EventBus;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;

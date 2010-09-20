@@ -2,13 +2,13 @@ package org.gwtcom.client;
 
 import org.gwtcom.client.event.DateItemShowEvent;
 import org.gwtcom.client.event.DateListShowEvent;
-import org.gwtcom.client.event.EventBus;
 import org.gwtcom.client.event.IDateItemShowEvent;
 import org.gwtcom.client.event.IDateListShowEvent;
 import org.gwtcom.client.event.INewsItemShowEvent;
 import org.gwtcom.client.event.INewsListShowEvent;
 import org.gwtcom.client.event.NewsItemShowEvent;
 import org.gwtcom.client.event.NewsListShowEvent;
+import org.gwtcom.client.event.bus.EventBus;
 import org.gwtcom.client.gin.GWTcomGinjector;
 import org.gwtcom.client.panel.GWTmainView;
 import org.gwtcom.client.place.PlaceRequestEvent;

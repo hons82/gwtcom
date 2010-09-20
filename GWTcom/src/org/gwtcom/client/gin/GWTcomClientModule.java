@@ -1,8 +1,8 @@
 package org.gwtcom.client.gin;
 
 import org.gwtcom.client.AppController;
-import org.gwtcom.client.event.DefaultEventBus;
-import org.gwtcom.client.event.EventBus;
+import org.gwtcom.client.event.bus.DefaultEventBus;
+import org.gwtcom.client.event.bus.EventBus;
 import org.gwtcom.client.panel.dates.DateItem;
 import org.gwtcom.client.panel.dates.DateList;
 import org.gwtcom.client.panel.news.NewsItem;

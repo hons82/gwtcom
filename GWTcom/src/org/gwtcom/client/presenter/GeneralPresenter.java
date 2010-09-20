@@ -1,6 +1,6 @@
 package org.gwtcom.client.presenter;
 
-import org.gwtcom.client.event.EventBus;
+import org.gwtcom.client.event.bus.EventBus;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 

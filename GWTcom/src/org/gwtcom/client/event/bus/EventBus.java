@@ -1,4 +1,4 @@
-package org.gwtcom.client.event;
+package org.gwtcom.client.event.bus;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;

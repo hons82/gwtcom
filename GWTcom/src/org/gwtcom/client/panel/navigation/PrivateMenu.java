@@ -1,8 +1,7 @@
 package org.gwtcom.client.panel.navigation;
 
-import org.gwtcom.client.event.DateListShowEvent;
-import org.gwtcom.client.event.EventBus;
-import org.gwtcom.client.event.NewsListShowEvent;
+import org.gwtcom.client.event.ProfileShowEvent;
+import org.gwtcom.client.event.bus.EventBus;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -12,6 +11,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -33,9 +33,11 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 	@UiField
 	Style style;
 
-	private Anchor _news;
+	private Label _noAccess;
+	
+	private Anchor _profile;
 
-	private Anchor _dates;
+	
 
 	private EventBus _eventbus;
 
@@ -44,26 +46,26 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 		
 		initWidget(binder.createAndBindUi(this));
 
-		_news = addItem("News");
-		_news.addClickHandler(new ClickHandler() {
+		initView();
+
+	}
+
+	/**
+	 * 
+	 */
+	private void initView() {
+		_noAccess.setText("You need to be logged in to use this menu");
+		panel.add(_noAccess);
+		
+		_profile = addItem("Profile");
+		_profile.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				System.out.println(">>> PublicMenu.News.OnClick()");
-				_eventbus.fireEvent(new NewsListShowEvent());
+				System.out.println(">>> PrivateMenu.Profile.OnClick()");
+				_eventbus.fireEvent(new ProfileShowEvent());
 			}
 		});
-
-		_dates = addItem("Termine");
-		_dates.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				System.out.println(">>> PublicMenu.Termine.OnClick()");
-				_eventbus.fireEvent(new DateListShowEvent());
-			}
-		});
-
 	}
 
 	private Anchor addItem(final String item) {
@@ -75,7 +77,15 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 
 	@Override
 	public void setLoggedIn(boolean loggedIn) {
-		// TODO Auto-generated method stub
+		if (loggedIn){
+			_noAccess.setVisible(false);
+			
+			_profile.setVisible(true);
+		}else{
+			_noAccess.setVisible(true);
+			
+			_profile.setVisible(false);
+		}
 		
 	}
 }

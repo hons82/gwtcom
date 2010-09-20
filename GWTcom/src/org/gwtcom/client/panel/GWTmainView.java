@@ -1,8 +1,8 @@
 package org.gwtcom.client.panel;
 
-import org.gwtcom.client.event.EventBus;
 import org.gwtcom.client.event.ILoginLogoutClickEvent;
 import org.gwtcom.client.event.LoginLogoutClickEvent;
+import org.gwtcom.client.event.bus.EventBus;
 import org.gwtcom.client.panel.navigation.Shortcuts;
 import org.gwtcom.client.service.AuthenticationService;
 import org.gwtcom.client.service.AuthenticationServiceAsync;

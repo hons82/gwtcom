@@ -1,6 +1,6 @@
 package org.gwtcom.client.place;
 
-import org.gwtcom.client.event.EventBus;
+import org.gwtcom.client.event.bus.EventBus;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
