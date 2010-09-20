@@ -6,6 +6,7 @@ import org.gwtcom.shared.NewsItemRemote;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
@@ -45,10 +46,12 @@ public class NewsItem extends ResizeComposite implements NewsItemPresenter.Displ
 	public void setData(NewsItemRemote item) {
 		System.out.println(">>>>> NewsItem.setData()");
 		if (item != null) {
+			DateTimeFormat fmt = DateTimeFormat.getFormat("EEE. dd MMM. yyyy HH:mm:ss");
+			
 			id.setValue(String.valueOf(item.getId()));
 			title.setInnerText(item.getTitle());
 			author.setInnerText(item.getAuthor());
-			date.setInnerHTML(item.getDateAdded().toString());
+			date.setInnerHTML(fmt.format(item.getDateAdded()));
 
 			// WARNING: For the purposes of this demo, we're using HTML
 			// directly, on

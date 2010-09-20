@@ -37,6 +37,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			return false;
 		}
 
+		if (!_customUserDetailsService.encodePassword(password).equals(userdetail.getPassword())) {
+			return false;
+		}
+
 		Authentication auth = new UsernamePasswordAuthenticationToken(userdetail.getUsername(), userdetail.getPassword(), userdetail.getAuthorities());
 		SecurityContext sc = new SecurityContextImpl();
 

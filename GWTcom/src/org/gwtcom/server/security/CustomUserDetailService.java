@@ -121,7 +121,7 @@ public class CustomUserDetailService implements UserDetailsService {
 	private void createUser(String name, String password) {
 		UserProfile user = new UserProfile();
 		user.setName(name);
-		user.setPassword(_encoder.encodePassword(password, null));
+		user.setPassword(encodePassword(password));
 		persistenceManager.makePersistent(user);
 	}
 
@@ -144,5 +144,9 @@ public class CustomUserDetailService implements UserDetailsService {
 		Authority auth = new Authority();
 		auth.setAuthname(name);
 		persistenceManager.makePersistent(auth);
+	}
+
+	public String encodePassword(String password) {
+		return _encoder.encodePassword(password, null);
 	}
 }

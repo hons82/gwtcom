@@ -9,6 +9,7 @@ import org.gwtcom.shared.NewsItemRemote;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -112,13 +113,20 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 		header.getColumnFormatter().setWidth(0, "50px");
 		header.getColumnFormatter().setWidth(1, "200px");
 		header.getColumnFormatter().setWidth(2, "200px");
-		header.getColumnFormatter().setWidth(3, "256px");
+		header.getColumnFormatter().setWidth(3, "56px");
 
 		header.setText(0, 0, "ID");
 		header.setText(0, 1, "Author");
 		header.setText(0, 2, "Date Added");
 		header.setText(0, 3, "Title");
 		header.setWidget(0, 4, navBar);
+
+		header.getCellFormatter().setVerticalAlignment(0, 0, HasVerticalAlignment.ALIGN_TOP);
+		header.getCellFormatter().setVerticalAlignment(0, 1, HasVerticalAlignment.ALIGN_TOP);
+		header.getCellFormatter().setVerticalAlignment(0, 2, HasVerticalAlignment.ALIGN_TOP);
+		header.getCellFormatter().setVerticalAlignment(0, 3, HasVerticalAlignment.ALIGN_TOP);
+		header.getCellFormatter().setVerticalAlignment(0, 4, HasVerticalAlignment.ALIGN_TOP);
+
 		header.getCellFormatter().setHorizontalAlignment(0, 4, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		// Initialize the table.
@@ -126,9 +134,6 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 		table.getColumnFormatter().setWidth(1, "200px");
 		table.getColumnFormatter().setWidth(2, "200px");
 		// table.getColumnFormatter().setWidth(3, "256px");
-
-		// TODO
-		table.getCellFormatter().setVerticalAlignment(0, 0, HasVerticalAlignment.ALIGN_TOP);
 	}
 
 	/**
@@ -204,12 +209,18 @@ public class NewsList extends ResizeComposite implements NewsListPresenter.Displ
 
 			NewsItemRemote item = data.get(startIndex + i);
 
+			DateTimeFormat fmt = DateTimeFormat.getFormat("EEE. dd MMM. yyyy HH:mm:ss");
 			// Add a new row to the table, then set each of its columns to the
 			// email's sender and subject values.
 			table.setText(i, 0, Long.toString(item.getId()));
 			table.setText(i, 1, item.getAuthor());
-			table.setText(i, 2, item.getDateAdded().toString());
+			table.setText(i, 2, fmt.format(item.getDateAdded()));
 			table.setText(i, 3, item.getTitle());
+
+			table.getCellFormatter().setVerticalAlignment(i, 0, HasVerticalAlignment.ALIGN_TOP);
+			table.getCellFormatter().setVerticalAlignment(i, 1, HasVerticalAlignment.ALIGN_TOP);
+			table.getCellFormatter().setVerticalAlignment(i, 2, HasVerticalAlignment.ALIGN_TOP);
+			table.getCellFormatter().setVerticalAlignment(i, 3, HasVerticalAlignment.ALIGN_TOP);
 		}
 
 		// Clear any remaining slots.

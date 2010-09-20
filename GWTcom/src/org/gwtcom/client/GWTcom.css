@@ -44,8 +44,12 @@ h1 {
 	padding-left: 10px;
 }
 
-.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected { .gwt-TabLayoutPanelTabInner
-	div { color:#444444;
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
+	
+}
+
+.gwt-TabLayoutPanelTabInner div {
+	color: #444444;
 	height: 26px;
 	padding-top: 6px;
 	text-align: center;
