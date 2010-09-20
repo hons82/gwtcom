@@ -9,7 +9,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable(table = "dateItem")
+@PersistenceCapable
 public class DateItem {
 	
 	@PrimaryKey

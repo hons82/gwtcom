@@ -9,11 +9,11 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable(table = "newsItem")
+@PersistenceCapable
 public class NewsItem {
 
 	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	@Persistent(name = "id", valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key _id;
 
 	@Persistent(name = "dateAdded")

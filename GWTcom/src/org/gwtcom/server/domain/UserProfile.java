@@ -10,7 +10,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable(table = "userprofile")
+@PersistenceCapable
 public class UserProfile {
 
 	@PrimaryKey

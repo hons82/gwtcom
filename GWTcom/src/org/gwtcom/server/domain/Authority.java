@@ -7,7 +7,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable(table = "authority")
+@PersistenceCapable
 public class Authority {
 
 	@PrimaryKey

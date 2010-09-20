@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
+import com.google.appengine.api.datastore.KeyFactory;
+
 @Service("newsService")
 public class NewsServiceImpl implements NewsService {
 
@@ -82,8 +84,7 @@ public class NewsServiceImpl implements NewsService {
 
 	@SuppressWarnings("unchecked")
 	private Collection<NewsItem> getNewsItems() {
-		Collection<NewsItem> resultList = (Collection<NewsItem>) persistenceManager.newQuery(
-				"SELECT news FROM org.gwtcom.server.domain.NewsItem news").execute();
+		Collection<NewsItem> resultList = (Collection<NewsItem>) persistenceManager.newQuery("SELECT FROM " + NewsItem.class.getName()).execute();
 		return resultList;
 	}
 
@@ -100,15 +101,7 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	public NewsItem getNewsItembyID(final Long id) {
-		Number count = (Number) persistenceManager.newQuery(
-				"SELECT count(distinct _id) FROM org.gwtcom.server.domain.NewsItem news WHERE news._id =" + id.toString()).execute();
-		System.out.println("int number " + count.intValue());
-		if (count.intValue() == 1) {
-			NewsItem result = (NewsItem) persistenceManager.newQuery(
-					"SELECT news FROM org.gwtcom.server.domain.NewsItem news WHERE news._id =" + id.toString()).execute();
-			return result;
-		} else
-			return null;
+		return (NewsItem) persistenceManager.getObjectById(NewsItem.class, KeyFactory.createKey(NewsItem.class.getSimpleName(), id));
 	}
 
 }
