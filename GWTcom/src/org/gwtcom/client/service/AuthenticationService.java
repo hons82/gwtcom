@@ -1,5 +1,7 @@
 package org.gwtcom.client.service;
 
+import org.gwtcom.shared.UserLoginRemote;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -13,13 +15,13 @@ public interface AuthenticationService extends RemoteService {
 	 * @param password
 	 * @return whether authentication is successful
 	 */
-	public boolean authenticate(String username, String password);
+	public UserLoginRemote authenticate(String username, String password);
 
 	/**
 	 * Terminates a user's security session.
 	 */
 	public void logout();
 	
-	public boolean isLoggedIn();
+	public UserLoginRemote isLoggedIn();
 
 }

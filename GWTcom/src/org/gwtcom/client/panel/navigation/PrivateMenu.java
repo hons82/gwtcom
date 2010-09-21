@@ -2,6 +2,7 @@ package org.gwtcom.client.panel.navigation;
 
 import org.gwtcom.client.event.ProfileShowEvent;
 import org.gwtcom.client.event.bus.EventBus;
+import org.gwtcom.shared.UserLoginRemote;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -34,16 +35,14 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 	Style style;
 
 	private Label _noAccess;
-	
-	private Anchor _profile;
 
-	
+	private Anchor _profile;
 
 	private EventBus _eventbus;
 
 	public PrivateMenu(EventBus eventbus) {
 		_eventbus = eventbus;
-		
+
 		initWidget(binder.createAndBindUi(this));
 
 		initView();
@@ -56,7 +55,7 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 	private void initView() {
 		_noAccess = new Label("You need to be logged in to use this menu");
 		panel.add(_noAccess);
-		
+
 		_profile = addItem("Profile");
 		_profile.addClickHandler(new ClickHandler() {
 
@@ -76,16 +75,16 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 	}
 
 	@Override
-	public void setLoggedIn(boolean loggedIn) {
-		if (loggedIn){
+	public void setLoggedIn(UserLoginRemote loggedIn) {
+		if (loggedIn != null) {
 			_noAccess.setVisible(false);
-			
+
 			_profile.setVisible(true);
-		}else{
+		} else {
 			_noAccess.setVisible(true);
-			
+
 			_profile.setVisible(false);
 		}
-		
+
 	}
 }

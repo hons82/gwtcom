@@ -1,5 +1,7 @@
 package org.gwtcom.client.panel;
 
+import org.gwtcom.shared.UserLoginRemote;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -59,8 +61,8 @@ public class TopPanel extends Composite {
 		System.out.println(">>>>> TopPanel.onLoad");
 	};
 
-	public void setLoggedIn(boolean loggedIn) {
-		if (loggedIn) {
+	public void setLoggedIn(UserLoginRemote result) {
+		if (result!=null) {
 			greet.setText("Welcome back, <LoggedInUser>");
 			signInLink.setVisible(false);
 			signOutLink.setVisible(true);

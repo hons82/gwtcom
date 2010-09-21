@@ -1,13 +1,15 @@
 package org.gwtcom.client.event;
 
+import org.gwtcom.shared.UserLoginRemote;
+
 import com.google.gwt.event.shared.GwtEvent;
 
 public class LoginLogoutClickEvent extends GwtEvent<ILoginLogoutClickEvent> {
 
 		public static final Type<ILoginLogoutClickEvent> TYPE = new Type<ILoginLogoutClickEvent>();
-		private boolean _loggedIn;
+		private UserLoginRemote _userLoginRemote;
 
-	    public LoginLogoutClickEvent(boolean loggedIn) {
+	    public LoginLogoutClickEvent(UserLoginRemote loggedIn) {
 	        super();
 	        setLoggedIn(loggedIn);
 	    }
@@ -22,12 +24,12 @@ public class LoginLogoutClickEvent extends GwtEvent<ILoginLogoutClickEvent> {
 	        return TYPE;
 	    }
 
-		public void setLoggedIn(boolean loggedIn) {
-			_loggedIn = loggedIn;
+		public void setLoggedIn(UserLoginRemote userLoginRemote) {
+			_userLoginRemote = userLoginRemote;
 		}
 
-		public boolean isLoggedIn() {
-			return _loggedIn;
+		public UserLoginRemote isLoggedIn() {
+			return _userLoginRemote;
 		}
 
 }

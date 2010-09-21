@@ -6,6 +6,7 @@ import org.gwtcom.client.event.bus.EventBus;
 import org.gwtcom.client.panel.navigation.Shortcuts;
 import org.gwtcom.client.service.AuthenticationService;
 import org.gwtcom.client.service.AuthenticationServiceAsync;
+import org.gwtcom.shared.UserLoginRemote;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -75,16 +76,16 @@ public class GWTmainView extends ResizeComposite {
 	 */
 	private void initView() {
 		AuthenticationServiceAsync service = GWT.create(AuthenticationService.class);
-		service.isLoggedIn(new AsyncCallback<Boolean>() {
+		service.isLoggedIn(new AsyncCallback<UserLoginRemote>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				topPanel.setLoggedIn(false);
-				shortcuts.setLoggedIn(false);
+				topPanel.setLoggedIn(null);
+				shortcuts.setLoggedIn(null);
 			}
 
 			@Override
-			public void onSuccess(Boolean result) {
+			public void onSuccess(UserLoginRemote result) {
 				topPanel.setLoggedIn(result);
 				shortcuts.setLoggedIn(result);
 			}
@@ -104,10 +105,10 @@ public class GWTmainView extends ResizeComposite {
 						dlg.setLoading(true);
 
 						AuthenticationServiceAsync service = GWT.create(AuthenticationService.class);
-						service.authenticate(dlg.getUserText(), dlg.getPassText(), new AsyncCallback<Boolean>() {
+						service.authenticate(dlg.getUserText(), dlg.getPassText(), new AsyncCallback<UserLoginRemote>() {
 
 							@Override
-							public void onSuccess(Boolean result) {
+							public void onSuccess(UserLoginRemote result) {
 								_eventbus.fireEvent(new LoginLogoutClickEvent(result));
 								dlg.hide();
 							}
@@ -116,7 +117,7 @@ public class GWTmainView extends ResizeComposite {
 							public void onFailure(Throwable caught) {
 								dlg.setLoading(false);
 								Window.alert("Authentication failed");
-								_eventbus.fireEvent(new LoginLogoutClickEvent(false));
+								_eventbus.fireEvent(new LoginLogoutClickEvent(null));
 							}
 						});
 					}
@@ -143,7 +144,7 @@ public class GWTmainView extends ResizeComposite {
 
 					@Override
 					public void onSuccess(Void result) {
-						_eventbus.fireEvent(new LoginLogoutClickEvent(false));
+						_eventbus.fireEvent(new LoginLogoutClickEvent(null));
 					}
 				});
 
@@ -165,7 +166,7 @@ public class GWTmainView extends ResizeComposite {
 
 					@Override
 					public void onSuccess(Void result) {
-						_eventbus.fireEvent(new LoginLogoutClickEvent(false));
+						_eventbus.fireEvent(new LoginLogoutClickEvent(null));
 					}
 				});
 

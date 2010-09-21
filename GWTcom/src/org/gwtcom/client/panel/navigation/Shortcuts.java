@@ -1,6 +1,7 @@
 package org.gwtcom.client.panel.navigation;
 
 import org.gwtcom.client.event.bus.EventBus;
+import org.gwtcom.shared.UserLoginRemote;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -58,9 +59,9 @@ public class Shortcuts extends ResizeComposite {
 	
 	}
 
-	public void setLoggedIn(boolean b) {
-		publicMenu.setLoggedIn(b);
-		privateMenu.setLoggedIn(b);
+	public void setLoggedIn(UserLoginRemote result) {
+		publicMenu.setLoggedIn(result);
+		privateMenu.setLoggedIn(result);
 	}
 	
 }

@@ -2,6 +2,7 @@ package org.gwtcom.server;
 
 import org.gwtcom.client.service.AuthenticationService;
 import org.gwtcom.server.security.CustomUserDetailService;
+import org.gwtcom.shared.UserLoginRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,25 +21,31 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class AuthenticationServiceImpl implements AuthenticationService {
 
 	protected CustomUserDetailService _customUserDetailsService;
+	protected ProfileServiceImpl _profileService;
 
 	@Autowired
 	public void setCustomUserDetailService(CustomUserDetailService customUserDetailsService) {
 		_customUserDetailsService = customUserDetailsService;
 	}
+	
+	@Autowired
+	public void setProfileService(ProfileServiceImpl profileService) {
+		_profileService = profileService;
+	}
 
-	public boolean authenticate(String username, String password) {
+	public UserLoginRemote authenticate(String username, String password) {
 		System.out.println(">>>>> Authenticate called");
 		UserDetails userdetail = null;
 		try {
 			userdetail = _customUserDetailsService.loadUserByUsername(username);
 		} catch (UsernameNotFoundException e) {
-			return false;
+			return null;
 		} catch (DataAccessException e) {
-			return false;
+			return null;
 		}
 
 		if (!_customUserDetailsService.encodePassword(password).equals(userdetail.getPassword())) {
-			return false;
+			return null;
 		}
 
 		Authentication auth = new UsernamePasswordAuthenticationToken(userdetail.getUsername(), userdetail.getPassword(), userdetail.getAuthorities());
@@ -50,7 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		sc.setAuthentication(auth);
 		SecurityContextHolder.setContext(sc);
 
-		return true;
+		return _profileService.getUserData(userdetail.getUsername());
 	}
 
 	public void logout() {
@@ -59,12 +66,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	}
 
 	@Override
-	public boolean isLoggedIn() {
+	public UserLoginRemote isLoggedIn() {
 		System.out.println(">>>>> AuthenticationService.isLoggedIn -> " + SecurityContextHolder.getContext().getAuthentication());
 		// TODO: That's maybe not enough of security
 		if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-			return true;
+			return null;
 		}
-		return false;
+		return null;
 	}
 }

@@ -3,6 +3,7 @@ package org.gwtcom.client.panel.navigation;
 import org.gwtcom.client.event.DateListShowEvent;
 import org.gwtcom.client.event.NewsListShowEvent;
 import org.gwtcom.client.event.bus.EventBus;
+import org.gwtcom.shared.UserLoginRemote;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -74,7 +75,7 @@ public class PublicMenu extends AbstractStackPanelInlay {
 	}
 
 	@Override
-	public void setLoggedIn(boolean loggedIn) {
+	public void setLoggedIn(UserLoginRemote result) {
 		// TODO Auto-generated method stub
 		
 	}

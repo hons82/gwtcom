@@ -10,6 +10,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.gwtcom.server.domain.Authority;
+import org.gwtcom.server.domain.UserLogin;
 import org.gwtcom.server.domain.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -30,7 +31,7 @@ public class CustomUserDetailService implements UserDetailsService {
 	protected PersistenceManager persistenceManager;
 
 	private final String[] _roles = { "ROLE_ADMIN", "ROLE_USER" };
-	private final String[][] _users = { { "hons", "hons" }, { "anton", "anton" }, { "manni", "manni" }, { "omar", "omar" } };
+	private final String[][] _users = { { "hons", "hons" } };
 
 	private ShaPasswordEncoder _encoder;
 
@@ -55,6 +56,7 @@ public class CustomUserDetailService implements UserDetailsService {
 				createUser(_users[i][0], _users[i][1]);
 				addRoletoUser(_users[i][0], getAuthoritybyName(_roles[0]));
 				addRoletoUser(_users[i][0], getAuthoritybyName(_roles[1]));
+				addProfiletoUser(_users[i][0]);
 				System.out.println("Created User <" + _users[i][0] + "> with encoded Password: " + _encoder.encodePassword(_users[i][1], null));
 			}
 		}
@@ -62,6 +64,7 @@ public class CustomUserDetailService implements UserDetailsService {
 		System.out.println(">>>>> Users initialized");
 
 	}
+
 
 	@Autowired
 	public void setPersistenceManager(PersistenceManager entityManager) {
@@ -74,7 +77,7 @@ public class CustomUserDetailService implements UserDetailsService {
 		initUsers();
 
 		System.out.println(">>>>> CustomUserDetailService.loadUserbyName(" + name + ")");
-		UserProfile user = getUserbyName(name);
+		UserLogin user = getUserbyName(name);
 		if (user == null) {
 			throw new UsernameNotFoundException("User " + name + " not found!");
 		}
@@ -93,14 +96,14 @@ public class CustomUserDetailService implements UserDetailsService {
 		return authList;
 	}
 
-	private UserProfile getUserbyName(final String name) {
+	private UserLogin getUserbyName(final String name) {
 
 		Number count = (Number) persistenceManager.newQuery(
-				"SELECT count(distinct _id) FROM " + UserProfile.class.getName() + " WHERE _name ==\"" + name + "\"").execute();
+				"SELECT count(distinct _id) FROM " + UserLogin.class.getName() + " WHERE _name ==\"" + name + "\"").execute();
 		if (count.intValue() == 1) {
 			@SuppressWarnings("unchecked")
-			List<UserProfile> resultList = (List<UserProfile>) persistenceManager.newQuery(
-					"SELECT FROM " + UserProfile.class.getName() + " WHERE _name ==\"" + name + "\"").execute();
+			List<UserLogin> resultList = (List<UserLogin>) persistenceManager.newQuery(
+					"SELECT FROM " + UserLogin.class.getName() + " WHERE _name ==\"" + name + "\"").execute();
 			return resultList.get(0);
 		}
 		return null;
@@ -119,7 +122,7 @@ public class CustomUserDetailService implements UserDetailsService {
 	}
 
 	private void createUser(String name, String password) {
-		UserProfile user = new UserProfile();
+		UserLogin user = new UserLogin();
 		user.setName(name);
 		user.setPassword(encodePassword(password));
 		persistenceManager.makePersistent(user);
@@ -129,7 +132,7 @@ public class CustomUserDetailService implements UserDetailsService {
 		Transaction tx = persistenceManager.currentTransaction();
 		try {
 			tx.begin();
-			UserProfile user = getUserbyName(name);
+			UserLogin user = getUserbyName(name);
 			if (user != null) {
 				user.getAuthorities().add(auth.getId());
 				persistenceManager.makePersistent(user);
@@ -138,6 +141,27 @@ public class CustomUserDetailService implements UserDetailsService {
 		} catch (Exception e) {
 			tx.rollback();
 		}
+	}
+
+	private void addProfiletoUser(String name) {
+		Transaction tx = persistenceManager.currentTransaction();
+		try {
+			tx.begin();
+			UserLogin user = getUserbyName(name);
+			if (user != null) {
+				UserProfile profile = new UserProfile("Johnny B.","Good");
+				profile.setEmail("somemail@aa.org");
+				profile.setGender(UserProfile.GENDER_MALE);
+				profile.setLogin(user);
+				persistenceManager.makePersistent(profile);
+				
+				user.setUserprofile(profile);
+				persistenceManager.makePersistent(user);
+			}
+			tx.commit();
+		} catch (Exception e) {
+			tx.rollback();
+		}		
 	}
 
 	private void createRole(String name) {

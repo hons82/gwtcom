@@ -1,8 +1,5 @@
 package org.gwtcom.server.domain;
 
-import java.util.Set;
-import java.util.TreeSet;
-
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -13,25 +10,34 @@ import com.google.appengine.api.datastore.Key;
 @PersistenceCapable
 public class UserProfile {
 
+	public static final int GENDER_MALE = 0;
+	public static final int GENDER_FEMALE = 1;
+
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key _id;
 
 	@Persistent(name = "name")
 	private String _name;
-
-	@Persistent(name = "pass")
-	private String _password;
-
-	@Persistent(name = "authorities")
-	private Set<Key> _authorities;
 	
-	@Persistent(name = "userdata")
-	private UserData _userdata;
+	@Persistent(name = "surname")
+	private String _surname;
 
+	@Persistent(name = "email")
+	private String _email;
+	
+	@Persistent(name = "gender")
+	private int _gender;
+	
+	@Persistent(name = "login", mappedBy = "_userprofile")
+	private UserLogin _login;
 
 	public UserProfile() {
-		_authorities = new TreeSet<Key>();
+	}
+
+	public UserProfile(String name, String surname) {
+		setName(name);
+		setSurname(surname);
 	}
 
 	public Key getId() {
@@ -50,28 +56,36 @@ public class UserProfile {
 		_name = name;
 	}
 
-	public void setPassword(String password) {
-		_password = password;
+	public void setSurname(String surname) {
+		_surname = surname;
 	}
 
-	public String getPassword() {
-		return _password;
+	public String getSurname() {
+		return _surname;
 	}
 
-	public void setAuthorities(Set<Key> authorities) {
-		_authorities = authorities;
+	public void setEmail(String email) {
+		_email = email;
 	}
 
-	public Set<Key> getAuthorities() {
-		return _authorities;
+	public String getEmail() {
+		return _email;
 	}
 
-	public void setUserdata(UserData userdata) {
-		_userdata = userdata;
+	public void setGender(int gender) {
+		_gender = gender;
 	}
 
-	public UserData getUserdata() {
-		return _userdata;
+	public int getGender() {
+		return _gender;
+	}
+
+	public void setLogin(UserLogin login) {
+		_login = login;
+	}
+
+	public UserLogin getLogin() {
+		return _login;
 	}
 
 }
