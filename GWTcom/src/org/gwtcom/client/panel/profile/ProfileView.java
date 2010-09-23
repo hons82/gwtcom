@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * A composite for displaying the details of a news message.
+ * A composite for displaying the details of a Profile message.
  */
 public class ProfileView extends ResizeComposite implements ProfileViewPresenter.Display {
 
@@ -34,9 +34,11 @@ public class ProfileView extends ResizeComposite implements ProfileViewPresenter
 
 	@Override
 	public void setData(UserProfileRemote item) {
-		System.out.println(">>>>> NewsItem.setData()");
+		System.out.println(">>>>> ProfileItem.setData()");
 		if (item != null) {
-
+			name.setText(item.getName());
+			email.setText(item.getEmail());
+			gender.setText((item.getGender()==0?"male":"female"));
 		}else{
 		}
 	}

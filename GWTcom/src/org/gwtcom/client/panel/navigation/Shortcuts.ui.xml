@@ -7,7 +7,7 @@
 	<ui:image field='gradient' src='../img/gradient_bg_dark.png'
 		repeatStyle='Horizontal' />
 
-	<ui:style>
+<ui:style>
   .shortcuts {
     border-left: 1px solid #999;
     border-right: 1px solid #999;

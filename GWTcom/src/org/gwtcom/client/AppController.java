@@ -6,8 +6,10 @@ import org.gwtcom.client.event.IDateItemShowEvent;
 import org.gwtcom.client.event.IDateListShowEvent;
 import org.gwtcom.client.event.INewsItemShowEvent;
 import org.gwtcom.client.event.INewsListShowEvent;
+import org.gwtcom.client.event.IProfileShowEvent;
 import org.gwtcom.client.event.NewsItemShowEvent;
 import org.gwtcom.client.event.NewsListShowEvent;
+import org.gwtcom.client.event.ProfileShowEvent;
 import org.gwtcom.client.event.bus.EventBus;
 import org.gwtcom.client.gin.GWTcomGinjector;
 import org.gwtcom.client.panel.GWTmainView;
@@ -20,9 +22,11 @@ import org.gwtcom.client.presenter.GeneralPresenter;
 import org.gwtcom.client.presenter.NewsItemPresenter;
 import org.gwtcom.client.presenter.NewsListPresenter;
 import org.gwtcom.client.presenter.Presenter;
+import org.gwtcom.client.presenter.ProfileViewPresenter;
 import org.gwtcom.client.presenter.WidgetDisplay;
 import org.gwtcom.shared.DateItemRemote;
 import org.gwtcom.shared.NewsItemRemote;
+import org.gwtcom.shared.UserLoginRemote;
 
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -75,6 +79,8 @@ public class AppController implements Presenter, PlaceRequestHandler {
 			_presenter = _injector.getDateListPresenter();
 		else if (id.equals(DateItemPresenter.PLACE.getId()))
 			_presenter = _injector.getDateItemPresenter();
+		else if (id.equals(ProfileViewPresenter.PLACE.getId()))
+			_presenter = _injector.getProfileViewPresenter();
 
 		refreshDisplay();
 	}
@@ -114,6 +120,14 @@ public class AppController implements Presenter, PlaceRequestHandler {
 				doShowDateItem(event.getItem());
 			}
 		});
+		
+		_eventbus.addHandler(ProfileShowEvent.TYPE, new IProfileShowEvent() {
+
+			@Override
+			public void onProfileShow(ProfileShowEvent event) {
+				doShowProfile(event.getItem());
+			}
+		});
 	}
 
 	private void doShowNewsItem(NewsItemRemote item) {
@@ -132,6 +146,10 @@ public class AppController implements Presenter, PlaceRequestHandler {
 		History.newItem(DateListPresenter.PLACE.toString());
 	}
 
+	private void doShowProfile(UserLoginRemote item) {
+		History.newItem(ProfileViewPresenter.PLACE.requestWith("profileId", item.getId().toString()).toString());
+	}
+	
 	@Override
 	public Display getDisplay() {
 		// TODO Auto-generated method stub

@@ -4,13 +4,13 @@
 
   <ui:style>
   .detail {
-    border: 1px solid #666;
+    border: 1px solid #999999;
     background-color: white;
   }
 
   .header {
     background: #eee;
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid #999999;
     padding: 0.5em;
   }
 

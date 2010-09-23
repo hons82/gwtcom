@@ -6,6 +6,7 @@ import org.gwtcom.client.presenter.DateItemPresenter;
 import org.gwtcom.client.presenter.DateListPresenter;
 import org.gwtcom.client.presenter.NewsItemPresenter;
 import org.gwtcom.client.presenter.NewsListPresenter;
+import org.gwtcom.client.presenter.ProfileViewPresenter;
 
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
@@ -26,4 +27,5 @@ public interface GWTcomGinjector extends Ginjector
 
 	DateItemPresenter getDateItemPresenter();
 
+	ProfileViewPresenter getProfileViewPresenter();
 }

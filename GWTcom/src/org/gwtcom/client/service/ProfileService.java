@@ -12,6 +12,6 @@ public interface ProfileService extends RemoteService {
 
 	UserProfileRemote getProfile(Long item) throws ServiceSecurityException;
 
-	UserLoginRemote getUserData(String name) throws ServiceSecurityException;
+	UserLoginRemote getUserLogin(String name) throws ServiceSecurityException;
 	
 }

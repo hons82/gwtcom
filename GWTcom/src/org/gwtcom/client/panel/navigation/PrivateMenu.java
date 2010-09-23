@@ -7,6 +7,7 @@ import org.gwtcom.shared.UserLoginRemote;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -40,6 +41,8 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 
 	private EventBus _eventbus;
 
+	private HandlerRegistration _profileHandlerRegistration;
+
 	public PrivateMenu(EventBus eventbus) {
 		_eventbus = eventbus;
 
@@ -57,14 +60,7 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 		panel.add(_noAccess);
 
 		_profile = addItem("Profile");
-		_profile.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				System.out.println(">>> PrivateMenu.Profile.OnClick()");
-				_eventbus.fireEvent(new ProfileShowEvent());
-			}
-		});
+		
 	}
 
 	private Anchor addItem(final String item) {
@@ -75,15 +71,25 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 	}
 
 	@Override
-	public void setLoggedIn(UserLoginRemote loggedIn) {
+	public void setLoggedIn(final UserLoginRemote loggedIn) {
 		if (loggedIn != null) {
 			_noAccess.setVisible(false);
 
 			_profile.setVisible(true);
+			_profileHandlerRegistration = _profile.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					System.out.println(">>> PrivateMenu.Profile.OnClick()");
+					_eventbus.fireEvent(new ProfileShowEvent(loggedIn));
+				}
+			});
 		} else {
 			_noAccess.setVisible(true);
 
 			_profile.setVisible(false);
+			if (_profileHandlerRegistration!=null)
+				_profileHandlerRegistration.removeHandler();
 		}
 
 	}

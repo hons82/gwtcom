@@ -7,11 +7,13 @@ import org.gwtcom.client.panel.dates.DateItem;
 import org.gwtcom.client.panel.dates.DateList;
 import org.gwtcom.client.panel.news.NewsItem;
 import org.gwtcom.client.panel.news.NewsList;
+import org.gwtcom.client.panel.profile.ProfileView;
 import org.gwtcom.client.place.PlaceManager;
 import org.gwtcom.client.presenter.DateItemPresenter;
 import org.gwtcom.client.presenter.DateListPresenter;
 import org.gwtcom.client.presenter.NewsItemPresenter;
 import org.gwtcom.client.presenter.NewsListPresenter;
+import org.gwtcom.client.presenter.ProfileViewPresenter;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
@@ -42,6 +44,10 @@ public class GWTcomClientModule extends AbstractGinModule {
 		bind(DateItemPresenter.class).in(Singleton.class);
 
 		bind(DateItemPresenter.Display.class).to(DateItem.class).in(Singleton.class);
+		
+		bind(ProfileViewPresenter.class).in(Singleton.class);
+
+		bind(ProfileViewPresenter.Display.class).to(ProfileView.class).in(Singleton.class);
 
 		// ***** DO NOT FORGET TO INITIALIZE PRESENTERS IN GWTcom.java *****
 

@@ -11,7 +11,7 @@ public class DateItemRemote implements Serializable {
 	private String _title;
 
 	public DateItemRemote() {
-		new DateItemRemote(0l, new Date(System.currentTimeMillis()), "", "");
+		this(0l, new Date(System.currentTimeMillis()), "", "");
 	}
 
 	public DateItemRemote(Long id, Date dateAdded, String author, String title) {

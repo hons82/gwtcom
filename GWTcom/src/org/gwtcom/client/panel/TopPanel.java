@@ -63,7 +63,7 @@ public class TopPanel extends Composite {
 
 	public void setLoggedIn(UserLoginRemote result) {
 		if (result!=null) {
-			greet.setText("Welcome back, <LoggedInUser>");
+			greet.setText("Welcome back, "+result.getName());
 			signInLink.setVisible(false);
 			signOutLink.setVisible(true);
 		} else {

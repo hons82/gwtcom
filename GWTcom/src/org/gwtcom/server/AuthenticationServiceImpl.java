@@ -57,7 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		sc.setAuthentication(auth);
 		SecurityContextHolder.setContext(sc);
 
-		return _profileService.getUserData(userdetail.getUsername());
+		return _profileService.getUserLogin(userdetail.getUsername());
 	}
 
 	public void logout() {
