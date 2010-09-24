@@ -18,47 +18,28 @@ h1 {
 	width: 400px;
 }
 
-.gwt-TabLayoutPanelTab,.gwt-TabLayoutPanelTab-selected {
-	height: 25px;
+.gwt-TabLayoutPanel {
+	margin: 10px;
 }
 
-.gwt-TabLayoutPanelTab-selected .gwt-TabLayoutPanelTabInner {
-	height: 26px;
-	margin-left: 6px;
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs {
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
-.gwt-TabLayoutPanelTab {
-	
-}
-
-.gwt-TabLayoutPanelTab .gwt-TabLayoutPanelTabInner {
-	margin-right: 10px;
-	margin-left: 6px;
-}
-
-.gwt-TabLayoutPanelTab-selected {
-	z-index: 1;
-}
-
-.gwt-TabLayoutPanelTabs {
-	padding-left: 10px;
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab {
+	background-color: #EDEDED;
+	vertical-align: middle;
 }
 
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
-	
+	background-color: #C6C6C6;
+	vertical-align: middle;
+	z-index: 1;
 }
 
-.gwt-TabLayoutPanelTabInner div {
-	color: #444444;
-	height: 26px;
-	padding-top: 6px;
-	text-align: center;
-}
-
-.gwt-TabLayoutPanelTab-selected .gwt-TabLayoutPanelTabInner div {
-	width: 100%;
-	margin-left: -3px;
-	margin-right: 20px;
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
+	border: 2px solid #C6C6C6;
 }
 
 .tabContentWrapper {
