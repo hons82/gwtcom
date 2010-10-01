@@ -10,7 +10,6 @@ import javax.jdo.Transaction;
 
 import org.gwtcom.client.service.DatesService;
 import org.gwtcom.server.domain.DateItem;
-import org.gwtcom.server.domain.UserProfile;
 import org.gwtcom.shared.DateItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -59,7 +58,7 @@ public class DatesServiceImpl implements DatesService {
 		_first = true;
 		//
 		for (DateItem item : getDateItems()) {
-			ret.add(new DateItemRemote(item.getId().getId(), item.getDateAdded(), UserProfile.serializeUserProfile(item.getAuthor()), item.getTitle()));
+			ret.add(new DateItemRemote(item.getId().getId(), item.getDateAdded(), ProfileServiceImpl.serializeUserProfile(item.getAuthor()), item.getTitle()));
 		}
 		return ret;
 	}
@@ -95,7 +94,7 @@ public class DatesServiceImpl implements DatesService {
 		DateItem item = getDateItembyID(id);
 		if (item != null) {
 			System.out.println("item != null");
-			return new DateItemRemote(item.getId().getId(), item.getDateAdded(), UserProfile.serializeUserProfile(item.getAuthor()), item.getTitle());
+			return new DateItemRemote(item.getId().getId(), item.getDateAdded(), ProfileServiceImpl.serializeUserProfile(item.getAuthor()), item.getTitle());
 		}
 		System.out.println("item == null");
 		return null;

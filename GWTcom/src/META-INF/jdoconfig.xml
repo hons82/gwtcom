@@ -16,5 +16,6 @@
 		<class>org.gwtcom.server.domain.NewsItem</class>
 		<class>org.gwtcom.server.domain.UserLogin</class>
 		<class>org.gwtcom.server.domain.UserProfile</class>
+		<class>org.gwtcom.server.domain.WallEntry</class>
 	</persistence-manager-factory>
 </jdoconfig>

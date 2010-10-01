@@ -7,6 +7,7 @@ import javax.jdo.Query;
 
 import org.gwtcom.client.service.ProfileService;
 import org.gwtcom.server.domain.UserLogin;
+import org.gwtcom.server.domain.UserProfile;
 import org.gwtcom.shared.UserLoginRemote;
 import org.gwtcom.shared.UserProfileRemote;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,17 @@ public class ProfileServiceImpl implements ProfileService {
 			}
 		}
 		return null;
+	}
+	
+	public static UserProfileRemote serializeUserProfile(UserProfile user) {
+		UserProfileRemote remote = new UserProfileRemote();
+		if (user != null) {
+			remote.setId(user.getId().getId());
+			remote.setName(user.getName());
+			remote.setSurname(user.getSurname());
+			remote.setEmail(user.getEmail());
+			remote.setGender(user.getGender());
+		}
+		return remote;
 	}
 }

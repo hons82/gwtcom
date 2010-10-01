@@ -70,7 +70,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		System.out.println(">>>>> AuthenticationService.isLoggedIn -> " + SecurityContextHolder.getContext().getAuthentication());
 		// TODO: That's maybe not enough of security
 		if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-			return null;
+			return _profileService.getUserLogin(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
 		}
 		return null;
 	}

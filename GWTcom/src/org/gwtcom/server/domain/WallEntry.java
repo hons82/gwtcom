@@ -10,27 +10,23 @@ import javax.jdo.annotations.PrimaryKey;
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
-public class NewsItem {
-
+public class WallEntry {
+	
 	@PrimaryKey
-	@Persistent(name = "id", valueStrategy = IdGeneratorStrategy.IDENTITY)
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key _id;
 
 	@Persistent(name = "dateAdded")
 	private Date _dateAdded;
 
+	@Persistent(name = "owner")
+	private UserProfile _owner;
+	
 	@Persistent(name = "author")
 	private UserProfile _author;
 
-	@Persistent(name = "title")
-	private String _title;
-
 	@Persistent(name = "content")
 	private String _content;
-
-	public NewsItem() {
-
-	}
 
 	public Key getId() {
 		return _id;
@@ -48,14 +44,6 @@ public class NewsItem {
 		_author = author;
 	}
 
-	public String getTitle() {
-		return _title;
-	}
-
-	public void setTitle(String title) {
-		_title = title;
-	}
-
 	public String getContent() {
 		return _content;
 	}
@@ -70,6 +58,14 @@ public class NewsItem {
 
 	public Date getDateAdded() {
 		return _dateAdded;
+	}
+
+	public void setOwner(UserProfile owner) {
+		_owner = owner;
+	}
+
+	public UserProfile getOwner() {
+		return _owner;
 	}
 
 }

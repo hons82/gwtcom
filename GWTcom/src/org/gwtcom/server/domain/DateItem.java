@@ -11,11 +11,11 @@ import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
 public class DateItem {
-	
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key _id;
 
+	@PrimaryKey
+	@Persistent(name = "id", valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key _id;
+	
 	@Persistent(name = "dateAdded")
 	private Date _dateAdded;
 
@@ -28,6 +28,10 @@ public class DateItem {
 	@Persistent(name = "content")
 	private String _content;
 
+	public DateItem(){
+		
+	}
+	
 	public Key getId() {
 		return _id;
 	}
@@ -35,7 +39,7 @@ public class DateItem {
 	public void setId(Key id) {
 		_id = id;
 	}
-
+	
 	public UserProfile getAuthor() {
 		return _author;
 	}
