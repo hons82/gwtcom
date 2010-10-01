@@ -204,7 +204,7 @@ public class DateList extends ResizeComposite implements DateListPresenter.Displ
 			// Add a new row to the table, then set each of its columns to the
 			// email's sender and subject values.
 			table.setText(i, 0, Long.toString(item.getId()));
-			table.setText(i, 1, item.getAuthor());
+			table.setText(i, 1, item.getAuthor() != null ? item.getAuthor().getSurname() + " " + item.getAuthor().getName() : "<empty>");
 			table.setText(i, 2, fmt.format(item.getDateAdded()));
 			table.setText(i, 3, item.getTitle());
 

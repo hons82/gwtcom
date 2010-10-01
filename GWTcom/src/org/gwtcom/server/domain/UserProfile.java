@@ -1,9 +1,14 @@
 package org.gwtcom.server.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+
+import org.gwtcom.shared.UserProfileRemote;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -19,25 +24,46 @@ public class UserProfile {
 
 	@Persistent(name = "name")
 	private String _name;
-	
+
 	@Persistent(name = "surname")
 	private String _surname;
 
 	@Persistent(name = "email")
 	private String _email;
-	
+
 	@Persistent(name = "gender")
 	private int _gender;
-	
+
 	@Persistent(name = "login", mappedBy = "_userprofile")
 	private UserLogin _login;
+	
+	@Persistent(name = "newslist", mappedBy = "_author")
+	private List<NewsItem> _newslist;
+	
+	@Persistent(name = "dateslist", mappedBy = "_author")
+	private List<DateItem> _dateslist;
 
 	public UserProfile() {
+		this(null,null);
 	}
 
 	public UserProfile(String name, String surname) {
 		setName(name);
 		setSurname(surname);
+		setNewslist(new ArrayList<NewsItem>());
+		setDateslist(new ArrayList<DateItem>());
+	}
+
+	public static UserProfileRemote serializeUserProfile(UserProfile user) {
+		UserProfileRemote remote = new UserProfileRemote();
+		if (user != null) {
+			remote.setId(user.getId().getId());
+			remote.setName(user.getName());
+			remote.setSurname(user.getSurname());
+			remote.setEmail(user.getEmail());
+			remote.setGender(user.getGender());
+		}
+		return remote;
 	}
 
 	public Key getId() {
@@ -86,6 +112,22 @@ public class UserProfile {
 
 	public UserLogin getLogin() {
 		return _login;
+	}
+
+	public void setNewslist(List<NewsItem> newslist) {
+		_newslist = newslist;
+	}
+
+	public List<NewsItem> getNewslist() {
+		return _newslist;
+	}
+
+	public void setDateslist(List<DateItem> dateslist) {
+		_dateslist = dateslist;
+	}
+
+	public List<DateItem> getDateslist() {
+		return _dateslist;
 	}
 
 }

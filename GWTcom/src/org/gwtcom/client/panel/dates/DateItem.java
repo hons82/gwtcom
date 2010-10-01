@@ -50,7 +50,7 @@ public class DateItem extends ResizeComposite implements DateItemPresenter.Displ
 			
 			id.setValue(String.valueOf(item.getId()));
 			title.setInnerText(item.getTitle());
-			author.setInnerText(item.getAuthor());
+			author.setInnerText(item.getAuthor() != null ? item.getAuthor().getSurname() + " " + item.getAuthor().getName() : "<empty>");
 			date.setInnerHTML(fmt.format(item.getDateAdded()));
 
 			// WARNING: For the purposes of this demo, we're using HTML

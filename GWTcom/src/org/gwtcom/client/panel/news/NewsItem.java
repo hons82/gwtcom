@@ -47,10 +47,10 @@ public class NewsItem extends ResizeComposite implements NewsItemPresenter.Displ
 		System.out.println(">>>>> NewsItem.setData()");
 		if (item != null) {
 			DateTimeFormat fmt = DateTimeFormat.getFormat("EEE. dd MMM. yyyy HH:mm:ss");
-			
+
 			id.setValue(String.valueOf(item.getId()));
 			title.setInnerText(item.getTitle());
-			author.setInnerText(item.getAuthor());
+			author.setInnerText(item.getAuthor() != null ? item.getAuthor().getSurname() + " " + item.getAuthor().getName() : "<empty>");
 			date.setInnerHTML(fmt.format(item.getDateAdded()));
 
 			// WARNING: For the purposes of this demo, we're using HTML
@@ -61,7 +61,7 @@ public class NewsItem extends ResizeComposite implements NewsItemPresenter.Displ
 			// HTML. Failure to do so would open your application to XSS
 			// attacks.
 			content.setHTML("blabla");
-		}else{
+		} else {
 			id.setValue(String.valueOf(-1));
 			title.setInnerText("<empty>");
 			author.setInnerText("<empty>");

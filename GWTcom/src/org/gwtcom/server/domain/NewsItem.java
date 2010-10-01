@@ -20,7 +20,7 @@ public class NewsItem {
 	private Date _dateAdded;
 
 	@Persistent(name = "author")
-	private String _author;
+	private UserProfile _author;
 
 	@Persistent(name = "title")
 	private String _title;
@@ -36,11 +36,11 @@ public class NewsItem {
 		_id = id;
 	}
 
-	public String getAuthor() {
+	public UserProfile getAuthor() {
 		return _author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(UserProfile author) {
 		_author = author;
 	}
 

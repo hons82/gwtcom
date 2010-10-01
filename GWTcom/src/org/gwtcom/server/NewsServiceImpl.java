@@ -10,6 +10,7 @@ import javax.jdo.Transaction;
 
 import org.gwtcom.client.service.NewsService;
 import org.gwtcom.server.domain.NewsItem;
+import org.gwtcom.server.domain.UserProfile;
 import org.gwtcom.shared.NewsItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -58,7 +59,7 @@ public class NewsServiceImpl implements NewsService {
 		_first = true;
 		//
 		for (NewsItem item : getNewsItems()) {
-			ret.add(new NewsItemRemote(item.getId().getId(), item.getDateAdded(), item.getAuthor(), item.getTitle()));
+			ret.add(new NewsItemRemote(item.getId().getId(), item.getDateAdded(), UserProfile.serializeUserProfile(item.getAuthor()), item.getTitle()));
 		}
 		return ret;
 	}
@@ -66,7 +67,7 @@ public class NewsServiceImpl implements NewsService {
 	private void createCustomer() {
 		Transaction tx = persistenceManager.currentTransaction();
 		NewsItem newNewsItem = new NewsItem();
-		newNewsItem.setAuthor("Hannes Tribus " + System.currentTimeMillis());
+		newNewsItem.setAuthor(null);
 		newNewsItem.setTitle("Die Auswirkungen der Sonnenstrahlen auf das Liebesleben der Pflastersteine " + System.currentTimeMillis());
 		newNewsItem.setDateAdded(new Date(System.currentTimeMillis()));
 		tx.begin();
@@ -94,7 +95,7 @@ public class NewsServiceImpl implements NewsService {
 		NewsItem item = getNewsItembyID(id);
 		if (item != null) {
 			System.out.println("item != null");
-			return new NewsItemRemote(item.getId().getId(), item.getDateAdded(), item.getAuthor(), item.getTitle());
+			return new NewsItemRemote(item.getId().getId(), item.getDateAdded(), UserProfile.serializeUserProfile(item.getAuthor()), item.getTitle());
 		}
 		System.out.println("item == null");
 		return null;

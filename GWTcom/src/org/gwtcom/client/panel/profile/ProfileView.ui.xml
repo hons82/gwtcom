@@ -2,6 +2,7 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gwtcom='urn:import:org.gwtcom.client.panel'>
 
 	<ui:image field='profileiconimage' src='../img/profileicon.png' />
+	<ui:image field='noprofileimage' src='../img/noprofile.png' />
 	<ui:image field='gradient' src='../img/gradient_bg_dark.png'
 		repeatStyle='Horizontal' />
 
@@ -61,10 +62,25 @@
     		}
   
  		}
+ 		@if user.agent ie6 {
+	  		.noProfileImage {
+	  	   	    background-image: url(noprofile_ie6.gif);
+	    		width: 31px;
+	    		height: 22px;
+	    		float: left;
+	 		 }
+	    } @else {
+    		@sprite .noProfileImage {
+      			gwt-image: 'noprofileimage';
+      			margin-right: 0.5em;
+      			float: left;
+    		}
+  
+ 		}
 	</ui:style>
 
 	<g:DockLayoutPanel unit='PX' styleName='{style.main}'>
-		<g:north size='40'>
+		<g:north size='38'>
 			<g:HTMLPanel styleName='{style.header}'>
 				<div class='{style.profileIcon}' />
 				Profile
@@ -72,53 +88,63 @@
 		</g:north>
 
 		<g:center>
-			<g:TabLayoutPanel barUnit='PX' barHeight='30'>
-				<g:tab>
-					<g:header>
-						<span class='{style.tab}'>UserData</span>
-					</g:header>
-
+			<g:DockLayoutPanel>
+				<g:west size='250'>
 					<g:ScrollPanel>
 						<g:HTMLPanel styleName='{style.panel}'>
-							<div>
-								<table>
-									<tr>
-										<td styleName='{style.keyText}'>
-											<g:Label>Name: </g:Label>
-										</td>
-										<td styleName='{style.valueText}'>
-											<g:Label ui:field="name"></g:Label>
-										</td>
-									</tr>
-									<tr>
-										<td styleName='{style.keyText}'>
-											<g:Label>e-mail: </g:Label>
-										</td>
-										<td styleName='{style.valueText}'>
-											<g:Label ui:field="email"></g:Label>
-										</td>
-									</tr>
-									<tr>
-										<td styleName='{style.keyText}'>
-											<g:Label>Gender: </g:Label>
-										</td>
-										<td styleName='{style.valueText}'>
-											<g:Label ui:field="gender"></g:Label>
-										</td>
-									</tr>
-								</table>
-							</div>
+							<div class="{style.noProfileImage}" />
+							<table>
+								<tr>
+									<td styleName='{style.keyText}'>
+										<g:Label>Name: </g:Label>
+									</td>
+									<td styleName='{style.valueText}'>
+										<g:Label ui:field="name"></g:Label>
+									</td>
+								</tr>
+								<tr>
+									<td styleName='{style.keyText}'>
+										<g:Label>e-mail: </g:Label>
+									</td>
+									<td styleName='{style.valueText}'>
+										<g:Label ui:field="email"></g:Label>
+									</td>
+								</tr>
+								<tr>
+									<td styleName='{style.keyText}'>
+										<g:Label>Gender: </g:Label>
+									</td>
+									<td styleName='{style.valueText}'>
+										<g:Label ui:field="gender"></g:Label>
+									</td>
+								</tr>
+							</table>
 						</g:HTMLPanel>
 					</g:ScrollPanel>
-				</g:tab>
-				<g:tab>
-					<g:header>
-						<span class='{style.tab}'>Wall</span>
-					</g:header>
-					<g:Label>Test</g:Label>
-				</g:tab>
-			</g:TabLayoutPanel>
-
+				</g:west>
+				<g:center>
+					<g:TabLayoutPanel barUnit='PX' barHeight='30'>
+						<g:tab>
+							<g:header>
+								<span class='{style.tab}'>Wall</span>
+							</g:header>
+							<g:Label>My Wall</g:Label>
+						</g:tab>
+						<g:tab>
+							<g:header>
+								<span class='{style.tab}'>Friends</span>
+							</g:header>
+							<g:Label>No Friends</g:Label>
+						</g:tab>
+						<g:tab>
+							<g:header>
+								<span class='{style.tab}'>Pictures</span>
+							</g:header>
+							<g:Label>No Pictures</g:Label>
+						</g:tab>
+					</g:TabLayoutPanel>
+				</g:center>
+			</g:DockLayoutPanel>
 		</g:center>
 	</g:DockLayoutPanel>
 </ui:UiBinder>

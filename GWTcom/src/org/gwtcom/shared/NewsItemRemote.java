@@ -7,14 +7,14 @@ import java.util.Date;
 public class NewsItemRemote implements Serializable {
 	private Long _id;
 	private Date _dateAdded;
-	private String _author;
+	private UserProfileRemote _author;
 	private String _title;
 
 	public NewsItemRemote() {
-		new NewsItemRemote(0l, new Date(System.currentTimeMillis()), "", "");
+		new NewsItemRemote(0l, new Date(System.currentTimeMillis()), null, "");
 	}
 
-	public NewsItemRemote(Long id, Date dateAdded, String author, String title) {
+	public NewsItemRemote(Long id, Date dateAdded, UserProfileRemote author, String title) {
 		super();
 		_id = id;
 		_dateAdded = dateAdded;
@@ -38,11 +38,11 @@ public class NewsItemRemote implements Serializable {
 		_dateAdded = dateAdded;
 	}
 
-	public String getAuthor() {
+	public UserProfileRemote getAuthor() {
 		return _author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(UserProfileRemote author) {
 		_author = author;
 	}
 
