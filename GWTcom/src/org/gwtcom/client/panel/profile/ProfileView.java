@@ -1,5 +1,6 @@
 package org.gwtcom.client.panel.profile;
 
+import org.gwtcom.client.panel.profile.wall.WallPanel;
 import org.gwtcom.client.presenter.ProfileViewPresenter;
 import org.gwtcom.shared.UserProfileRemote;
 
@@ -27,9 +28,12 @@ public class ProfileView extends ResizeComposite implements ProfileViewPresenter
 	Label email;
 	@UiField
 	Label gender;
+	@UiField
+	WallPanel wall;
 
 	public ProfileView() {
 		initWidget(binder.createAndBindUi(this));
+		
 	}
 
 	@Override
@@ -40,6 +44,10 @@ public class ProfileView extends ResizeComposite implements ProfileViewPresenter
 			email.setText(item.getEmail());
 			gender.setText((item.getGender()==0?"male":"female"));
 		}else{
+		}
+		//TEST
+		for (int i = 0; i < 10; i++) {
+			wall.addWallItem(null);
 		}
 	}
 

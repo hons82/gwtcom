@@ -1,5 +1,6 @@
 package org.gwtcom.server;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -8,8 +9,10 @@ import javax.jdo.Query;
 import org.gwtcom.client.service.ProfileService;
 import org.gwtcom.server.domain.UserLogin;
 import org.gwtcom.server.domain.UserProfile;
+import org.gwtcom.server.domain.WallEntry;
 import org.gwtcom.shared.UserLoginRemote;
 import org.gwtcom.shared.UserProfileRemote;
+import org.gwtcom.shared.WallEntryRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +59,18 @@ public class ProfileServiceImpl implements ProfileService {
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public List<WallEntryRemote> getPublicWallEntries(Long id) {
+		List<WallEntryRemote> ret = new ArrayList<WallEntryRemote>();
+		
+		UserLogin login = persistenceManager.getObjectById(UserLogin.class, KeyFactory.createKey(UserLogin.class.getSimpleName(), id));
+		
+		for (WallEntry item : login.getUserprofile().getWall()) {
+			ret.add(new WallEntryRemote(item.getId().getId(), item.getDateAdded(), ProfileServiceImpl.serializeUserProfile(item.getOwner()), ProfileServiceImpl.serializeUserProfile(item.getAuthor()), item.getContent()));
+		}
+		return ret;
 	}
 	
 	public static UserProfileRemote serializeUserProfile(UserProfile user) {
