@@ -18,9 +18,9 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.ResizeComposite;
+import com.google.gwt.user.client.ui.Widget;
 
 public class GWTmainView extends ResizeComposite {
 
@@ -36,9 +36,9 @@ public class GWTmainView extends ResizeComposite {
 	@UiField
 	LayoutPanel container;
 
-	private DockLayoutPanel _outer;
+	private final DockLayoutPanel _outer;
 
-	private EventBus _eventbus;
+	private final EventBus _eventbus;
 
 	public GWTmainView(EventBus eventbus) {
 		_eventbus = eventbus;
@@ -174,7 +174,8 @@ public class GWTmainView extends ResizeComposite {
 		});
 	}
 
-	public HasWidgets asWidget() {
+	@Override
+	public Widget asWidget() {
 		return _outer;
 	}
 

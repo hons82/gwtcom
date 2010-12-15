@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public class UserProfileRemote implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -54859122938958369L;
+
 	private Long _id;
 
 	private String _name;

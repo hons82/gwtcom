@@ -43,7 +43,7 @@ public class PlaceRequest {
         if ( params != null ) {
             return params.keySet();
         } else {
-            return Collections.EMPTY_SET;
+            return Collections.emptySet();
         }
     }
 

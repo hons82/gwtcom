@@ -2,7 +2,12 @@ package org.gwtcom.client.place;
 
 public class PlaceParsingException extends Exception {
 
-    public PlaceParsingException() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1769549308655071562L;
+
+	public PlaceParsingException() {
     }
 
     public PlaceParsingException( String message ) {
