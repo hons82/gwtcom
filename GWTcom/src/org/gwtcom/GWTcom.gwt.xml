@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to='gwtcom'>
- 	<!-- Inherit the core Web Toolkit stuff. -->
+	<!-- Inherit the core Web Toolkit stuff. -->
 	<inherits name='com.google.gwt.user.User' />
 
 	<!-- Inherit the default GWT style sheet. You can change -->
@@ -11,6 +11,8 @@
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
 
 	<!-- Other module inherits -->
+	<inherits name="com.google.gwt.activity.Activity" />
+	<inherits name="com.google.gwt.place.Place" />
 	<inherits name="com.google.gwt.inject.Inject" />
 	<inherits name="com.google.gwt.i18n.I18N" />
 
@@ -24,5 +26,5 @@
 	<!-- Internationalization support. -->
 	<extend-property name="locale" values="en" />
 	<set-property-fallback name="locale" value="en" />
-	
+
 </module>
