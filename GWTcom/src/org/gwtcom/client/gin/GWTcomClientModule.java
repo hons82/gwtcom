@@ -1,21 +1,27 @@
 package org.gwtcom.client.gin;
 
 import org.gwtcom.client.AppController;
-import org.gwtcom.client.event.bus.DefaultEventBus;
-import org.gwtcom.client.event.bus.EventBus;
-import org.gwtcom.client.panel.dates.DateItem;
-import org.gwtcom.client.panel.dates.DateList;
-import org.gwtcom.client.panel.news.NewsItem;
-import org.gwtcom.client.panel.news.NewsList;
-import org.gwtcom.client.panel.profile.ProfileView;
-import org.gwtcom.client.place.PlaceManager;
-import org.gwtcom.client.presenter.DateItemPresenter;
-import org.gwtcom.client.presenter.DateListPresenter;
-import org.gwtcom.client.presenter.NewsItemPresenter;
-import org.gwtcom.client.presenter.NewsListPresenter;
-import org.gwtcom.client.presenter.ProfileViewPresenter;
+import org.gwtcom.client.activity.DateItemActivity;
+import org.gwtcom.client.activity.DateListActivity;
+import org.gwtcom.client.activity.NewsItemActivity;
+import org.gwtcom.client.activity.NewsListActivity;
+import org.gwtcom.client.activity.ProfileViewActivity;
+import org.gwtcom.client.place.AppPlaceController;
+import org.gwtcom.client.view.dates.DateItem;
+import org.gwtcom.client.view.dates.DateItemImpl;
+import org.gwtcom.client.view.dates.DateList;
+import org.gwtcom.client.view.dates.DateListImpl;
+import org.gwtcom.client.view.news.NewsItem;
+import org.gwtcom.client.view.news.NewsItemImpl;
+import org.gwtcom.client.view.news.NewsList;
+import org.gwtcom.client.view.news.NewsListImpl;
+import org.gwtcom.client.view.profile.ProfileView;
+import org.gwtcom.client.view.profile.ProfileViewImpl;
 
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Singleton;
 
 public class GWTcomClientModule extends AbstractGinModule {
@@ -23,31 +29,31 @@ public class GWTcomClientModule extends AbstractGinModule {
 	@Override
 	protected void configure() {
 
-		bind(EventBus.class).to(DefaultEventBus.class).in(Singleton.class);
+		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
 
-		bind(PlaceManager.class).in(Singleton.class);
+		bind(PlaceController.class).to(AppPlaceController.class).in(Singleton.class);
 
 		// ***** DO NOT FORGET TO INITIALIZE PRESENTERS IN GWTcom.java *****
 
-		bind(NewsListPresenter.class).in(Singleton.class);
+		bind(NewsListActivity.class).in(Singleton.class);
 
-		bind(NewsListPresenter.Display.class).to(NewsList.class).in(Singleton.class);
+		bind(NewsList.class).to(NewsListImpl.class).in(Singleton.class);
 
-		bind(NewsItemPresenter.class).in(Singleton.class);
+		bind(NewsItemActivity.class).in(Singleton.class);
 
-		bind(NewsItemPresenter.Display.class).to(NewsItem.class).in(Singleton.class);
+		bind(NewsItem.class).to(NewsItemImpl.class).in(Singleton.class);
 		
-		bind(DateListPresenter.class).in(Singleton.class);
+		bind(DateListActivity.class).in(Singleton.class);
 
-		bind(DateListPresenter.Display.class).to(DateList.class).in(Singleton.class);
+		bind(DateList.class).to(DateListImpl.class).in(Singleton.class);
 
-		bind(DateItemPresenter.class).in(Singleton.class);
+		bind(DateItemActivity.class).in(Singleton.class);
 
-		bind(DateItemPresenter.Display.class).to(DateItem.class).in(Singleton.class);
-		
-		bind(ProfileViewPresenter.class).in(Singleton.class);
+		bind(DateItem.class).to(DateItemImpl.class).in(Singleton.class);
 
-		bind(ProfileViewPresenter.Display.class).to(ProfileView.class).in(Singleton.class);
+		bind(ProfileViewActivity.class).in(Singleton.class);
+
+		bind(ProfileView.class).to(ProfileViewImpl.class).in(Singleton.class);
 
 		// ***** DO NOT FORGET TO INITIALIZE PRESENTERS IN GWTcom.java *****
 
