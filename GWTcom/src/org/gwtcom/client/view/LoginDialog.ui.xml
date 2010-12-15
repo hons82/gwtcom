@@ -1,0 +1,68 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' 
+	xmlns:gwtcom='urn:import:org.gwtcom.client.panel'>
+
+	<ui:image field='logo' src='img/logo.png' />
+
+	<ui:style>
+		.panel {
+			padding: 10px;
+		}
+		
+		.loginText {
+			text-align: left;
+		}
+		
+		@sprite .logo {
+			gwt-image: 'logo';
+			float: left;
+			padding-right: 1em;
+		}
+		
+		.buttons {
+			text-align: right;
+		}
+		.loading {
+			float: left;
+			padding-right: 1em;
+		}
+	</ui:style>
+
+	<g:HTMLPanel styleName='{style.panel}'>
+	<!-- <div class='{style.logo}' /> -->
+
+		<div class='{style.loginText}'>
+			<table>
+				<tr>
+					<td colspan="2">
+						Please provide your Credentials:
+    				</td>
+				</tr>
+				<tr>
+					<td>
+						<g:Label>User: </g:Label>
+					</td>
+					<td>
+						<g:TextBox ui:field="user"></g:TextBox>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<g:Label>Passwort: </g:Label>
+					</td>
+					<td>
+						<g:PasswordTextBox ui:field="pass"></g:PasswordTextBox>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class='{style.loading}'>
+			<g:Label text='logging in...' ui:field='loading' />
+		</div>
+		<div class='{style.buttons}'>
+			<g:Button text='Login' ui:field='loginButton' />
+			<g:Button text='Cancel' ui:field='cancelButton' />
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder>

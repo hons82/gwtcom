@@ -1,0 +1,55 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gwtcom='urn:import:org.gwtcom.client.view'
+	xmlns:wall='urn:import:org.gwtcom.client.view.profile.wall'>
+
+	<ui:style>
+		.detail {
+			background-color: white;
+		}
+		
+		.postPanel {
+			background-color: #FAFAFA;
+			padding: 20px;
+		}
+		
+		.postPanelTextBox {
+			margin-left: 20px;
+			margin-right: 20px;
+			width: inherit;
+		}
+		
+		.postPanelButton {
+			width: 100px;
+		}
+		
+		.wallItems {
+			height: 100%;
+			width: 100%;
+		}
+	</ui:style>
+
+	<g:DockLayoutPanel unit='EM' styleName='{style.detail}'>
+		<g:north size='5'>
+			<g:HorizontalPanel styleName='{style.postPanel}'>
+				<g:cell width='15%'>
+					<g:Label>Post to Wall: </g:Label>
+				</g:cell>
+				<g:cell width='80%'>
+					<g:TextBox styleName='{style.postPanelTextBox}'></g:TextBox>
+				</g:cell>
+				<g:cell>
+					<g:Button styleName='{style.postPanelButton}'>Post</g:Button>
+				</g:cell>
+			</g:HorizontalPanel>
+		</g:north>
+
+		<g:center>
+			<g:ScrollPanel>
+				<g:VerticalPanel ui:field="wallitems" styleName='{style.wallItems}'>
+					<wall:WallItem></wall:WallItem>
+				</g:VerticalPanel>
+			</g:ScrollPanel>
+		</g:center>
+	</g:DockLayoutPanel>
+
+</ui:UiBinder>
