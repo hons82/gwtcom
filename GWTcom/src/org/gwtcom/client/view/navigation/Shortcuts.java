@@ -3,19 +3,12 @@ package org.gwtcom.client.view.navigation;
 import org.gwtcom.shared.UserLoginRemote;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.StackLayoutPanel;
 
-/**
- * A composite that contains the shortcut stack panel on the left side. The
- * mailbox tree and shortcut lists don't actually do anything, but serve to show
- * how you can construct an interface using
- * {@link com.google.gwt.user.client.ui.StackPanel},
- * {@link com.google.gwt.user.client.ui.Tree}, and other custom widgets.
- */
 public class Shortcuts extends ResizeComposite {
 
 	interface Binder extends UiBinder<StackLayoutPanel, Shortcuts> {
@@ -28,20 +21,13 @@ public class Shortcuts extends ResizeComposite {
 	@UiField(provided=true)
 	PrivateMenu privateMenu;
 
-	private final EventBus _eventbus;
+	private final PlaceController _placeController;
 
-	/**
-	 * Constructs a new shortcuts widget using the specified images.
-	 * @param eventbus 
-	 * 
-	 * @param images
-	 *            a bundle that provides the images for this widget
-	 */
-	public Shortcuts(EventBus eventbus) {
-		_eventbus = eventbus;
+	public Shortcuts(PlaceController placeController) {
+		_placeController = placeController;
 		
-		publicMenu = new PublicMenu(eventbus);
-		privateMenu = new PrivateMenu(eventbus);
+		publicMenu = new PublicMenu(_placeController);
+		privateMenu = new PrivateMenu(_placeController);
 		initWidget(binder.createAndBindUi(this));
 		
 		initView();

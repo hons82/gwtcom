@@ -1,21 +1,21 @@
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gwtcom='urn:import:org.gwtcom.client.view'>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:gwtcom='urn:import:org.gwtcom.client.view'>
 
 	<ui:image field='gradient' src='../img/gradient_bg_dark.png'
 		repeatStyle='Horizontal' />
 
 	<ui:style>
 		.list {
-			border: 1px solid #999;
-			background-color: white;
+			background-color: transparent;
+			height: 100%;
 		}
 		
 		@sprite .header {
 			gwt-image: 'gradient';
 			background-color: #d3d6dd;
 			table-layout: fixed;
-			width: 100%;
-			height: 100%;
+			width: 100%
 		}
 		
 		.header td {
@@ -54,7 +54,6 @@
 			<g:FlexTable ui:field='header' styleName='{style.header}'
 				cellSpacing='0' cellPadding='0' />
 		</g:north>
-
 		<g:center>
 			<g:ScrollPanel>
 				<g:FlexTable ui:field='table' styleName='{style.table}'

@@ -1,13 +1,13 @@
 package org.gwtcom.client.view.navigation;
 
-import org.gwtcom.client.event.DateListShowEvent;
-import org.gwtcom.client.event.NewsListShowEvent;
+import org.gwtcom.client.place.DateListPlace;
+import org.gwtcom.client.place.NewsListPlace;
 import org.gwtcom.shared.UserLoginRemote;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -38,10 +38,10 @@ public class PublicMenu extends AbstractStackPanelInlay {
 
 	private final Anchor _dates;
 
-	private final EventBus _eventbus;
+	private final PlaceController _placeController;
 
-	public PublicMenu(EventBus eventbus) {
-		_eventbus = eventbus;
+	public PublicMenu(PlaceController placeController) {
+		_placeController = placeController;
 		
 		initWidget(binder.createAndBindUi(this));
 
@@ -51,7 +51,7 @@ public class PublicMenu extends AbstractStackPanelInlay {
 			@Override
 			public void onClick(ClickEvent event) {
 				System.out.println(">>> PublicMenu.News.OnClick()");
-				_eventbus.fireEvent(new NewsListShowEvent());
+				_placeController.goTo(new NewsListPlace());
 			}
 		});
 
@@ -61,7 +61,7 @@ public class PublicMenu extends AbstractStackPanelInlay {
 			@Override
 			public void onClick(ClickEvent event) {
 				System.out.println(">>> PublicMenu.Termine.OnClick()");
-				_eventbus.fireEvent(new DateListShowEvent());
+				_placeController.goTo(new DateListPlace());
 			}
 		});
 

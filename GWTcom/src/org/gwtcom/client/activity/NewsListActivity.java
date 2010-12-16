@@ -2,7 +2,7 @@ package org.gwtcom.client.activity;
 
 import java.util.List;
 
-import org.gwtcom.client.event.NewsItemShowEvent;
+import org.gwtcom.client.place.NewsItemPlace;
 import org.gwtcom.client.service.NewsService;
 import org.gwtcom.client.service.NewsServiceAsync;
 import org.gwtcom.client.view.news.NewsList;
@@ -50,7 +50,7 @@ public class NewsListActivity extends AbstractActivity implements NewsList.Prese
 
 				if (selectedRow >= 0) {
 					NewsItemRemote item = _newslist.get(_newsListView.getClickedRow(event));
-					_eventBus.fireEvent(new NewsItemShowEvent(item));
+					goTo(new NewsItemPlace(item));
 				}
 			}
 

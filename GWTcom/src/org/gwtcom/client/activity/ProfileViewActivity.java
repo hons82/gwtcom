@@ -1,5 +1,6 @@
 package org.gwtcom.client.activity;
 
+import org.gwtcom.client.place.ProfileViewPlace;
 import org.gwtcom.client.service.ProfileService;
 import org.gwtcom.client.service.ProfileServiceAsync;
 import org.gwtcom.client.view.profile.ProfileView;
@@ -31,7 +32,12 @@ public class ProfileViewActivity extends AbstractActivity implements ProfileView
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		System.out.println(">>>>>NewsItemPresenter.start()");
-		getProfileView(1L);
+		final Place currentPlace = _placeController.getWhere();
+		if (currentPlace != null && currentPlace instanceof ProfileViewPlace) {
+			getProfileView(Long.parseLong(((ProfileViewPlace) currentPlace).getId()));
+		} else {
+			// TODO: sent back to the List
+		}
 		panel.setWidget(_profileView.asWidget());
 	}
 

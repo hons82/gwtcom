@@ -2,7 +2,7 @@ package org.gwtcom.client.activity;
 
 import java.util.List;
 
-import org.gwtcom.client.event.DateItemShowEvent;
+import org.gwtcom.client.place.DateItemPlace;
 import org.gwtcom.client.service.DatesService;
 import org.gwtcom.client.service.DatesServiceAsync;
 import org.gwtcom.client.view.dates.DateList;
@@ -50,7 +50,7 @@ public class DateListActivity extends AbstractActivity implements DateList.Prese
 
 				if (selectedRow >= 0) {
 					DateItemRemote item = _datelist.get(_dateListView.getClickedRow(event));
-					_eventBus.fireEvent(new DateItemShowEvent(item));
+					goTo(new DateItemPlace(item));
 				}
 			}
 

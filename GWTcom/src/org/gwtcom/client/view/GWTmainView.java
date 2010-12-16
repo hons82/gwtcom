@@ -13,10 +13,12 @@ import com.google.gwt.dom.client.Style.Overflow;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -40,12 +42,15 @@ public class GWTmainView extends ResizeComposite {
 
 	private final EventBus _eventbus;
 
-	public GWTmainView(EventBus eventbus) {
+	private final PlaceController _placeController;
+
+	public GWTmainView(EventBus eventbus, PlaceController placeController) {
 		_eventbus = eventbus;
+		_placeController = placeController;
 		// Inject global styles.
 		// GWT.<GlobalResources>create(GlobalResources.class).css().ensureInjected();
 
-		shortcuts = new Shortcuts(eventbus);
+		shortcuts = new Shortcuts(_placeController);
 		
 		// Create the UI defined in GWTcom.ui.xml.
 		_outer = binder.createAndBindUi(this);
@@ -179,7 +184,7 @@ public class GWTmainView extends ResizeComposite {
 		return _outer;
 	}
 
-	public SimplePanel getDetailContainer() {
+	public AcceptsOneWidget getDetailContainer() {
 		return container;
 	}
 

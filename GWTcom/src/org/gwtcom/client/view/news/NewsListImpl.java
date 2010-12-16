@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
 
-public class NewsListImpl extends ResizeComposite implements NewsList{
+public class NewsListImpl extends ResizeComposite implements NewsList {
 
 	interface Binder extends UiBinder<Widget, NewsListImpl> {
 	}
@@ -96,8 +96,8 @@ public class NewsListImpl extends ResizeComposite implements NewsList{
 	}
 
 	/**
-	 * Initializes the table so that it contains enough rows for a full page of
-	 * emails. Also creates the images that will be used as 'read' flags.
+	 * Initializes the table so that it contains enough rows for a full page of emails. Also creates the images that will
+	 * be used as 'read' flags.
 	 */
 	private void initTable() {
 		// Initialize the header.
@@ -125,13 +125,14 @@ public class NewsListImpl extends ResizeComposite implements NewsList{
 		table.getColumnFormatter().setWidth(1, "200px");
 		table.getColumnFormatter().setWidth(2, "200px");
 		// table.getColumnFormatter().setWidth(3, "256px");
+
 	}
 
 	/**
 	 * Selects the given row (relative to the current page).
 	 * 
 	 * @param row
-	 *            the row to be selected
+	 *           the row to be selected
 	 */
 	private void selectRow(int row) {
 		// When a row (other than the first one, which is used as a header) is
@@ -204,7 +205,8 @@ public class NewsListImpl extends ResizeComposite implements NewsList{
 			// Add a new row to the table, then set each of its columns to the
 			// email's sender and subject values.
 			table.setText(i, 0, Long.toString(item.getId()));
-			table.setText(i, 1, item.getAuthor()!=null?item.getAuthor().getSurname()+" "+item.getAuthor().getName():"<empty>");
+			table.setText(i, 1, item.getAuthor() != null ? item.getAuthor().getSurname() + " "
+					+ item.getAuthor().getName() : "<empty>");
 			table.setText(i, 2, fmt.format(item.getDateAdded()));
 			table.setText(i, 3, item.getTitle());
 

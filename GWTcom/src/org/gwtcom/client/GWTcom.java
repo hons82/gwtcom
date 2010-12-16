@@ -47,8 +47,7 @@ public class GWTcom implements EntryPoint {
 		injector.getPlaceController();
 
 		// If a Activity is providing a Place, I discovered that the Activity
-		// has to be
-		// instantiated at the start of the application or else the Activitys
+		// has to be instantiated at the start of the application or else the Activitys
 		// will will not handle PlaceRequestEvent properly and history mechanism
 		// properly
 		// This is the current behavior of gwt-Activity release 1.0. I hope
@@ -60,8 +59,8 @@ public class GWTcom implements EntryPoint {
 		/**/injector.getDateItemActivity(); /**/
 		/**/injector.getProfileViewActivity(); /**/
 
-//		AppController appActivity = injector.getAppActivity();
-//		appActivity.go(RootLayoutPanel.get());
+		// AppController appActivity = injector.getAppActivity();
+		// appActivity.go(RootLayoutPanel.get());
 
 		// Start ActivityManager for the main widget with our ActivityMapper
 		ActivityMapper activityMapper = injector.getAppActivity();
@@ -75,6 +74,7 @@ public class GWTcom implements EntryPoint {
 
 		// Goes to the place represented on URL else default place
 		historyHandler.handleCurrentHistory();
+
 	}
 
 }

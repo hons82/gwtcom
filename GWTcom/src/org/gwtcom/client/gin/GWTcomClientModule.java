@@ -57,7 +57,7 @@ public class GWTcomClientModule extends AbstractGinModule {
 
 		// ***** DO NOT FORGET TO INITIALIZE PRESENTERS IN GWTcom.java *****
 
-		bind(AppController.class).in(Singleton.class);
+		bind(AppController.class).asEagerSingleton();
 
 	}
 

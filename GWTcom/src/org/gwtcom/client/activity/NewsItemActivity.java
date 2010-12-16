@@ -1,6 +1,7 @@
 package org.gwtcom.client.activity;
 
-import org.gwtcom.client.event.NewsListShowEvent;
+import org.gwtcom.client.place.NewsItemPlace;
+import org.gwtcom.client.place.NewsListPlace;
 import org.gwtcom.client.service.NewsService;
 import org.gwtcom.client.service.NewsServiceAsync;
 import org.gwtcom.client.view.news.NewsItem;
@@ -18,10 +19,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 
-public class NewsItemActivity extends AbstractActivity implements NewsItem.Presenter{
+public class NewsItemActivity extends AbstractActivity implements NewsItem.Presenter {
 
 	private final PlaceController _placeController;
-	private NewsItemRemote _newsitem;
+	private NewsItemRemote _newsItem;
 	private EventBus _eventBus;
 	private final NewsItem _newsItemView;
 
@@ -35,28 +36,33 @@ public class NewsItemActivity extends AbstractActivity implements NewsItem.Prese
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		System.out.println(">>>>>NewsItemPresenter.start()");
+		System.out.println(">>>>>NewsItemActivity.start()");
 
 		_eventBus = eventBus;
 		_newsItemView.getBackButton().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
-				_eventBus.fireEvent(new NewsListShowEvent());
+				goTo(new NewsListPlace());
 			}
 		});
-		getNewsItem(1L);
+		final Place currentPlace = _placeController.getWhere();
+		if (currentPlace != null && currentPlace instanceof NewsItemPlace) {
+			getNewsItem(Long.parseLong(((NewsItemPlace) currentPlace).getId()));
+		} else {
+			// TODO: sent back to the List
+		}
 		panel.setWidget(_newsItemView.asWidget());
 	}
 
 	private void getNewsItem(Long id) {
-		System.out.println(">>>>> NewsItempresenter.getNewsItem");
+		System.out.println(">>>>> NewsItemActivity.getNewsItem");
 		NewsServiceAsync service = GWT.create(NewsService.class);
 		service.getNewsItem(id, new AsyncCallback<NewsItemRemote>() {
 			@Override
 			public void onSuccess(NewsItemRemote result) {
-				_newsitem = result;
-				_newsItemView.setData(_newsitem);
+				_newsItem = result;
+				_newsItemView.setData(_newsItem);
 			}
 
 			@Override
@@ -65,9 +71,17 @@ public class NewsItemActivity extends AbstractActivity implements NewsItem.Prese
 			}
 		});
 	}
-	
+
+	public void setNewsItemId(Long id) {
+		if (_newsItem == null) {
+			_newsItem = new NewsItemRemote();
+		}
+		_newsItem.setId(id);
+	}
+
 	@Override
 	public void goTo(Place place) {
+		System.out.println(">>>>> NewsItemActivity.goto");
 		_placeController.goTo(place);
 	}
 

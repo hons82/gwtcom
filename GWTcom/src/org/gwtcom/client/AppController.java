@@ -12,13 +12,13 @@ import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.inject.Inject;
 
 public class AppController implements ActivityMapper {
-
 
 	private final EventBus _eventbus;
 
@@ -26,25 +26,28 @@ public class AppController implements ActivityMapper {
 
 	private GWTmainView _gwtmain;
 
-	private SimplePanel _container;
+	private AcceptsOneWidget _container;
+
+	private final PlaceController _placeController;
 
 	@Inject
-	public AppController(EventBus eventbus, GWTcomGinjector injector) {
+	public AppController(EventBus eventbus, PlaceController placeController, GWTcomGinjector injector) {
 		_eventbus = eventbus;
+		_placeController = placeController;
 		_injector = injector;
 	}
 
-	public SimplePanel go(HasWidgets container) {
-		_gwtmain = new GWTmainView(_eventbus);
+	public AcceptsOneWidget go(HasWidgets container) {
+		_gwtmain = new GWTmainView(_eventbus, _placeController);
 		container.add(_gwtmain.asWidget());
 		_container = _gwtmain.getDetailContainer();
 
 		System.out.println("History: <" + History.getToken() + ">");
-//		if ("".equals(History.getToken())) {
-//			History.newItem(NewsListPresenter.PLACE.getId());
-//		} else {
-//			History.fireCurrentHistoryState();
-//		}
+		// if ("".equals(History.getToken())) {
+		// History.newItem(NewsListPresenter.PLACE.getId());
+		// } else {
+		// History.fireCurrentHistoryState();
+		// }
 		return _container;
 	}
 
@@ -55,6 +58,7 @@ public class AppController implements ActivityMapper {
 		if (place instanceof NewsListPlace)
 			return _injector.getNewsListActivity();
 		else if (place instanceof NewsItemPlace)
+
 			return _injector.getNewsItemActivity();
 		else if (place instanceof DateListPlace)
 			return _injector.getDateListActivity();
@@ -64,5 +68,5 @@ public class AppController implements ActivityMapper {
 			return _injector.getProfileViewActivity();
 		return null;
 	}
-	
+
 }

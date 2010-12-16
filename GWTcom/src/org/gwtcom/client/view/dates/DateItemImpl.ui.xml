@@ -1,46 +1,53 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-  xmlns:g='urn:import:com.google.gwt.user.client.ui'
-  xmlns:gwtcom='urn:import:org.gwtcom.client.panel'>
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gwtcom='urn:import:org.gwtcom.client.panel'>
 
-  <ui:style>
-  .detail {
-    border: 1px solid #999999;
-    background-color: white;
-  }
+	<ui:style>
+		.detail {
+			background-color: transparent;
+			width: 100%;
+			height: 100%;
+		}
+		
+		.header {
+			background: #eee;
+			border-bottom: 1px solid #999999;
+			border-collapse: collapse;
+			padding: 0.5em;
+		}
+		
+		.headerItem {
+			margin-bottom: 0.5em;
+		}
+		
+		.body {
+			line-height: 150%;
+			padding: 20px 40px 20px 10px;
+			font-family: 'Times New Roman', Times, serif;
+		}
+	</ui:style>
 
-  .header {
-    background: #eee;
-    border-bottom: 1px solid #999999;
-    padding: 0.5em;
-  }
+	<g:DockLayoutPanel unit='EM' styleName='{style.detail}'>
+		<g:north size='9'>
+			<g:HTMLPanel styleName='{style.header}'>
+				<g:Hidden ui:field="id"></g:Hidden>
+				<g:Button ui:field="back" text="Back"></g:Button>
+				<div class='{style.headerItem}' ui:field='title'></div>
+				<div class='{style.headerItem}'>
+					<b>Author:</b>
+					<span ui:field='author' />
+				</div>
+				<div class='{style.headerItem}'>
+					<b>Date:</b>
+					<span ui:field='date' />
+				</div>
+			</g:HTMLPanel>
+		</g:north>
 
-  .headerItem {
-    margin-bottom:0.5em;
-  }
-
-  .body {
-    line-height: 150%;
-    padding: 20px 40px 20px 10px;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  </ui:style>
-
-  <g:DockLayoutPanel unit='EM' styleName='{style.detail}'>
-    <g:north size='9'>
-      <g:HTMLPanel styleName='{style.header}'>
-      <g:Hidden ui:field="id"></g:Hidden>
-      	<g:Button ui:field="back" text="Back"></g:Button>
-        <div class='{style.headerItem}' ui:field='title'></div>
-        <div class='{style.headerItem}'><b>Author:</b> <span ui:field='author'/></div>
-        <div class='{style.headerItem}'><b>Date:</b> <span ui:field='date'/></div>
-      </g:HTMLPanel>
-    </g:north>
-
-    <g:center>
-      <g:ScrollPanel>
-        <g:HTML styleName='{style.body}' ui:field='content' wordWrap='true'/>
-      </g:ScrollPanel>
-    </g:center>
-  </g:DockLayoutPanel>
+		<g:center>
+			<g:ScrollPanel>
+				<g:HTML styleName='{style.body}' ui:field='content' wordWrap='true' />
+			</g:ScrollPanel>
+		</g:center>
+	</g:DockLayoutPanel>
 
 </ui:UiBinder>

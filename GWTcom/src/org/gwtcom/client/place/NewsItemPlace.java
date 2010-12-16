@@ -1,5 +1,7 @@
 package org.gwtcom.client.place;
 
+import org.gwtcom.shared.NewsItemRemote;
+
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 
@@ -9,6 +11,10 @@ public class NewsItemPlace extends Place {
 	
 	public NewsItemPlace(String id){
 		_id = id;
+	}
+
+	public NewsItemPlace(NewsItemRemote item) {
+		_id = String.valueOf(item.getId());
 	}
 
 	public String getId(){

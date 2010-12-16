@@ -1,6 +1,7 @@
 package org.gwtcom.client.activity;
 
-import org.gwtcom.client.event.DateListShowEvent;
+import org.gwtcom.client.place.DateItemPlace;
+import org.gwtcom.client.place.DateListPlace;
 import org.gwtcom.client.service.DatesService;
 import org.gwtcom.client.service.DatesServiceAsync;
 import org.gwtcom.client.view.dates.DateItem;
@@ -42,10 +43,15 @@ public class DateItemActivity extends AbstractActivity implements DateItem.Prese
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				_eventBus.fireEvent(new DateListShowEvent());
+				goTo(new DateListPlace());
 			}
 		});
-		getDateItem(1L);
+		final Place currentPlace = _placeController.getWhere();
+		if (currentPlace != null && currentPlace instanceof DateItemPlace) {
+			getDateItem(Long.parseLong(((DateItemPlace) currentPlace).getId()));
+		} else {
+			// TODO: sent back to the List
+		}
 		panel.setWidget(_dateItemView.asWidget());
 	}
 
