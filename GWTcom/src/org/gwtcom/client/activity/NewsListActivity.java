@@ -2,7 +2,6 @@ package org.gwtcom.client.activity;
 
 import java.util.List;
 
-import org.gwtcom.client.place.NewsItemPlace;
 import org.gwtcom.client.service.NewsService;
 import org.gwtcom.client.service.NewsServiceAsync;
 import org.gwtcom.client.view.news.NewsList;
@@ -10,19 +9,18 @@ import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 
 public class NewsListActivity extends AbstractActivity implements NewsList.Presenter{
 
-	private List<NewsItemRemote> _newslist;
+	private final ListDataProvider<NewsItemRemote> _newslist;
 	private final PlaceController _placeController;
 	private final NewsList _newsListView;
 	private EventBus _eventBus;
@@ -30,9 +28,11 @@ public class NewsListActivity extends AbstractActivity implements NewsList.Prese
 	@Inject
 	public NewsListActivity(NewsList newsListView, PlaceController placeController) {
 		super();
+		System.out.println(">>>>>NewsListActivity()");
 		_placeController = placeController;
 		_newsListView = newsListView;
 		_newsListView.setPresenter(this);
+		_newslist = new ListDataProvider<NewsItemRemote>(); 
 	}
 
 	@Override
@@ -40,39 +40,24 @@ public class NewsListActivity extends AbstractActivity implements NewsList.Prese
 		System.out.println(">>>>>NewsListPresenter.start()");
 
 		_eventBus = eventBus;
-		_newsListView.getNewsListTable().addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				System.out.println(">>>>>NewsListPresenter.onClick()");
-
-				int selectedRow = _newsListView.getClickedRow(event);
-
-				if (selectedRow >= 0) {
-					NewsItemRemote item = _newslist.get(_newsListView.getClickedRow(event));
-					goTo(new NewsItemPlace(item));
-				}
-			}
-
-		});
-
-		_newsListView.getNavBar().addNewerClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				_newsListView.newer(_newslist);
-			}
-		});
-
-		_newsListView.getNavBar().addOlderClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				_newsListView.older(_newslist);
-			}
-		});
+//		_newsListView.getNewsListTable().addClickHandler(new ClickHandler() {
+//
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				System.out.println(">>>>>NewsListPresenter.onClick()");
+//
+//				int selectedRow = _newsListView.getClickedRow(event);
+//
+////				if (selectedRow >= 0) {
+////					NewsItemRemote item = _newslist.get(_newsListView.getClickedRow(event));
+////					goTo(new NewsItemPlace(item));
+////				}
+//			}
+//
+//		});
 		fetchNewsList();
 		panel.setWidget(_newsListView.asWidget());
+		_newslist.addDataDisplay(_newsListView.getNewsListTable());
 	}
 
 	private void fetchNewsList() {
@@ -80,8 +65,7 @@ public class NewsListActivity extends AbstractActivity implements NewsList.Prese
 		service.getPublicNews(new AsyncCallback<List<NewsItemRemote>>() {
 			@Override
 			public void onSuccess(List<NewsItemRemote> result) {
-				_newslist = result;
-				_newsListView.setData(_newslist);
+				_newslist.setList(result);
 			}
 
 			@Override
