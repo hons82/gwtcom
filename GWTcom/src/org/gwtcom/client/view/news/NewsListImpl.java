@@ -36,7 +36,7 @@ public class NewsListImpl extends ResizeComposite implements NewsList {
 		}
 
 		@Override
-		public void render(NewsItemRemote value, Object key, SafeHtmlBuilder sb) {
+		public void render(Context context, NewsItemRemote value, SafeHtmlBuilder sb) {
 			// Value can be null, so do a null check..
 			if (value == null) {
 				return;
@@ -57,6 +57,7 @@ public class NewsListImpl extends ResizeComposite implements NewsList {
 			sb.appendEscaped(value.getTitle());
 			sb.appendHtmlConstant("</td></tr></table>");
 		}
+
 	}
 
 	interface Binder extends UiBinder<Widget, NewsListImpl> {

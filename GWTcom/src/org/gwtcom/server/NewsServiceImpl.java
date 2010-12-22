@@ -34,6 +34,7 @@ public class NewsServiceImpl implements NewsService {
 		_first = false;
 	}
 
+	@Override
 	public List<NewsItemRemote> getPrivateNews() {
 		List<NewsItemRemote> ret = getPublicNews();
 		return ret;
@@ -42,6 +43,7 @@ public class NewsServiceImpl implements NewsService {
 	/**
 	 * @return
 	 */
+	@Override
 	public List<NewsItemRemote> getPublicNews() {
 		List<NewsItemRemote> ret = new ArrayList<NewsItemRemote>();
 		// TODO: this is just a test
@@ -101,7 +103,7 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	public NewsItem getNewsItembyID(final Long id) {
-		return (NewsItem) persistenceManager.getObjectById(NewsItem.class, KeyFactory.createKey(NewsItem.class.getSimpleName(), id));
+		return persistenceManager.getObjectById(NewsItem.class, KeyFactory.createKey(NewsItem.class.getSimpleName(), id));
 	}
 
 }
