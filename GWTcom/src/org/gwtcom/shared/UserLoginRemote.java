@@ -1,15 +1,12 @@
 package org.gwtcom.shared;
 
-import java.io.Serializable;
 
-public class UserLoginRemote implements Serializable {
+public class UserLoginRemote extends BaseDomainRemote {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7680043766846376618L;
-
-	private Long _id;
 
 	private String _name;
 
@@ -22,14 +19,6 @@ public class UserLoginRemote implements Serializable {
 		setId(id);
 		setName(name);
 		setUsername(username);
-	}
-
-	public Long getId() {
-		return _id;
-	}
-
-	public void setId(Long id) {
-		_id = id;
 	}
 
 	public String getName() {

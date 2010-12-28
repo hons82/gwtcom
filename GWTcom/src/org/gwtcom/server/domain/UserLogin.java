@@ -3,43 +3,35 @@ package org.gwtcom.server.domain;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 import com.google.appengine.api.datastore.Key;
 
-@PersistenceCapable
-public class UserLogin {
+@Entity
+public class UserLogin extends BaseDomainObject{
 
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key _id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5988243300695711066L;
 
-	@Persistent(name = "name")
+	@Column(name = "name")
 	private String _name;
 
-	@Persistent(name = "pass")
+	@Column(name = "pass")
 	private String _password;
 
-	@Persistent(name = "authorities")
+	@Column(name = "authorities")
 	private Set<Key> _authorities;
 	
-	@Persistent(name = "userprofile")
+	@Column(name = "userprofile")
 	private UserProfile _userprofile;
 
 
 	public UserLogin() {
+		super();
 		_authorities = new TreeSet<Key>();
-	}
-
-	public Key getId() {
-		return _id;
-	}
-
-	public void setId(Key id) {
-		_id = id;
 	}
 
 	public String getName() {

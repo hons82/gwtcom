@@ -2,40 +2,33 @@ package org.gwtcom.server.domain;
 
 import java.util.Date;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
-import com.google.appengine.api.datastore.Key;
-
-@PersistenceCapable
-public class WallEntry {
+@Entity
+public class WallEntry extends BaseDomainObject{
 	
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key _id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4673308759394854464L;
 
-	@Persistent(name = "dateAdded")
+	@Column(name = "dateAdded")
 	private Date _dateAdded;
 
-	@Persistent(name = "owner")
+	@Column(name = "owner")
 	private UserProfile _owner;
 	
-	@Persistent(name = "author")
+	@Column(name = "author")
 	private UserProfile _author;
 
-	@Persistent(name = "content")
+	@Column(name = "content")
 	private String _content;
 
-	public Key getId() {
-		return _id;
+	public WallEntry(){
+		super();
 	}
-
-	public void setId(Key id) {
-		_id = id;
-	}
-
+	
 	public UserProfile getAuthor() {
 		return _author;
 	}

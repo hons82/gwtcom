@@ -5,10 +5,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import org.gwtcom.client.service.NewsService;
+import org.gwtcom.server.converter.NewsItemConverter;
 import org.gwtcom.server.domain.NewsItem;
 import org.gwtcom.shared.NewsItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +24,26 @@ public class NewsServiceImpl implements NewsService {
 	// TODO: this is just a test
 	private boolean _first;
 
-	protected PersistenceManager persistenceManager;
+	private NewsItemConverter newsItemConverter;
+	
+	protected EntityManager entityManager;
 
 	@Autowired
-	public void setpersistenceManager(PersistenceManager persistenceManager) {
-		this.persistenceManager = persistenceManager;
+	public void setentityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
 	}
 
+	@Autowired
+	public void setNewsItemConverter(NewsItemConverter newsItemConverter) {
+		this.newsItemConverter = newsItemConverter;
+	}
+	
 	public NewsServiceImpl() {
 		_first = false;
 	}
 
 	@Override
+	@Secured("ROLE_ADMIN")
 	public List<NewsItemRemote> getPrivateNews() {
 		List<NewsItemRemote> ret = getPublicNews();
 		return ret;
@@ -60,33 +69,33 @@ public class NewsServiceImpl implements NewsService {
 		_first = true;
 		//
 		for (NewsItem item : getNewsItems()) {
-			ret.add(new NewsItemRemote(item.getId().getId(), item.getDateAdded(), ProfileServiceImpl.serializeUserProfile(item.getAuthor()), item.getTitle()));
+			ret.add(newsItemConverter.convertDomainToRemote(item));
 		}
 		return ret;
 	}
 
 	private void createCustomer() {
-		Transaction tx = persistenceManager.currentTransaction();
+		EntityTransaction tx = entityManager.getTransaction();
 		NewsItem newNewsItem = new NewsItem();
 		newNewsItem.setAuthor(null);
 		newNewsItem.setTitle("Die Auswirkungen der Sonnenstrahlen auf das Liebesleben der Pflastersteine " + System.currentTimeMillis());
 		newNewsItem.setDateAdded(new Date(System.currentTimeMillis()));
 		tx.begin();
-		persistenceManager.makePersistent(newNewsItem);
+		entityManager.persist(newNewsItem);
 		tx.commit();
 	}
 
 	@Secured("ROLE_ADMIN")
 	private void removeNewsItem(NewsItem item) {
-		Transaction tx = persistenceManager.currentTransaction();
+		EntityTransaction tx = entityManager.getTransaction();
 		tx.begin();
-		persistenceManager.deletePersistent(item);
+		entityManager.remove(item);
 		tx.commit();
 	}
 
 	@SuppressWarnings("unchecked")
 	private Collection<NewsItem> getNewsItems() {
-		Collection<NewsItem> resultList = (Collection<NewsItem>) persistenceManager.newQuery("SELECT FROM " + NewsItem.class.getName()).execute();
+		Collection<NewsItem> resultList = entityManager.createQuery("SELECT FROM " + NewsItem.class.getName()).getResultList();
 		return resultList;
 	}
 
@@ -96,14 +105,14 @@ public class NewsServiceImpl implements NewsService {
 		NewsItem item = getNewsItembyID(id);
 		if (item != null) {
 			System.out.println("item != null");
-			return new NewsItemRemote(item.getId().getId(), item.getDateAdded(), ProfileServiceImpl.serializeUserProfile(item.getAuthor()), item.getTitle());
+			return newsItemConverter.convertDomainToRemote(item);
 		}
 		System.out.println("item == null");
 		return null;
 	}
 
 	public NewsItem getNewsItembyID(final Long id) {
-		return persistenceManager.getObjectById(NewsItem.class, KeyFactory.createKey(NewsItem.class.getSimpleName(), id));
+		return entityManager.find(NewsItem.class, KeyFactory.createKey(NewsItem.class.getSimpleName(), id));
 	}
 
 }

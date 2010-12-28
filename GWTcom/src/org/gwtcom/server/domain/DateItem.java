@@ -2,42 +2,31 @@ package org.gwtcom.server.domain;
 
 import java.util.Date;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
-import com.google.appengine.api.datastore.Key;
+@Entity
+public class DateItem extends BaseDomainObject{
 
-@PersistenceCapable
-public class DateItem {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2075374069026921484L;
 
-	@PrimaryKey
-	@Persistent(name = "id", valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key _id;
-	
-	@Persistent(name = "dateAdded")
+	@Column(name = "dateAdded")
 	private Date _dateAdded;
 
-	@Persistent(name = "author")
+	@Column(name = "author")
 	private UserProfile _author;
 
-	@Persistent(name = "title")
+	@Column(name = "title")
 	private String _title;
 
-	@Persistent(name = "content")
+	@Column(name = "content")
 	private String _content;
 
 	public DateItem(){
-		
-	}
-	
-	public Key getId() {
-		return _id;
-	}
-
-	public void setId(Key id) {
-		_id = id;
+		super();
 	}
 	
 	public UserProfile getAuthor() {

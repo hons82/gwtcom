@@ -1,15 +1,18 @@
 package org.gwtcom.shared;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import com.google.gwt.view.client.ProvidesKey;
 
-@SuppressWarnings("serial")
-public class NewsItemRemote implements Serializable {
+public class NewsItemRemote extends BaseDomainRemote {
 
 	/**
-	 * The key provider that provides the unique ID of a contact.
+	 * 
+	 */
+	private static final long serialVersionUID = 8967170750468895279L;
+	
+	/**
+	 * The key provider that provides the unique ID
 	 */
 	public static final ProvidesKey<NewsItemRemote> KEY_PROVIDER = new ProvidesKey<NewsItemRemote>() {
 		@Override
@@ -17,8 +20,7 @@ public class NewsItemRemote implements Serializable {
 			return item == null ? null : item.getId();
 		}
 	};
-
-	private Long _id;
+	
 	private Date _dateAdded;
 	private UserProfileRemote _author;
 	private String _title;
@@ -29,18 +31,10 @@ public class NewsItemRemote implements Serializable {
 
 	public NewsItemRemote(Long id, Date dateAdded, UserProfileRemote author, String title) {
 		super();
-		_id = id;
+		setId(id);
 		_dateAdded = dateAdded;
 		_author = author;
 		_title = title;
-	}
-
-	public Long getId() {
-		return _id;
-	}
-
-	public void setId(Long id) {
-		_id = id;
 	}
 
 	public Date getDateAdded() {

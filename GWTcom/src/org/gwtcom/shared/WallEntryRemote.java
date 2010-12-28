@@ -1,10 +1,12 @@
 package org.gwtcom.shared;
 
-import java.io.Serializable;
 import java.util.Date;
 
-@SuppressWarnings("serial")
-public class WallEntryRemote implements Serializable {
+public class WallEntryRemote extends BaseDomainRemote {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7658507519406365236L;
 	private Long _id;
 	private Date _dateAdded;
 	private UserProfileRemote _owner;
@@ -17,19 +19,11 @@ public class WallEntryRemote implements Serializable {
 
 	public WallEntryRemote(Long id, Date dateAdded, UserProfileRemote owner, UserProfileRemote author, String content) {
 		super();
-		_id = id;
-		_dateAdded = dateAdded;
+		setId(id);
+		setDateAdded(dateAdded);
 		setAuthor(author);
 		setOwner(owner);
 		setContent(content);
-	}
-
-	public Long getId() {
-		return _id;
-	}
-
-	public void setId(Long id) {
-		_id = id;
 	}
 
 	public Date getDateAdded() {

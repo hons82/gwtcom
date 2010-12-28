@@ -1,11 +1,13 @@
 package org.gwtcom.shared;
 
-import java.io.Serializable;
 import java.util.Date;
 
-@SuppressWarnings("serial")
-public class DateItemRemote implements Serializable {
-	private Long _id;
+public class DateItemRemote extends BaseDomainRemote {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3111001610680053708L;
 	private Date _dateAdded;
 	private UserProfileRemote _author;
 	private String _title;
@@ -16,18 +18,10 @@ public class DateItemRemote implements Serializable {
 
 	public DateItemRemote(Long id, Date dateAdded, UserProfileRemote author, String title) {
 		super();
-		_id = id;
+		setId(id);
 		_dateAdded = dateAdded;
 		_author = author;
 		_title = title;
-	}
-
-	public Long getId() {
-		return _id;
-	}
-
-	public void setId(Long id) {
-		_id = id;
 	}
 
 	public Date getDateAdded() {

@@ -1,8 +1,8 @@
 package org.gwtcom.server;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanNameAware;
@@ -13,25 +13,25 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EMF implements FactoryBean<PersistenceManager>, ApplicationContextAware, BeanNameAware {
+public class EMF implements FactoryBean<EntityManager>, ApplicationContextAware, BeanNameAware {
 
 	private AutowiredAnnotationBeanPostProcessor annotationBeanPostProcessor;
-	private static final PersistenceManagerFactory emfInstance = JDOHelper.getPersistenceManagerFactory("transactions-optional");
+	private static final EntityManagerFactory emfInstance = Persistence.createEntityManagerFactory("transactions-optional");
 	private String _name;
 
 	public EMF() {
 	}
 
 	@Override
-	public PersistenceManager getObject() throws Exception {
-		PersistenceManager manager = getPersistenceManager();
+	public EntityManager getObject() throws Exception {
+		EntityManager manager = getEntityManager();
 		annotationBeanPostProcessor.postProcessAfterInstantiation(manager, _name);
 		return manager;
 	}
 
 	@Override
-	public Class<PersistenceManager> getObjectType() {
-		return PersistenceManager.class;
+	public Class<EntityManager> getObjectType() {
+		return EntityManager.class;
 	}
 
 	@Override
@@ -46,11 +46,11 @@ public class EMF implements FactoryBean<PersistenceManager>, ApplicationContextA
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		annotationBeanPostProcessor = (AutowiredAnnotationBeanPostProcessor) applicationContext
+		annotationBeanPostProcessor = applicationContext
 				.getBeansOfType(AutowiredAnnotationBeanPostProcessor.class).values().iterator().next();
 	}
 
-	public PersistenceManager getPersistenceManager() {
-		return emfInstance.getPersistenceManager();
+	public EntityManager getEntityManager() {
+		return emfInstance.createEntityManager();
 	}
 }
