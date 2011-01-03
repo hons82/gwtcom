@@ -1,5 +1,6 @@
 package org.gwtcom.client.view.navigation;
 
+import org.gwtcom.client.i18n.GWTcomConstants;
 import org.gwtcom.shared.UserLoginRemote;
 
 import com.google.gwt.core.client.GWT;
@@ -23,11 +24,14 @@ public class Shortcuts extends ResizeComposite {
 
 	private final PlaceController _placeController;
 
-	public Shortcuts(PlaceController placeController) {
+	private final GWTcomConstants _constants;
+
+	public Shortcuts(PlaceController placeController, GWTcomConstants constants) {
 		_placeController = placeController;
+		_constants = constants;
 		
-		publicMenu = new PublicMenu(_placeController);
-		privateMenu = new PrivateMenu(_placeController);
+		publicMenu = new PublicMenu(_placeController, _constants);
+		privateMenu = new PrivateMenu(_placeController, _constants);
 		initWidget(binder.createAndBindUi(this));
 		
 		initView();

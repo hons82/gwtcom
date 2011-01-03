@@ -7,6 +7,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.i18n.client.Constants;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -21,6 +22,12 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class PrivateMenu extends AbstractStackPanelInlay {
 
+	public static interface CwConstants extends Constants {
+	    String cwProfileTitle();
+	    String cwNoAccess();
+	  }
+	
+	
 	interface Binder extends UiBinder<Widget, PrivateMenu> {
 	}
 
@@ -35,31 +42,26 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 	@UiField
 	Style style;
 
-	private Label _noAccess;
+	private final Label _noAccess;
 
-	private Anchor _profile;
+	private final Anchor _profile;
 
 	private HandlerRegistration _profileHandlerRegistration;
 
 	private final PlaceController _placeController;
 
-	public PrivateMenu(PlaceController placeController) {
+	private final CwConstants _constants;
+
+	public PrivateMenu(PlaceController placeController,CwConstants constants) {
 		_placeController = placeController;
+		_constants = constants;
 
 		initWidget(binder.createAndBindUi(this));
 
-		initView();
-
-	}
-
-	/**
-	 * 
-	 */
-	private void initView() {
-		_noAccess = new Label("You need to be logged in to use this menu");
+		_noAccess = new Label(_constants.cwNoAccess());
 		panel.add(_noAccess);
 
-		_profile = addItem("Profile");
+		_profile = addItem(_constants.cwProfileTitle());
 
 	}
 

@@ -25,6 +25,7 @@
 
 	<!-- Internationalization support. -->
 	<extend-property name="locale" values="en" />
+	<extend-property name="locale" values="de" />
 	<set-property-fallback name="locale" value="en" />
 
 </module>

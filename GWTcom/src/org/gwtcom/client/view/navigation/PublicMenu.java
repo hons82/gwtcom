@@ -7,6 +7,7 @@ import org.gwtcom.shared.UserLoginRemote;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.Constants;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -20,6 +21,12 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class PublicMenu extends AbstractStackPanelInlay {
 
+	public static interface CwConstants extends Constants {
+	    String cwNewsTitle();
+
+	    String cwDatesTitle();
+	  }
+	
 	interface Binder extends UiBinder<Widget, PublicMenu> {
 	}
 
@@ -40,12 +47,12 @@ public class PublicMenu extends AbstractStackPanelInlay {
 
 	private final PlaceController _placeController;
 
-	public PublicMenu(PlaceController placeController) {
+	public PublicMenu(PlaceController placeController, CwConstants constants) {
 		_placeController = placeController;
 		
 		initWidget(binder.createAndBindUi(this));
 
-		_news = addItem("News");
+		_news = addItem(constants.cwNewsTitle());
 		_news.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -55,7 +62,7 @@ public class PublicMenu extends AbstractStackPanelInlay {
 			}
 		});
 
-		_dates = addItem("Termine");
+		_dates = addItem(constants.cwDatesTitle());
 		_dates.addClickHandler(new ClickHandler() {
 
 			@Override

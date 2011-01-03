@@ -2,6 +2,7 @@ package org.gwtcom.client.view;
 
 import org.gwtcom.client.event.ILoginLogoutClickEvent;
 import org.gwtcom.client.event.LoginLogoutClickEvent;
+import org.gwtcom.client.i18n.GWTcomConstants;
 import org.gwtcom.client.service.AuthenticationService;
 import org.gwtcom.client.service.AuthenticationServiceAsync;
 import org.gwtcom.client.view.navigation.Shortcuts;
@@ -44,13 +45,16 @@ public class GWTmainView extends ResizeComposite {
 
 	private final PlaceController _placeController;
 
-	public GWTmainView(EventBus eventbus, PlaceController placeController) {
+	private final GWTcomConstants _constants;
+
+	public GWTmainView(EventBus eventbus, PlaceController placeController, GWTcomConstants constants) {
 		_eventbus = eventbus;
 		_placeController = placeController;
+		_constants = constants;
 		// Inject global styles.
 		// GWT.<GlobalResources>create(GlobalResources.class).css().ensureInjected();
 
-		shortcuts = new Shortcuts(_placeController);
+		shortcuts = new Shortcuts(_placeController, _constants);
 		
 		// Create the UI defined in GWTcom.ui.xml.
 		_outer = binder.createAndBindUi(this);

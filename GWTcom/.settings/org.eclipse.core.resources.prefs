@@ -1,3 +1,6 @@
-#Wed Dec 22 13:33:12 CET 2010
+#Mon Jan 03 10:49:58 CET 2011
 eclipse.preferences.version=1
+encoding//src/com/google/gwt/i18n/client/LocalizableResource.properties=UTF-8
+encoding//src/com/google/gwt/i18n/client/LocalizableResource_de.properties=UTF-8
+encoding//src/com/google/gwt/i18n/client/LocalizableResource_en.properties=UTF-8
 encoding/<project>=UTF-8

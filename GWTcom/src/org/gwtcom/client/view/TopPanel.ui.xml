@@ -3,7 +3,7 @@
 
 	<ui:image field='logo' src='img/logo.png' />
 
-<ui:style>
+	<ui:style>
   .statusDiv {
     text-align: right;
     margin: 1em;
@@ -11,6 +11,12 @@
 
   .linksDiv {
     text-align: right;
+  }
+  
+  .localeBox {
+    color: blue;
+    font-size: 8pt;
+    margin-left: 4px;
   }
 
   @if user.agent ie6 {
@@ -40,6 +46,10 @@
 				<g:Anchor href='javascript:;' ui:field='signInLink'>Sign In</g:Anchor>
 				<g:Anchor href='javascript:;' ui:field='signOutLink'>Sign Out</g:Anchor>
 				<g:Anchor href='javascript:;' ui:field='aboutLink'>About</g:Anchor>
+			</div>
+
+			<div>
+				<g:ListBox addStyleNames='{style.localeBox}' ui:field='localeBox' />
 			</div>
 		</div>
 	</g:HTMLPanel>

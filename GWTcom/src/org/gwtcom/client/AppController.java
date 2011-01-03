@@ -1,6 +1,7 @@
 package org.gwtcom.client;
 
 import org.gwtcom.client.gin.GWTcomGinjector;
+import org.gwtcom.client.i18n.GWTcomConstants;
 import org.gwtcom.client.place.DateItemPlace;
 import org.gwtcom.client.place.DateListPlace;
 import org.gwtcom.client.place.NewsItemPlace;
@@ -30,15 +31,18 @@ public class AppController implements ActivityMapper {
 
 	private final PlaceController _placeController;
 
+	private final GWTcomConstants _constants;
+
 	@Inject
-	public AppController(EventBus eventbus, PlaceController placeController, GWTcomGinjector injector) {
+	public AppController(EventBus eventbus, PlaceController placeController, GWTcomGinjector injector, GWTcomConstants constants) {
 		_eventbus = eventbus;
 		_placeController = placeController;
 		_injector = injector;
+		_constants = constants;
 	}
 
 	public AcceptsOneWidget go(HasWidgets container) {
-		_gwtmain = new GWTmainView(_eventbus, _placeController);
+		_gwtmain = new GWTmainView(_eventbus, _placeController, _constants);
 		container.add(_gwtmain.asWidget());
 		_container = _gwtmain.getDetailContainer();
 
