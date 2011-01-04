@@ -23,7 +23,6 @@ public class DateListActivity extends AbstractActivity implements DateList.Prese
 	private final ListDataProvider<DateItemRemote> _datelist;
 	private final PlaceController _placeController;
 	private final DateList _dateListView;
-	private EventBus _eventBus;
 
 	@Inject
 	public DateListActivity(DateList DateListView, PlaceController placeController) {
@@ -31,33 +30,17 @@ public class DateListActivity extends AbstractActivity implements DateList.Prese
 		_placeController = placeController;
 		_dateListView = DateListView;
 		_dateListView.setPresenter(this);
-		_datelist = new ListDataProvider<DateItemRemote>(); 
+		_datelist = new ListDataProvider<DateItemRemote>();
 	}
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		System.out.println(">>>>>DateListPresenter.start()");
 
-		_eventBus = eventBus;
-		// _dateListView.getDateListTable().addClickHandler(new ClickHandler() {
-		//
-		// @Override
-		// public void onClick(ClickEvent event) {
-		// System.out.println(">>>>>DateListPresenter.onClick()");
-		//
-		// int selectedRow = _dateListView.getClickedRow(event);
-		//
-		// if (selectedRow >= 0) {
-		// DateItemRemote item = _datelist.get(_dateListView.getClickedRow(event));
-		// goTo(new DateItemPlace(item));
-		// }
-		// }
-		//
-		// });
-
 		fetchDateList();
 		panel.setWidget(_dateListView.asWidget());
-		_datelist.addDataDisplay(_dateListView.getDateListTable());
+		if (!_datelist.getDataDisplays().contains(_dateListView.getDateList()))
+			_datelist.addDataDisplay(_dateListView.getDateList());
 	}
 
 	private void fetchDateList() {

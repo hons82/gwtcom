@@ -22,11 +22,11 @@ import com.google.gwt.user.client.ui.Widget;
 public class PublicMenu extends AbstractStackPanelInlay {
 
 	public static interface CwConstants extends Constants {
-	    String cwNewsTitle();
+		String cwNewsTitle();
 
-	    String cwDatesTitle();
-	  }
-	
+		String cwDatesTitle();
+	}
+
 	interface Binder extends UiBinder<Widget, PublicMenu> {
 	}
 
@@ -49,7 +49,7 @@ public class PublicMenu extends AbstractStackPanelInlay {
 
 	public PublicMenu(PlaceController placeController, CwConstants constants) {
 		_placeController = placeController;
-		
+
 		initWidget(binder.createAndBindUi(this));
 
 		_news = addItem(constants.cwNewsTitle());
@@ -84,6 +84,6 @@ public class PublicMenu extends AbstractStackPanelInlay {
 	@Override
 	public void setLoggedIn(UserLoginRemote result) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -11,7 +11,7 @@ public interface NewsList extends IsWidget {
 
 	public HasClickHandlers getList();
 
-	public CellList<NewsItemRemote> getNewsListTable();
+	public CellList<NewsItemRemote> getNewsList();
 
 	public void setPresenter(Presenter presenter);
 

@@ -9,8 +9,6 @@ import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
@@ -23,7 +21,6 @@ public class NewsItemActivity extends AbstractActivity implements NewsItem.Prese
 
 	private final PlaceController _placeController;
 	private NewsItemRemote _newsItem;
-	private EventBus _eventBus;
 	private final NewsItem _newsItemView;
 
 	@Inject
@@ -38,19 +35,11 @@ public class NewsItemActivity extends AbstractActivity implements NewsItem.Prese
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		System.out.println(">>>>>NewsItemActivity.start()");
 
-		_eventBus = eventBus;
-		_newsItemView.getBackButton().addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				goTo(new NewsListPlace());
-			}
-		});
 		final Place currentPlace = _placeController.getWhere();
 		if (currentPlace != null && currentPlace instanceof NewsItemPlace) {
 			getNewsItem(Long.parseLong(((NewsItemPlace) currentPlace).getId()));
 		} else {
-			// TODO: sent back to the List
+			goTo(new NewsListPlace());
 		}
 		panel.setWidget(_newsItemView.asWidget());
 	}

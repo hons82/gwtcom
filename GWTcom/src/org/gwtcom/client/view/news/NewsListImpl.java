@@ -1,5 +1,6 @@
 package org.gwtcom.client.view.news;
 
+import org.gwtcom.client.place.NewsItemPlace;
 import org.gwtcom.client.view.navigation.ShowMorePagerPanel;
 import org.gwtcom.shared.NewsItemRemote;
 
@@ -90,14 +91,21 @@ public class NewsListImpl extends ResizeComposite implements NewsList {
 				NewsItemRemote.KEY_PROVIDER);
 		cellList.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
+				if (event.getSource() instanceof SingleSelectionModel<?>) {
+					NewsItemRemote dest = ((SingleSelectionModel<NewsItemRemote>) event.getSource()).getSelectedObject();
+					if (dest != null)
+						_presenter.goTo(new NewsItemPlace(dest));
+				}
 			}
 		});
-
 		initWidget(binder.createAndBindUi(this));
 
 		pagerPanel.setDisplay(cellList);
+
+		cellList.setFocus(false);
 	}
 
 	@Override
@@ -112,7 +120,7 @@ public class NewsListImpl extends ResizeComposite implements NewsList {
 	}
 
 	@Override
-	public CellList<NewsItemRemote> getNewsListTable() {
+	public CellList<NewsItemRemote> getNewsList() {
 		return cellList;
 	}
 

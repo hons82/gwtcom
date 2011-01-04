@@ -1,13 +1,16 @@
 package org.gwtcom.client.view.news;
 
+import org.gwtcom.client.place.NewsListPlace;
 import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Hidden;
@@ -83,21 +86,9 @@ public class NewsItemImpl extends ResizeComposite implements NewsItem {
 		return this;
 	}
 
-	@Override
-	public void startProcessing() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stopProcessing() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Button getBackButton() {
-		return back;
+	@UiHandler("back")
+	public void onClickBack(ClickEvent e) {
+		_presenter.goTo(new NewsListPlace());
 	}
 
 	@Override

@@ -18,12 +18,11 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 
-public class NewsListActivity extends AbstractActivity implements NewsList.Presenter{
+public class NewsListActivity extends AbstractActivity implements NewsList.Presenter {
 
 	private final ListDataProvider<NewsItemRemote> _newslist;
 	private final PlaceController _placeController;
 	private final NewsList _newsListView;
-	private EventBus _eventBus;
 
 	@Inject
 	public NewsListActivity(NewsList newsListView, PlaceController placeController) {
@@ -32,32 +31,17 @@ public class NewsListActivity extends AbstractActivity implements NewsList.Prese
 		_placeController = placeController;
 		_newsListView = newsListView;
 		_newsListView.setPresenter(this);
-		_newslist = new ListDataProvider<NewsItemRemote>(); 
+		_newslist = new ListDataProvider<NewsItemRemote>();
 	}
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		System.out.println(">>>>>NewsListPresenter.start()");
 
-		_eventBus = eventBus;
-//		_newsListView.getNewsListTable().addClickHandler(new ClickHandler() {
-//
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				System.out.println(">>>>>NewsListPresenter.onClick()");
-//
-//				int selectedRow = _newsListView.getClickedRow(event);
-//
-////				if (selectedRow >= 0) {
-////					NewsItemRemote item = _newslist.get(_newsListView.getClickedRow(event));
-////					goTo(new NewsItemPlace(item));
-////				}
-//			}
-//
-//		});
 		fetchNewsList();
 		panel.setWidget(_newsListView.asWidget());
-		_newslist.addDataDisplay(_newsListView.getNewsListTable());
+		if (!_newslist.getDataDisplays().contains(_newsListView.getNewsList()))
+			_newslist.addDataDisplay(_newsListView.getNewsList());
 	}
 
 	private void fetchNewsList() {
@@ -77,7 +61,7 @@ public class NewsListActivity extends AbstractActivity implements NewsList.Prese
 
 	@Override
 	public void goTo(Place place) {
-		System.out.println(">>>>> NewsListActivity.goTo "+ place.getClass().toString());
+		System.out.println(">>>>> NewsListActivity.goTo " + place.getClass().toString());
 		_placeController.goTo(place);
 	}
 

@@ -1,5 +1,6 @@
 package org.gwtcom.client.view.dates;
 
+import org.gwtcom.client.place.DateItemPlace;
 import org.gwtcom.client.view.navigation.ShowMorePagerPanel;
 import org.gwtcom.shared.DateItemRemote;
 
@@ -59,7 +60,7 @@ public class DateListImpl extends ResizeComposite implements DateList {
 		}
 
 	}
-	
+
 	interface Binder extends UiBinder<Widget, DateListImpl> {
 	}
 
@@ -73,7 +74,7 @@ public class DateListImpl extends ResizeComposite implements DateList {
 	private Presenter _presenter;
 
 	public DateListImpl() {
-	// Create a CellList.
+		// Create a CellList.
 		DateCell contactCell = new DateCell();
 
 		// Set a key provider that provides a unique key for each contact. If key is
@@ -88,14 +89,21 @@ public class DateListImpl extends ResizeComposite implements DateList {
 				DateItemRemote.KEY_PROVIDER);
 		cellList.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
+				if (event.getSource() instanceof SingleSelectionModel<?>) {
+					DateItemRemote dest = ((SingleSelectionModel<DateItemRemote>) event.getSource()).getSelectedObject();
+					if (dest != null)
+						_presenter.goTo(new DateItemPlace(dest));
+				}
 			}
 		});
-
 		initWidget(binder.createAndBindUi(this));
 
 		pagerPanel.setDisplay(cellList);
+
+		cellList.setFocus(false);
 	}
 
 	@Override
@@ -108,12 +116,11 @@ public class DateListImpl extends ResizeComposite implements DateList {
 	public Widget asWidget() {
 		return this;
 	}
-	
+
 	@Override
-	public CellList<DateItemRemote> getDateListTable() {
+	public CellList<DateItemRemote> getDateList() {
 		return cellList;
 	}
-
 
 	@Override
 	public void setPresenter(Presenter presenter) {

@@ -11,7 +11,7 @@ public interface DateList extends IsWidget {
 
 	public HasClickHandlers getList();
 
-	public CellList<DateItemRemote> getDateListTable();
+	public CellList<DateItemRemote> getDateList();
 
 	public void setPresenter(Presenter presenter);
 

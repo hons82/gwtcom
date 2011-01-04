@@ -9,8 +9,6 @@ import org.gwtcom.shared.DateItemRemote;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
@@ -19,11 +17,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 
-public class DateItemActivity extends AbstractActivity implements DateItem.Presenter{
+public class DateItemActivity extends AbstractActivity implements DateItem.Presenter {
 
 	private final PlaceController _placeController;
 	private DateItemRemote _dateitem;
-	private EventBus _eventBus;
 	private final DateItem _dateItemView;
 
 	@Inject
@@ -38,19 +35,11 @@ public class DateItemActivity extends AbstractActivity implements DateItem.Prese
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		System.out.println(">>>>>DateItemPresenter.start()");
 
-		_eventBus = eventBus;
-		_dateItemView.getBackButton().addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				goTo(new DateListPlace());
-			}
-		});
 		final Place currentPlace = _placeController.getWhere();
 		if (currentPlace != null && currentPlace instanceof DateItemPlace) {
 			getDateItem(Long.parseLong(((DateItemPlace) currentPlace).getId()));
 		} else {
-			// TODO: sent back to the List
+			goTo(new DateListPlace());
 		}
 		panel.setWidget(_dateItemView.asWidget());
 	}
@@ -71,7 +60,7 @@ public class DateItemActivity extends AbstractActivity implements DateItem.Prese
 			}
 		});
 	}
-	
+
 	@Override
 	public void goTo(Place place) {
 		_placeController.goTo(place);
