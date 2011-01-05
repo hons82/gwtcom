@@ -1,22 +1,41 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gwtcom='urn:import:org.gwtcom.client.view'>
+	ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
+	ui:generateLocales="default" xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:gwtcom='urn:import:org.gwtcom.client.view'>
+
+	<ui:image field='newsiconimage' src='../img/newsicon.png' />
+	<ui:image field='backimage' src='../img/back.png' />
+	<ui:image field='gradient' src='../img/gradient_bg_dark.png'
+		repeatStyle='Horizontal' />
 
 	<ui:style>
-		.detail {
+		.main {
 			background-color: transparent;
-			width: 100%;
 			height: 100%;
 		}
 		
 		.header {
+			gwt-image: 'gradient';
+			background-color: #C6C6C6;
+			cursor: pointer;
+			text-shadow: rgba(255, 255, 255, 1) 0 1px 1px;
+			font-size: 1.2em;
+			font-weight: bold;
+			color: #000000;
+			padding: .5em;
+		}
+		
+		.footer {
 			background: #eee;
 			border-bottom: 1px solid #999999;
 			border-collapse: collapse;
-			padding: 0.5em;
+			width: 100%;
 		}
 		
-		.headerItem {
-			margin-bottom: 0.5em;
+		.footerItem {
+			background: transparent;
+			border: none;
+			padding: .5em;
 		}
 		
 		.body {
@@ -24,25 +43,71 @@
 			padding: 20px 40px 20px 10px;
 			font-family: 'Times New Roman', Times, serif;
 		}
+		
+		@if user.agent ie6 {
+	  		.newsIcon {
+	  	   	    background-image: url(newsicon_ie6.gif);
+	    		width: 31px;
+	    		height: 22px;
+	    		float: left;
+	 		 }
+	    } @else {
+    		@sprite .newsIcon {
+      			gwt-image: 'newsiconimage';
+      			margin-right: 0.5em;
+      			float: left;
+    		}
+ 		}
 	</ui:style>
 
-	<g:DockLayoutPanel unit='EM' styleName='{style.detail}'>
-		<g:north size='9'>
+	<g:DockLayoutPanel unit='PX' styleName='{style.main}'>
+		<g:north size='38'>
 			<g:HTMLPanel styleName='{style.header}'>
-				<g:Hidden ui:field="id"></g:Hidden>
-				<g:Button ui:field="back" text="Back"></g:Button>
-				<div class='{style.headerItem}' ui:field='title'></div>
-				<div class='{style.headerItem}'>
-					<b>Author:</b>
-					<span ui:field='author' />
-				</div>
-				<div class='{style.headerItem}'>
-					<b>Date:</b>
-					<span ui:field='date' />
-				</div>
+				<div class='{style.newsIcon}' />
+				<div ui:field='title'></div>
 			</g:HTMLPanel>
 		</g:north>
-
+		<g:south size="60">
+			<g:SimplePanel styleName='{style.footer}'>
+				<g:HorizontalPanel>
+					<g:Hidden ui:field="id" />
+					<g:PushButton ui:field="back" enabled="true"
+						styleName='{style.footerItem}'>
+						<g:upFace image='{backimage}'>
+							<ui:msg key='back'>
+								<b>Back</b>
+							</ui:msg>
+						</g:upFace>
+					</g:PushButton>
+					<g:HTMLPanel styleName='{style.footerItem}'>
+						<table>
+							<tr>
+								<td>
+									<ui:msg key='by'>
+										<b>by</b>
+									</ui:msg>
+									:
+								</td>
+								<td>
+									<span ui:field='author' />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<ui:msg key='on'>
+										<b>on</b>
+									</ui:msg>
+									:
+								</td>
+								<td>
+									<span ui:field='date' />
+								</td>
+							</tr>
+						</table>
+					</g:HTMLPanel>
+				</g:HorizontalPanel>
+			</g:SimplePanel>
+		</g:south>
 		<g:center>
 			<g:ScrollPanel>
 				<g:HTML styleName='{style.body}' ui:field='content' wordWrap='true' />

@@ -52,8 +52,11 @@ public class DateListImpl extends ResizeComposite implements DateList {
 
 			// Add the name and address.
 			sb.appendHtmlConstant("<td style='font-size:95%;'>");
-			sb.appendEscaped(value.getAuthor() != null ? value.getAuthor().getSurname() + " "
-					+ value.getAuthor().getName() : "<empty>");
+			sb.appendEscaped(value.getAuthor() != null
+					&& (value.getAuthor().getSurname() != null || value.getAuthor().getName() != null) ? (value.getAuthor()
+							.getSurname() != null ? value.getAuthor().getSurname() : "")
+							+ " "
+							+ (value.getAuthor().getName() != null ? value.getAuthor().getName() : "") : "<anonymous>");
 			sb.appendHtmlConstant("</td></tr><tr><td>");
 			sb.appendEscaped(value.getTitle());
 			sb.appendHtmlConstant("</td></tr></table>");

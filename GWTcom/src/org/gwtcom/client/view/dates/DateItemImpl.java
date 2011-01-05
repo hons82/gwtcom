@@ -11,9 +11,9 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Hidden;
+import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -30,7 +30,7 @@ public class DateItemImpl extends ResizeComposite implements DateItem {
 	@UiField
 	Hidden id;
 	@UiField
-	Button back;
+	PushButton back;
 	@UiField
 	Element title;
 	@UiField
@@ -54,7 +54,11 @@ public class DateItemImpl extends ResizeComposite implements DateItem {
 			
 			id.setValue(String.valueOf(item.getId()));
 			title.setInnerText(item.getTitle());
-			author.setInnerText(item.getAuthor() != null ? item.getAuthor().getSurname() + " " + item.getAuthor().getName() : "<empty>");
+			author.setInnerText(item.getAuthor() != null
+					&& (item.getAuthor().getSurname() != null || item.getAuthor().getName() != null) ? (item.getAuthor()
+					.getSurname() != null ? item.getAuthor().getSurname() : "")
+					+ " "
+					+ (item.getAuthor().getName() != null ? item.getAuthor().getName() : "") : "<anonymous>");
 			date.setInnerHTML(fmt.format(item.getDateAdded()));
 
 			// WARNING: For the purposes of this demo, we're using HTML
