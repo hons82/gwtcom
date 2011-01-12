@@ -5,15 +5,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.google.appengine.api.datastore.Key;
 
 @Entity
 public class UserProfile extends BaseDomainObject {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 382224708168422399L;
+
 	public static final int GENDER_MALE = 0;
 	public static final int GENDER_FEMALE = 1;
 
@@ -29,19 +29,24 @@ public class UserProfile extends BaseDomainObject {
 	@Column(name = "gender")
 	private int _gender;
 
+	@Column(name = "image")
+	@OneToOne
+	private ProfileImage _profileImage;
+
 	@Column(name = "login")
-	@OneToMany(mappedBy = "_userprofile")
+	@OneToOne(mappedBy = "_userprofile")
 	private UserLogin _login;
 
-	// @Column(name = "newslist", mappedBy = "_author")
+	// @Column(name = "newslist")
+	// @OneToMany(mappedBy = "_author")
 	// private List<NewsItem> _newslist;
 	//
-	// @Column(name = "dateslist", mappedBy = "_author")
+	// @Column(name = "dateslist")
+	// @OneToMany(mappedBy = "_author")
 	// private List<DateItem> _dateslist;
-
+	//
 	@Column(name = "walllist")
-	@OneToMany(mappedBy = "_owner")
-	private List<WallEntry> _wall;
+	private List<Key> _wall;
 
 	public UserProfile() {
 		this(null, null);
@@ -53,7 +58,7 @@ public class UserProfile extends BaseDomainObject {
 		setSurname(surname);
 		// setNewslist(new ArrayList<NewsItem>());
 		// setDateslist(new ArrayList<DateItem>());
-		setWall(new ArrayList<WallEntry>());
+		setWall(new ArrayList<Key>());
 	}
 
 	public String getName() {
@@ -111,13 +116,21 @@ public class UserProfile extends BaseDomainObject {
 	// public List<DateItem> getDateslist() {
 	// return _dateslist;
 	// }
-
-	public void setWall(List<WallEntry> wall) {
+	//
+	public void setWall(List<Key> wall) {
 		_wall = wall;
 	}
 
-	public List<WallEntry> getWall() {
+	public List<Key> getWall() {
 		return _wall;
+	}
+
+	public void setProfileImage(ProfileImage profileImage) {
+		_profileImage = profileImage;
+	}
+
+	public ProfileImage getProfileImage() {
+		return _profileImage;
 	}
 
 }

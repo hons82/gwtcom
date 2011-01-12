@@ -25,6 +25,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring4gwt-0.0.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gin-1.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-2.0.0.m2.jar"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

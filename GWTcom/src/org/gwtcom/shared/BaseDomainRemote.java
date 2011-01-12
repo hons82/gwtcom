@@ -1,13 +1,8 @@
 package org.gwtcom.shared;
 
-import java.io.Serializable;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-public abstract class BaseDomainRemote implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8064810346354919280L;
+public abstract class BaseDomainRemote implements IsSerializable {
 
 	private Long _id;
 	

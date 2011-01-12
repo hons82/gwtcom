@@ -1,14 +1,12 @@
 package org.gwtcom.server.domain;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
 public class Authority extends BaseDomainObject {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2355733708719567498L;
 	
 	@Column(name = "authname")

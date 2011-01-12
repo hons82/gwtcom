@@ -36,8 +36,22 @@
 
 	<g:DockLayoutPanel unit='EM' styleName='{style.detail}'>
 		<g:north size='2'>
-			<g:Label>Testuser said:</g:Label>
+			<g:HTMLPanel>
+				<table>
+					<tr>
+						<td>
+							<g:Label ui:field="username" />
+						</td>
+						<td>
+							<ui:msg key='said'>
+								said:
+							</ui:msg>
+						</td>
+					</tr>
+				</table>
+			</g:HTMLPanel>
 		</g:north>
+
 		<g:west size='5'>
 			<g:HTMLPanel styleName='{style.panel}'>
 				<div class="{style.noProfileImage}" />
@@ -45,7 +59,7 @@
 		</g:west>
 
 		<g:center>
-			<g:Label styleName='{style.content}'>Test</g:Label>
+			<g:Label ui:field="content" styleName='{style.content}' />
 		</g:center>
 	</g:DockLayoutPanel>
 

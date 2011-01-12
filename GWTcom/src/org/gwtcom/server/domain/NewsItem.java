@@ -6,11 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class NewsItem extends BaseDomainObject{
+public class NewsItem extends BaseDomainObject {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8922196591001353438L;
 
 	@Column(name = "dateAdded")

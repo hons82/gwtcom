@@ -1,7 +1,5 @@
 package org.gwtcom.server.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,11 +10,8 @@ import com.google.appengine.api.datastore.Key;
 
 @Entity
 @MappedSuperclass
-public abstract class BaseDomainObject implements Serializable {
+public abstract class BaseDomainObject {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8043009673990162687L;
 
 	@Id

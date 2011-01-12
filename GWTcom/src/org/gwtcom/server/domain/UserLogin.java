@@ -5,15 +5,13 @@ import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import com.google.appengine.api.datastore.Key;
 
 @Entity
-public class UserLogin extends BaseDomainObject{
+public class UserLogin extends BaseDomainObject {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5988243300695711066L;
 
 	@Column(name = "name")
@@ -26,6 +24,7 @@ public class UserLogin extends BaseDomainObject{
 	private Set<Key> _authorities;
 	
 	@Column(name = "userprofile")
+	@OneToOne
 	private UserProfile _userprofile;
 
 

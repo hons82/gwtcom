@@ -1,9 +1,13 @@
 package org.gwtcom.client.view.profile;
 
+import java.util.List;
+
 import org.gwtcom.client.view.profile.wall.WallPanel;
 import org.gwtcom.shared.UserProfileRemote;
+import org.gwtcom.shared.WallEntryRemote;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -34,24 +38,44 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 
 	public ProfileViewImpl() {
 		initWidget(binder.createAndBindUi(this));
-		
+
 	}
 
 	@Override
-	public void setData(UserProfileRemote item) {
+	public void setProfileData(UserProfileRemote item) {
 		System.out.println(">>>>> ProfileItem.setData()");
 		if (item != null) {
 			name.setText(item.getName());
 			email.setText(item.getEmail());
-			gender.setText((item.getGender()==0?"male":"female"));
-		}else{
-		}
-		//TEST
-		for (int i = 0; i < 10; i++) {
-			wall.addWallItem(null);
+			gender.setText((item.getGender() == 0 ? "male" : "female"));
+		} else {
+			//TODO
 		}
 	}
 
+	@Override
+	public void setProfileWallData(List<WallEntryRemote> result) {
+		wall.clearWall();
+		for (WallEntryRemote entry : result) {
+			wall.addWallItem(entry);
+		}
+	}
+	
+	@Override
+	public void addProfileWallEntry(WallEntryRemote entry) {
+			wall.addWallItem(entry);
+	}
+
+	@Override
+	public void addWallPostClickHandler(ClickHandler clickHandler) {
+		wall.addWallPostClickHandler(clickHandler);
+	}
+	
+	@Override
+	public String getWallPostInputContent() {
+		return wall.getInputContent();
+	}
+	
 	@Override
 	public HasClickHandlers getList() {
 		// TODO Auto-generated method stub
@@ -64,21 +88,8 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 	}
 
 	@Override
-	public void startProcessing() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stopProcessing() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void setPresenter(Presenter presenter) {
-		_presenter = presenter;		
+		_presenter = presenter;
 	}
 
-	
 }

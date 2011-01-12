@@ -15,7 +15,7 @@
 		.postPanelTextBox {
 			margin-left: 20px;
 			margin-right: 20px;
-			width: inherit;
+			width: 90%;
 		}
 		
 		.postPanelButton {
@@ -31,23 +31,29 @@
 	<g:DockLayoutPanel unit='EM' styleName='{style.detail}'>
 		<g:north size='5'>
 			<g:HorizontalPanel styleName='{style.postPanel}'>
-				<g:cell width='15%'>
-					<g:Label>Post to Wall: </g:Label>
+				<g:cell width='20%'>
+					<g:Label>
+						<ui:msg key='postToWall'>
+							Post to Wall:
+					</ui:msg>:
+					</g:Label>
 				</g:cell>
-				<g:cell width='80%'>
-					<g:TextBox styleName='{style.postPanelTextBox}'></g:TextBox>
+				<g:cell width='75%'>
+					<g:TextBox ui:field="inputContent" styleName='{style.postPanelTextBox}'></g:TextBox>
 				</g:cell>
 				<g:cell>
-					<g:Button styleName='{style.postPanelButton}'>Post</g:Button>
+					<g:Button ui:field="inputSubmit" styleName='{style.postPanelButton}'>
+						<ui:msg key='post'>
+							Post
+					</ui:msg>
+					</g:Button>
 				</g:cell>
 			</g:HorizontalPanel>
 		</g:north>
 
 		<g:center>
 			<g:ScrollPanel>
-				<g:VerticalPanel ui:field="wallitems" styleName='{style.wallItems}'>
-					<wall:WallItem></wall:WallItem>
-				</g:VerticalPanel>
+				<g:VerticalPanel ui:field="wallitems" styleName='{style.wallItems}' />
 			</g:ScrollPanel>
 		</g:center>
 	</g:DockLayoutPanel>

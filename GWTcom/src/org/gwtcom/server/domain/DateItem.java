@@ -6,11 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class DateItem extends BaseDomainObject{
+public class DateItem extends BaseDomainObject {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2075374069026921484L;
 
 	@Column(name = "dateAdded")
@@ -25,10 +22,10 @@ public class DateItem extends BaseDomainObject{
 	@Column(name = "content")
 	private String _content;
 
-	public DateItem(){
+	public DateItem() {
 		super();
 	}
-	
+
 	public UserProfile getAuthor() {
 		return _author;
 	}
