@@ -3,9 +3,9 @@
 	ui:generateLocales="default" xmlns:g='urn:import:com.google.gwt.user.client.ui'
 	xmlns:gwtcom='urn:import:org.gwtcom.client.view'>
 
-	<ui:image field='dateiconimage' src='../img/datesicon.png' />
-	<ui:image field='backimage' src='../img/back.png' />
-	<ui:image field='gradient' src='../img/gradient_bg_dark.png'
+	<ui:image field='dateiconimage' src='../img/icon/datesicon.png' />
+	<ui:image field='backimage' src='../img/other/back.png' />
+	<ui:image field='gradient' src='../img/other/gradient_bg_dark.png'
 		repeatStyle='Horizontal' />
 
 	<ui:style>

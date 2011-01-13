@@ -2,6 +2,7 @@ package org.gwtcom.client.view.profile;
 
 import java.util.List;
 
+import org.gwtcom.client.view.bundles.ProfileClientBundle;
 import org.gwtcom.client.view.profile.wall.WallPanel;
 import org.gwtcom.shared.UserProfileRemote;
 import org.gwtcom.shared.WallEntryRemote;
@@ -11,6 +12,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
@@ -24,6 +27,7 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 	}
 
 	private static final Binder binder = GWT.create(Binder.class);
+	private static final ProfileClientBundle profileBundle = GWT.create(ProfileClientBundle.class);
 
 	@UiField
 	Label name;
@@ -33,12 +37,13 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 	Label gender;
 	@UiField
 	WallPanel wall;
+	@UiField
+	HTMLPanel imagePanel;
 
 	private Presenter _presenter;
 
 	public ProfileViewImpl() {
 		initWidget(binder.createAndBindUi(this));
-
 	}
 
 	@Override
@@ -48,8 +53,13 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 			name.setText(item.getName());
 			email.setText(item.getEmail());
 			gender.setText((item.getGender() == 0 ? "male" : "female"));
+
+			// Add the "noImage" image to the Panel
+			Image image = new Image(profileBundle.noprofile());
+			imagePanel.clear();
+			imagePanel.add(image,"imageDiv");
 		} else {
-			//TODO
+			// TODO
 		}
 	}
 
@@ -60,22 +70,22 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 			wall.addWallItem(entry);
 		}
 	}
-	
+
 	@Override
 	public void addProfileWallEntry(WallEntryRemote entry) {
-			wall.addWallItem(entry);
+		wall.addWallItem(entry);
 	}
 
 	@Override
 	public void addWallPostClickHandler(ClickHandler clickHandler) {
 		wall.addWallPostClickHandler(clickHandler);
 	}
-	
+
 	@Override
 	public String getWallPostInputContent() {
 		return wall.getInputContent();
 	}
-	
+
 	@Override
 	public HasClickHandlers getList() {
 		// TODO Auto-generated method stub
