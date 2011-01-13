@@ -54,10 +54,18 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 			email.setText(item.getEmail());
 			gender.setText((item.getGender() == 0 ? "male" : "female"));
 
-			// Add the "noImage" image to the Panel
 			Image image = new Image(profileBundle.noprofile());
+			if (item.getProfileImage() != null && item.getProfileImage().getImage() != null) {
+				// add the real image to the panel
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/gif;base64,");
+				sb.append(item.getProfileImage().getImage());
+
+				image.setUrl(sb.toString());
+			}
+			image.setSize("175px", "200px");
 			imagePanel.clear();
-			imagePanel.add(image,"imageDiv");
+			imagePanel.add(image, "imageDiv");
 		} else {
 			// TODO
 		}

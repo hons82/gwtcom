@@ -24,7 +24,7 @@ public class UserProfileConverter implements AbstractConverter<UserProfileRemote
 			remote.setSurname(domain.getSurname());
 			remote.setEmail(domain.getEmail());
 			remote.setGender(domain.getGender());
-			//remote.setProfileImage(_profileImageConverter.convertDomainToRemote(domain.getProfileImage()));
+			remote.setProfileImage(_profileImageConverter.convertDomainToRemote(domain.getProfileImage()));
 		}
 		return remote;
 	}

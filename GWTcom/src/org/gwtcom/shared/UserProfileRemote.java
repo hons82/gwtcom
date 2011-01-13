@@ -16,7 +16,7 @@ public class UserProfileRemote extends BaseDomainRemote {
 
 	private int _gender;
 	
-	//private ProfileImageRemote _profileImage;
+	private ProfileImageRemote _profileImage;
 
 	public UserProfileRemote() {
 		
@@ -54,12 +54,12 @@ public class UserProfileRemote extends BaseDomainRemote {
 		return _gender;
 	}
 
-//	public void setProfileImage(ProfileImageRemote profileImage) {
-//		_profileImage = profileImage;
-//	}
-//
-//	public ProfileImageRemote getProfileImage() {
-//		return _profileImage;
-//	}
+	public void setProfileImage(ProfileImageRemote profileImage) {
+		_profileImage = profileImage;
+	}
+
+	public ProfileImageRemote getProfileImage() {
+		return _profileImage;
+	}
 
 }
