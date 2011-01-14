@@ -1,6 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gwtcom='urn:import:org.gwtcom.client.view'
-	xmlns:wall='urn:import:org.gwtcom.client.view.profile.wall'>
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:org.gwt.mosaic.ui.client.datepicker'
+	xmlns:gwtcom='urn:import:org.gwtcom.client.view' xmlns:wall='urn:import:org.gwtcom.client.view.profile.wall'>
 
 	<ui:image field='profileiconimage' src='../img/icon/profileicon.png' />
 	<ui:image field='gradient' src='../img/other/gradient_bg_dark.png'
@@ -111,6 +111,12 @@
 											<g:Label ui:field="gender"></g:Label>
 										</td>
 									</tr>
+									<!-- TEST: Just to test how Mosaic Elements can be used -->
+									<tr>
+										<td colspan="2">
+											<c:DatePicker />
+										</td>
+									</tr>
 								</table>
 							</g:HTMLPanel>
 						</g:ScrollPanel>
@@ -122,8 +128,7 @@
 							<g:header>
 								<span class='{style.tab}'>Wall</span>
 							</g:header>
-							<wall:WallPanel ui:field="wall"></wall:WallPanel>
-							>
+							<wall:WallPanel ui:field="wall" />
 						</g:tab>
 						<g:tab>
 							<g:header>
@@ -135,7 +140,8 @@
 							<g:header>
 								<span class='{style.tab}'>Pictures</span>
 							</g:header>
-							<g:Label>No Pictures</g:Label>
+							<!-- TEST: Just to test how Mosaic Elements can be used -->
+							<c:DatePicker />
 						</g:tab>
 					</g:TabLayoutPanel>
 				</g:center>

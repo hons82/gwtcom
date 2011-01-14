@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" output="test-classes" path="test"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
@@ -25,7 +26,10 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring4gwt-0.0.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gin-1.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-beans-binding-0.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-dnd-3.0.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-0.4.0-rc4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-2.0.0.m2.jar"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtx-1.5.4-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
