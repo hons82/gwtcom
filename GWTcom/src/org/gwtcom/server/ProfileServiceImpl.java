@@ -75,42 +75,46 @@ public class ProfileServiceImpl extends AbstractUserAwareService implements Prof
 
 	@Override
 	public WallEntryRemote addWallPost(Long userLoginId, String content) {
-		// gather all needed information about the owner of the wall
-		UserLogin wallUserLogin = getUserLogin(userLoginId);
-		UserProfile wallUserProfile = wallUserLogin != null ? wallUserLogin.getUserprofile() : null;
-		List<Key> wallUserWall = wallUserProfile != null ? wallUserProfile.getWall() : null;
+		// TODO: Ther should be a better way
 
 		// gather all information about the author
 		UserLogin loggedInUser = getUserLogin();
 		UserProfile loggedInUserProfile = loggedInUser != null ? loggedInUser.getUserprofile() : null;
-
 		WallEntry wallEntry = new WallEntry();
-		if (wallUserLogin != null && wallUserProfile != null && wallUserWall != null) {
-			EntityTransaction tx = _entityManager.getTransaction();
-			try {
-				tx.begin();
 
-				wallEntry.setOwner(wallUserProfile.getId());
-				wallEntry.setAuthor(loggedInUserProfile != null ? loggedInUserProfile.getId() : null);
-				wallEntry.setDateAdded(new Date());
-				wallEntry.setContent(content);
-				_entityManager.persist(wallEntry);
+		if (loggedInUser != null && loggedInUserProfile != null) {
+			// gather all needed information about the owner of the wall
+			UserLogin wallUserLogin = getUserLogin(userLoginId);
+			UserProfile wallUserProfile = wallUserLogin != null ? wallUserLogin.getUserprofile() : null;
+			List<Key> wallUserWall = wallUserProfile != null ? wallUserProfile.getWall() : null;
 
-				tx.commit();
-			} catch (Exception e) {
-				if (tx.isActive())
-					tx.rollback();
-			}
-			//
-			try {
-				tx.begin();
-				wallUserWall.add(wallEntry.getId());
-				wallUserProfile.setWall(wallUserWall);
-				_entityManager.merge(wallUserProfile);
-				tx.commit();
-			} catch (Exception e) {
-				if (tx.isActive())
-					tx.rollback();
+			if (wallUserLogin != null && wallUserProfile != null && wallUserWall != null) {
+				EntityTransaction tx = _entityManager.getTransaction();
+				try {
+					tx.begin();
+
+					wallEntry.setOwner(wallUserProfile.getId());
+					wallEntry.setAuthor(loggedInUserProfile != null ? loggedInUserProfile.getId() : null);
+					wallEntry.setDateAdded(new Date());
+					wallEntry.setContent(content);
+					_entityManager.persist(wallEntry);
+
+					tx.commit();
+				} catch (Exception e) {
+					if (tx.isActive())
+						tx.rollback();
+				}
+				//
+				try {
+					tx.begin();
+					wallUserWall.add(wallEntry.getId());
+					wallUserProfile.setWall(wallUserWall);
+					_entityManager.merge(wallUserProfile);
+					tx.commit();
+				} catch (Exception e) {
+					if (tx.isActive())
+						tx.rollback();
+				}
 			}
 		}
 		return _wallEntryConverter.convertDomainToRemote(wallEntry);

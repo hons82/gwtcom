@@ -38,7 +38,6 @@ public class WallEntryConverter extends AbstractDatabaseConverter implements ICo
 	}
 
 	private UserProfile getUserProfileByKey(Key userProfileKey) {
-		return _entityManager.find(UserProfile.class, userProfileKey);
+		return userProfileKey != null ? _entityManager.find(UserProfile.class, userProfileKey) : null;
 	}
-
 }

@@ -29,6 +29,7 @@ public class WallItem extends ResizeComposite {
 	public WallItem(WallEntryRemote entry) {
 		initWidget(binder.createAndBindUi(this));
 
+		//TODO: can still be ""
 		setUsername(entry.getAuthor() != null ? (entry.getAuthor().getName() != null ? entry.getAuthor().getName()
 				: "") + " " + (entry.getAuthor().getSurname() != null ? entry.getAuthor().getSurname() : "") : "<anonymous>");
 		setContent(entry.getContent());
