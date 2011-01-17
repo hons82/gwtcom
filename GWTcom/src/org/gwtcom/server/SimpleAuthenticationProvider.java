@@ -6,8 +6,7 @@ import org.springframework.security.core.AuthenticationException;
 
 public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
-	public Authentication authenticate(Authentication arg0)
-			throws AuthenticationException {
+	public Authentication authenticate(Authentication arg0) throws AuthenticationException {
 		throw new IllegalStateException("just for the sake of namespace");
 	}
 

@@ -6,7 +6,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 
 public class ProfileChangeViewPlace extends Place {
-	
+
 	private final String _id;
 
 	public ProfileChangeViewPlace(String id) {

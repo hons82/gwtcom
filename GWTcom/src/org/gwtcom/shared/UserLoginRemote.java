@@ -1,6 +1,5 @@
 package org.gwtcom.shared;
 
-
 public class UserLoginRemote extends BaseDomainRemote {
 
 	private static final long serialVersionUID = 7680043766846376618L;

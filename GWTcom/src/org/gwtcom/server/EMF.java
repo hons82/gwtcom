@@ -16,7 +16,8 @@ import org.springframework.stereotype.Component;
 public class EMF implements FactoryBean<EntityManager>, ApplicationContextAware, BeanNameAware {
 
 	private AutowiredAnnotationBeanPostProcessor annotationBeanPostProcessor;
-	private static final EntityManagerFactory emfInstance = Persistence.createEntityManagerFactory("transactions-optional");
+	private static final EntityManagerFactory emfInstance = Persistence
+			.createEntityManagerFactory("transactions-optional");
 	private String _name;
 
 	public EMF() {
@@ -46,8 +47,8 @@ public class EMF implements FactoryBean<EntityManager>, ApplicationContextAware,
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		annotationBeanPostProcessor = applicationContext
-				.getBeansOfType(AutowiredAnnotationBeanPostProcessor.class).values().iterator().next();
+		annotationBeanPostProcessor = applicationContext.getBeansOfType(AutowiredAnnotationBeanPostProcessor.class)
+				.values().iterator().next();
 	}
 
 	public EntityManager getEntityManager() {

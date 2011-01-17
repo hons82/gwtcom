@@ -5,7 +5,7 @@ import java.util.Date;
 import com.google.gwt.view.client.ProvidesKey;
 
 public class DateItemRemote extends BaseDomainRemote {
-	
+
 	/**
 	 * 
 	 */
@@ -19,7 +19,7 @@ public class DateItemRemote extends BaseDomainRemote {
 			return item == null ? null : item.getId();
 		}
 	};
-	
+
 	private Date _dateAdded;
 	private UserProfileRemote _author;
 	private String _title;

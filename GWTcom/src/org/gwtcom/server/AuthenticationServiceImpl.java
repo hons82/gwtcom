@@ -51,8 +51,8 @@ public class AuthenticationServiceImpl extends AbstractDatabaseService implement
 			return null;
 		}
 
-		//TODO: Check for SQLInjection
-		
+		// TODO: Check for SQLInjection
+
 		if (!_customUserDetailsService.encodePassword(password).equals(userdetail.getPassword())) {
 			return null;
 		}
@@ -70,7 +70,7 @@ public class AuthenticationServiceImpl extends AbstractDatabaseService implement
 		sc.setAuthentication(auth);
 		SecurityContextHolder.setContext(sc);
 
-		return getUserLogin(userdetail.getUsername());
+		return getUserLoginRemoteByName(userdetail.getUsername());
 	}
 
 	@Override
@@ -81,17 +81,33 @@ public class AuthenticationServiceImpl extends AbstractDatabaseService implement
 
 	@Override
 	public UserLoginRemote isLoggedIn() {
-		System.out.println(">>>>> AuthenticationService.isLoggedIn -> "
-				+ SecurityContextHolder.getContext().getAuthentication());
+		UserLoginRemote userLoginRemote = getUserLoginRemote();
+		return (userLoginRemote != null ? userLoginRemote : null);
+	}
+
+	public UserLoginRemote getUserLoginRemote() {
+		UserLogin userLogin = getUserLogin();
+		return (userLogin != null ? _userLoginConverter.convertDomainToRemote(userLogin) : null);
+	}
+
+	public UserLogin getUserLogin() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(">>>>> AuthenticationService.isLoggedIn -> " + authentication);
 		// TODO: That's maybe not enough of security
-		if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-			return getUserLogin(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+		if (authentication != null && authentication.isAuthenticated()
+				&& !authentication.getPrincipal().equals("anonymousUser")) {
+			return getUserLoginByName(authentication.getPrincipal().toString());
 		}
 		return null;
 	}
 
+	private UserLoginRemote getUserLoginRemoteByName(String name) {
+		UserLogin userLoginByName = getUserLoginByName(name);
+		return (userLoginByName != null ? _userLoginConverter.convertDomainToRemote(userLoginByName) : null);
+	}
+
 	@SuppressWarnings("unchecked")
-	private UserLoginRemote getUserLogin(String name) {
+	private UserLogin getUserLoginByName(String name) {
 		Query query = getEntityManager().createQuery(
 				"SELECT FROM " + UserLogin.class.getName() + " WHERE _name = :nameParam");
 		query.setParameter("nameParam", name);
@@ -99,10 +115,11 @@ public class AuthenticationServiceImpl extends AbstractDatabaseService implement
 		if (udl != null && udl.size() == 1) {
 			UserLogin ud = udl.get(0);
 			if (ud.getUserprofile() != null) {
-				return _userLoginConverter.convertDomainToRemote(ud);
+				return ud;
 			}
 		}
 		System.out.println("User has no profile attached!");
 		return null;
 	}
+
 }

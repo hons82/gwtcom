@@ -1,6 +1,5 @@
 package org.gwtcom.client.service;
 
-
 import java.util.List;
 
 import org.gwtcom.shared.NewsItemRemote;
@@ -19,7 +18,7 @@ public interface NewsService extends RemoteService {
 	List<NewsItemRemote> getPublicNews();
 
 	NewsItemRemote getNewsItem(Long item);
-	
+
 	/**
 	 * Returns the number of private publications.
 	 * 

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("userProfileConverter")
-public class UserProfileConverter implements AbstractConverter<UserProfileRemote, UserProfile> {
+public class UserProfileConverter implements IConverter<UserProfileRemote, UserProfile> {
 
 	private ProfileImageConverter _profileImageConverter;
 

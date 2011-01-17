@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("dateItemConverter")
-public class DateItemConverter implements AbstractConverter<DateItemRemote, DateItem> {
+public class DateItemConverter implements IConverter<DateItemRemote, DateItem> {
 
 	protected UserProfileConverter userProfileConverter;
 

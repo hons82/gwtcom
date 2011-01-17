@@ -14,7 +14,7 @@ public class WallEntryRemote extends BaseDomainRemote {
 	private String _content;
 
 	public WallEntryRemote() {
-		this(0l, new Date(System.currentTimeMillis()), null, null,"");
+		this(0l, new Date(System.currentTimeMillis()), null, null, "");
 	}
 
 	public WallEntryRemote(Long id, Date dateAdded, UserProfileRemote owner, UserProfileRemote author, String content) {

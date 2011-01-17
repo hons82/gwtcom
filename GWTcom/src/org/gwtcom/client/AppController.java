@@ -34,7 +34,8 @@ public class AppController implements ActivityMapper {
 	private final GWTcomConstants _constants;
 
 	@Inject
-	public AppController(EventBus eventbus, PlaceController placeController, GWTcomGinjector injector, GWTcomConstants constants) {
+	public AppController(EventBus eventbus, PlaceController placeController, GWTcomGinjector injector,
+			GWTcomConstants constants) {
 		_eventbus = eventbus;
 		_placeController = placeController;
 		_injector = injector;

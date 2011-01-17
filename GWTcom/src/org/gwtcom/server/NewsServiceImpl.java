@@ -25,7 +25,7 @@ public class NewsServiceImpl implements NewsService {
 	private boolean _first;
 
 	private NewsItemConverter newsItemConverter;
-	
+
 	protected EntityManager entityManager;
 
 	@Autowired
@@ -37,7 +37,7 @@ public class NewsServiceImpl implements NewsService {
 	public void setNewsItemConverter(NewsItemConverter newsItemConverter) {
 		this.newsItemConverter = newsItemConverter;
 	}
-	
+
 	public NewsServiceImpl() {
 		_first = false;
 	}
@@ -78,7 +78,8 @@ public class NewsServiceImpl implements NewsService {
 		EntityTransaction tx = entityManager.getTransaction();
 		NewsItem newNewsItem = new NewsItem();
 		newNewsItem.setAuthor(null);
-		newNewsItem.setTitle("Die Auswirkungen der Sonnenstrahlen auf das Liebesleben der Pflastersteine " + System.currentTimeMillis());
+		newNewsItem.setTitle("Die Auswirkungen der Sonnenstrahlen auf das Liebesleben der Pflastersteine "
+				+ System.currentTimeMillis());
 		newNewsItem.setDateAdded(new Date(System.currentTimeMillis()));
 		tx.begin();
 		entityManager.persist(newNewsItem);
@@ -95,7 +96,8 @@ public class NewsServiceImpl implements NewsService {
 
 	@SuppressWarnings("unchecked")
 	private Collection<NewsItem> getNewsItems() {
-		Collection<NewsItem> resultList = entityManager.createQuery("SELECT FROM " + NewsItem.class.getName()).getResultList();
+		Collection<NewsItem> resultList = entityManager.createQuery("SELECT FROM " + NewsItem.class.getName())
+				.getResultList();
 		return resultList;
 	}
 

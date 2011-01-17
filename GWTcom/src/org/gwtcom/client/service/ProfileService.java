@@ -1,6 +1,5 @@
 package org.gwtcom.client.service;
 
-
 import java.util.List;
 
 import org.gwtcom.shared.UserProfileRemote;
@@ -15,7 +14,7 @@ public interface ProfileService extends RemoteService {
 	public UserProfileRemote getUserProfile(Long userProfileId) throws ServiceSecurityException;
 
 	public UserProfileRemote getUserProfileByUserLoginId(Long userLoginId);
-	
+
 	public List<WallEntryRemote> getPublicWallEntries(Long userProfileId) throws ServiceSecurityException;
 
 	public WallEntryRemote addWallPost(Long userProfileId, String content);

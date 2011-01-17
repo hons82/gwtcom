@@ -42,7 +42,7 @@ public class GWTcomClientModule extends AbstractGinModule {
 		bind(NewsItemActivity.class).in(Singleton.class);
 
 		bind(NewsItem.class).to(NewsItemImpl.class).in(Singleton.class);
-		
+
 		bind(DateListActivity.class).in(Singleton.class);
 
 		bind(DateList.class).to(DateListImpl.class).in(Singleton.class);

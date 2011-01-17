@@ -10,7 +10,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface ProfileServiceAsync {
 
 	public void getUserProfile(Long userProfileId, AsyncCallback<UserProfileRemote> callback);
-	
+
 	public void getUserProfileByUserLoginId(Long userLoginId, AsyncCallback<UserProfileRemote> callback);
 
 	public void getPublicWallEntries(Long userProfileId, AsyncCallback<List<WallEntryRemote>> callback);

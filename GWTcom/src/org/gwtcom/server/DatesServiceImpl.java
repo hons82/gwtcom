@@ -26,7 +26,6 @@ public class DatesServiceImpl implements DatesService {
 	private UserProfileConverter _userProfileConverter;
 	private UserLoginConverter _userLoginConverter;
 	private DateItemConverter _dateItemConverter;
-	
 
 	@Autowired
 	public void setUserLoginConverter(UserLoginConverter userLoginConverter) {
@@ -37,13 +36,12 @@ public class DatesServiceImpl implements DatesService {
 	public void setUserProfileConverter(UserProfileConverter userProfileConverter) {
 		_userProfileConverter = userProfileConverter;
 	}
-	
+
 	@Autowired
 	public void setDateItemConverter(DateItemConverter dateItemConverter) {
 		_dateItemConverter = dateItemConverter;
 	}
-	
-	
+
 	// TODO: this is just a test
 	private boolean _first;
 
@@ -111,8 +109,8 @@ public class DatesServiceImpl implements DatesService {
 
 	@SuppressWarnings("unchecked")
 	private Collection<DateItem> getDateItems() {
-		Collection<DateItem> resultList = entityManager.createQuery(
-				"SELECT FROM " + DateItem.class.getName()).getResultList();
+		Collection<DateItem> resultList = entityManager.createQuery("SELECT FROM " + DateItem.class.getName())
+				.getResultList();
 		return resultList;
 	}
 

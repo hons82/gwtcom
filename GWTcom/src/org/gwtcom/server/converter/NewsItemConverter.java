@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("newsItemConverter")
-public class NewsItemConverter implements AbstractConverter<NewsItemRemote, NewsItem> {
+public class NewsItemConverter implements IConverter<NewsItemRemote, NewsItem> {
 
 	protected UserProfileConverter userProfileConverter;
 

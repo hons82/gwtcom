@@ -10,7 +10,7 @@ public class NewsItemRemote extends BaseDomainRemote {
 	 * 
 	 */
 	private static final long serialVersionUID = 8967170750468895279L;
-	
+
 	/**
 	 * The key provider that provides the unique ID
 	 */
@@ -20,7 +20,7 @@ public class NewsItemRemote extends BaseDomainRemote {
 			return item == null ? null : item.getId();
 		}
 	};
-	
+
 	private Date _dateAdded;
 	private UserProfileRemote _author;
 	private String _title;

@@ -111,12 +111,6 @@
 											<g:Label ui:field="gender"></g:Label>
 										</td>
 									</tr>
-									<!-- TEST: Just to test how Mosaic Elements can be used -->
-									<tr>
-										<td colspan="2">
-											<c:DatePicker />
-										</td>
-									</tr>
 								</table>
 							</g:HTMLPanel>
 						</g:ScrollPanel>

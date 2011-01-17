@@ -1,6 +1,5 @@
 package org.gwtcom.shared;
 
-
 public class UserProfileRemote extends BaseDomainRemote {
 
 	/**
@@ -15,11 +14,11 @@ public class UserProfileRemote extends BaseDomainRemote {
 	private String _email;
 
 	private int _gender;
-	
+
 	private ProfileImageRemote _profileImage;
 
 	public UserProfileRemote() {
-		
+
 	}
 
 	public String getName() {

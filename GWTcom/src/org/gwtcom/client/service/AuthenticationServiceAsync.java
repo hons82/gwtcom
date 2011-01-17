@@ -6,8 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface AuthenticationServiceAsync {
 
-	public void authenticate(String username, String password,
-			AsyncCallback<UserLoginRemote> callback);
+	public void authenticate(String username, String password, AsyncCallback<UserLoginRemote> callback);
 
 	public void logout(AsyncCallback<Void> callback);
 

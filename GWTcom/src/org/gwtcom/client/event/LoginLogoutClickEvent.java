@@ -6,30 +6,30 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class LoginLogoutClickEvent extends GwtEvent<ILoginLogoutClickEvent> {
 
-		public static final Type<ILoginLogoutClickEvent> TYPE = new Type<ILoginLogoutClickEvent>();
-		private UserLoginRemote _userLoginRemote;
+	public static final Type<ILoginLogoutClickEvent> TYPE = new Type<ILoginLogoutClickEvent>();
+	private UserLoginRemote _userLoginRemote;
 
-	    public LoginLogoutClickEvent(UserLoginRemote loggedIn) {
-	        super();
-	        setLoggedIn(loggedIn);
-	    }
+	public LoginLogoutClickEvent(UserLoginRemote loggedIn) {
+		super();
+		setLoggedIn(loggedIn);
+	}
 
-	    @Override
-	    protected void dispatch(ILoginLogoutClickEvent handler) {
-	        handler.onLoginLogoutClick(this);
-	    }
+	@Override
+	protected void dispatch(ILoginLogoutClickEvent handler) {
+		handler.onLoginLogoutClick(this);
+	}
 
-	    @Override
-	    public Type<ILoginLogoutClickEvent> getAssociatedType() {
-	        return TYPE;
-	    }
+	@Override
+	public Type<ILoginLogoutClickEvent> getAssociatedType() {
+		return TYPE;
+	}
 
-		public void setLoggedIn(UserLoginRemote userLoginRemote) {
-			_userLoginRemote = userLoginRemote;
-		}
+	public void setLoggedIn(UserLoginRemote userLoginRemote) {
+		_userLoginRemote = userLoginRemote;
+	}
 
-		public UserLoginRemote isLoggedIn() {
-			return _userLoginRemote;
-		}
+	public UserLoginRemote isLoggedIn() {
+		return _userLoginRemote;
+	}
 
 }

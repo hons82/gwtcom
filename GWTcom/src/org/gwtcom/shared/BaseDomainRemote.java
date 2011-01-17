@@ -5,7 +5,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public abstract class BaseDomainRemote implements IsSerializable {
 
 	private Long _id;
-	
+
 	public Long getId() {
 		return _id;
 	}

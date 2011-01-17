@@ -17,7 +17,7 @@ import com.google.gwt.place.shared.PlaceController;
 public interface GWTcomGinjector extends Ginjector {
 
 	GWTcomConstants getGWTcomConstants();
-	
+
 	AppController getAppActivity();
 
 	EventBus getEventBus();

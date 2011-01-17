@@ -21,10 +21,10 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 @Service("profileService")
-public class ProfileServiceImpl extends AbstractDatabaseService implements ProfileService {
+public class ProfileServiceImpl extends AbstractUserAwareService implements ProfileService {
 
-	private WallEntryConverter _wallEntryConverter;
 	private UserProfileConverter _userProfileConverter;
+	private WallEntryConverter _wallEntryConverter;
 
 	@Autowired
 	public void setWallEntryConverter(WallEntryConverter wallEntryConverter) {
@@ -68,24 +68,30 @@ public class ProfileServiceImpl extends AbstractDatabaseService implements Profi
 		return _entityManager.find(UserLogin.class, KeyFactory.createKey(UserLogin.class.getSimpleName(), userLoginId));
 	}
 
-	private UserProfile getUserProfileById(Long userProfileId) {
-		return _entityManager.find(UserProfile.class,
-				KeyFactory.createKey(UserLogin.class.getSimpleName(), userProfileId));
-	}
+	// private UserProfile getUserProfileById(Long userProfileId) {
+	// return _entityManager.find(UserProfile.class,
+	// KeyFactory.createKey(UserLogin.class.getSimpleName(), userProfileId));
+	// }
 
 	@Override
 	public WallEntryRemote addWallPost(Long userLoginId, String content) {
-		UserLogin login = getUserLogin(userLoginId);
-		UserProfile profile = login.getUserprofile();
-		List<Key> wall = profile.getWall();
+		// gather all needed information about the owner of the wall
+		UserLogin wallUserLogin = getUserLogin(userLoginId);
+		UserProfile wallUserProfile = wallUserLogin != null ? wallUserLogin.getUserprofile() : null;
+		List<Key> wallUserWall = wallUserProfile != null ? wallUserProfile.getWall() : null;
+
+		// gather all information about the author
+		UserLogin loggedInUser = getUserLogin();
+		UserProfile loggedInUserProfile = loggedInUser != null ? loggedInUser.getUserprofile() : null;
 
 		WallEntry wallEntry = new WallEntry();
-		if (login != null && profile != null) {
+		if (wallUserLogin != null && wallUserProfile != null && wallUserWall != null) {
 			EntityTransaction tx = _entityManager.getTransaction();
 			try {
 				tx.begin();
 
-				wallEntry.setOwner(profile.getId());
+				wallEntry.setOwner(wallUserProfile.getId());
+				wallEntry.setAuthor(loggedInUserProfile != null ? loggedInUserProfile.getId() : null);
 				wallEntry.setDateAdded(new Date());
 				wallEntry.setContent(content);
 				_entityManager.persist(wallEntry);
@@ -98,9 +104,9 @@ public class ProfileServiceImpl extends AbstractDatabaseService implements Profi
 			//
 			try {
 				tx.begin();
-				wall.add(wallEntry.getId());
-				profile.setWall(wall);
-				_entityManager.merge(profile);
+				wallUserWall.add(wallEntry.getId());
+				wallUserProfile.setWall(wallUserWall);
+				_entityManager.merge(wallUserProfile);
 				tx.commit();
 			} catch (Exception e) {
 				if (tx.isActive())

@@ -11,8 +11,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-	public void commence(HttpServletRequest request,
-			HttpServletResponse response, AuthenticationException exception)
+	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
 			throws IOException, ServletException {
 		throw new IllegalStateException("just for the sake of namespace");
 	}
