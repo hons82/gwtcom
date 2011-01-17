@@ -1,5 +1,6 @@
 package org.gwtcom.client.view;
 
+import org.gwt.mosaic.ui.client.InfoPanel;
 import org.gwtcom.client.event.ILoginLogoutClickEvent;
 import org.gwtcom.client.event.LoginLogoutClickEvent;
 import org.gwtcom.client.i18n.GWTcomConstants;
@@ -34,7 +35,7 @@ public class GWTmainView extends ResizeComposite {
 
 	@UiField
 	TopPanel topPanel;
-	@UiField(provided=true)
+	@UiField(provided = true)
 	Shortcuts shortcuts;
 	@UiField
 	SimplePanel container;
@@ -55,7 +56,7 @@ public class GWTmainView extends ResizeComposite {
 		// GWT.<GlobalResources>create(GlobalResources.class).css().ensureInjected();
 
 		shortcuts = new Shortcuts(_placeController, _constants);
-		
+
 		// Create the UI defined in GWTcom.ui.xml.
 		_outer = binder.createAndBindUi(this);
 
@@ -118,6 +119,7 @@ public class GWTmainView extends ResizeComposite {
 
 							@Override
 							public void onSuccess(UserLoginRemote result) {
+								InfoPanel.show("Login", (result != null ? "Logged in!" : "Credentials not correct"));
 								_eventbus.fireEvent(new LoginLogoutClickEvent(result));
 								dlg.hide();
 							}
@@ -125,12 +127,14 @@ public class GWTmainView extends ResizeComposite {
 							@Override
 							public void onFailure(Throwable caught) {
 								dlg.setLoading(false);
-								Window.alert("Authentication failed");
+								InfoPanel.show("Login", "Login Failed on Server");
 								_eventbus.fireEvent(new LoginLogoutClickEvent(null));
 							}
 						});
 					}
 				});
+
+				dlg.setStyleName("loginForm");
 
 				dlg.show();
 				dlg.center();
@@ -147,12 +151,12 @@ public class GWTmainView extends ResizeComposite {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						// TODO: boh???
-						Window.alert("Logout failed");
+						InfoPanel.show("Logout", "Logout Failed on Server");
 					}
 
 					@Override
 					public void onSuccess(Void result) {
+						InfoPanel.show("Logout", "Logged out!");
 						_eventbus.fireEvent(new LoginLogoutClickEvent(null));
 					}
 				});

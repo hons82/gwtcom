@@ -51,6 +51,8 @@ public class AuthenticationServiceImpl extends AbstractDatabaseService implement
 			return null;
 		}
 
+		//TODO: Check for SQLInjection
+		
 		if (!_customUserDetailsService.encodePassword(password).equals(userdetail.getPassword())) {
 			return null;
 		}
