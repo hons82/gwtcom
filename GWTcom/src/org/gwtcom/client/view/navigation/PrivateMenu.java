@@ -1,5 +1,9 @@
 package org.gwtcom.client.view.navigation;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.gwtcom.client.place.ProfileChangeViewPlace;
 import org.gwtcom.client.place.ProfileViewPlace;
 import org.gwtcom.shared.UserLoginRemote;
 
@@ -23,11 +27,13 @@ import com.google.gwt.user.client.ui.Widget;
 public class PrivateMenu extends AbstractStackPanelInlay {
 
 	public static interface CwConstants extends Constants {
-	    String cwProfileTitle();
-	    String cwNoAccess();
-	  }
-	
-	
+		String cwProfileTitle();
+
+		String cwProfileChangeTitle();
+
+		String cwNoAccess();
+	}
+
 	interface Binder extends UiBinder<Widget, PrivateMenu> {
 	}
 
@@ -46,23 +52,27 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 
 	private final Anchor _profile;
 
-	private HandlerRegistration _profileHandlerRegistration;
+	private final Anchor _profileChange;
+
+	private final List<HandlerRegistration> _profileHandlerRegistration;
 
 	private final PlaceController _placeController;
 
 	private final CwConstants _constants;
 
-	public PrivateMenu(PlaceController placeController,CwConstants constants) {
+	public PrivateMenu(PlaceController placeController, CwConstants constants) {
 		_placeController = placeController;
 		_constants = constants;
 
 		initWidget(binder.createAndBindUi(this));
 
+		_profileHandlerRegistration = new ArrayList<HandlerRegistration>();
+
 		_noAccess = new Label(_constants.cwNoAccess());
 		panel.add(_noAccess);
 
 		_profile = addItem(_constants.cwProfileTitle());
-
+		_profileChange = addItem(_constants.cwProfileChangeTitle());
 	}
 
 	private Anchor addItem(final String item) {
@@ -77,22 +87,42 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 		if (loggedIn != null) {
 			_noAccess.setVisible(false);
 
+			// Show your Profile
 			_profile.setVisible(true);
-			_profileHandlerRegistration = _profile.addClickHandler(new ClickHandler() {
+			_profileHandlerRegistration.add(_profile.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
 					System.out.println(">>> PrivateMenu.Profile.OnClick()");
 					_placeController.goTo(new ProfileViewPlace(loggedIn));
 				}
-			});
+			}));
+
+			// Change the actual Profile
+			_profileChange.setVisible(true);
+			_profileHandlerRegistration.add(_profileChange.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					System.out.println(">>> PrivateMenu.ProfileChange.OnClick()");
+					_placeController.goTo(new ProfileChangeViewPlace(loggedIn));
+				}
+			}));
 		} else {
 			_noAccess.setVisible(true);
 
 			_profile.setVisible(false);
-			if (_profileHandlerRegistration != null)
-				_profileHandlerRegistration.removeHandler();
+			_profileChange.setVisible(false);
+			
+			removeAllPrivateHandler();
 		}
 
+	}
+
+	private void removeAllPrivateHandler() {
+		if (_profileHandlerRegistration != null)
+			for (HandlerRegistration reg : _profileHandlerRegistration) {
+				reg.removeHandler();
+			}
 	}
 }

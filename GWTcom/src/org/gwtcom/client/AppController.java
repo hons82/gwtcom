@@ -6,6 +6,7 @@ import org.gwtcom.client.place.DateItemPlace;
 import org.gwtcom.client.place.DateListPlace;
 import org.gwtcom.client.place.NewsItemPlace;
 import org.gwtcom.client.place.NewsListPlace;
+import org.gwtcom.client.place.ProfileChangeViewPlace;
 import org.gwtcom.client.place.ProfileViewPlace;
 import org.gwtcom.client.view.GWTmainView;
 
@@ -47,12 +48,7 @@ public class AppController implements ActivityMapper {
 		container.add(_gwtmain.asWidget());
 		_container = _gwtmain.getDetailContainer();
 
-		System.out.println("History: <" + History.getToken() + ">");
-		// if ("".equals(History.getToken())) {
-		// History.newItem(NewsListPresenter.PLACE.getId());
-		// } else {
-		// History.fireCurrentHistoryState();
-		// }
+		System.out.println(">>>>>History: <" + History.getToken() + ">");
 		return _container;
 	}
 
@@ -71,6 +67,8 @@ public class AppController implements ActivityMapper {
 			return _injector.getDateItemActivity();
 		else if (place instanceof ProfileViewPlace)
 			return _injector.getProfileViewActivity();
+		else if (place instanceof ProfileChangeViewPlace)
+			return _injector.getProfileChangeViewActivity();
 		return null;
 	}
 

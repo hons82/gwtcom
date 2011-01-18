@@ -56,7 +56,7 @@
 				<td>
 					<div class='{style.buttons}'>
 						<g:Button text='Submit' ui:field='submitBtn' />
-						<g:Button text='Canel' ui:field='cancelBtn' />
+						<g:Button text='Cancel' ui:field='cancelBtn' />
 					</div>
 				</td>
 			</tr>

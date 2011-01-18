@@ -5,6 +5,7 @@ import org.gwtcom.client.activity.DateItemActivity;
 import org.gwtcom.client.activity.DateListActivity;
 import org.gwtcom.client.activity.NewsItemActivity;
 import org.gwtcom.client.activity.NewsListActivity;
+import org.gwtcom.client.activity.ProfileChangeViewActivity;
 import org.gwtcom.client.activity.ProfileViewActivity;
 import org.gwtcom.client.i18n.GWTcomConstants;
 
@@ -33,4 +34,6 @@ public interface GWTcomGinjector extends Ginjector {
 	DateItemActivity getDateItemActivity();
 
 	ProfileViewActivity getProfileViewActivity();
+	
+	ProfileChangeViewActivity getProfileChangeViewActivity();
 }

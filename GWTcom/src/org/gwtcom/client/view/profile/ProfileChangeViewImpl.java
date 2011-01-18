@@ -1,13 +1,9 @@
 package org.gwtcom.client.view.profile;
 
-import java.util.List;
-
 import org.gwtcom.client.view.bundles.ProfileClientBundle;
 import org.gwtcom.shared.UserProfileRemote;
-import org.gwtcom.shared.WallEntryRemote;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.ResizeComposite;
@@ -16,7 +12,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * A composite for displaying the details of a Profile message.
  */
-public class ProfileChangeViewImpl extends ResizeComposite implements ProfileView {
+public class ProfileChangeViewImpl extends ResizeComposite implements ProfileChangeView {
 
 	interface Binder extends UiBinder<Widget, ProfileChangeViewImpl> {
 	}
@@ -53,30 +49,6 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileVie
 		} else {
 			// TODO
 		}
-	}
-
-	@Override
-	public void setProfileWallData(List<WallEntryRemote> result) {
-//		wall.clearWall();
-//		for (WallEntryRemote entry : result) {
-//			wall.addWallItem(entry);
-//		}
-	}
-
-	@Override
-	public void addProfileWallEntry(WallEntryRemote entry) {
-//		wall.addWallItem(entry);
-	}
-
-	@Override
-	public void addWallPostClickHandler(ClickHandler clickHandler) {
-//		wall.addWallPostClickHandler(clickHandler);
-	}
-
-	@Override
-	public String getWallPostInputContent() {
-//		return wall.getInputContent();
-		return null;
 	}
 
 	@Override

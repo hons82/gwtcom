@@ -1,0 +1,73 @@
+package org.gwtcom.client.activity;
+
+import org.gwtcom.client.place.NewsListPlace;
+import org.gwtcom.client.place.ProfileChangeViewPlace;
+import org.gwtcom.client.service.ProfileService;
+import org.gwtcom.client.service.ProfileServiceAsync;
+import org.gwtcom.client.view.profile.ProfileChangeView;
+import org.gwtcom.shared.UserProfileRemote;
+
+import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.place.shared.Place;
+import com.google.gwt.place.shared.PlaceController;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.inject.Inject;
+
+public class ProfileChangeViewActivity extends AbstractActivity implements ProfileChangeView.Presenter {
+
+	private final PlaceController _placeController;
+	private final ProfileChangeView _profileChangeView;
+	private UserProfileRemote _profile;
+
+	@Inject
+	public ProfileChangeViewActivity(ProfileChangeView profileChangeView, PlaceController placeController) {
+		super();
+		_placeController = placeController;
+		_profileChangeView = profileChangeView;
+		_profileChangeView.setPresenter(this);
+	}
+
+	@Override
+	public void start(AcceptsOneWidget panel, EventBus eventBus) {
+		System.out.println(">>>>>NewsItemPresenter.start()");
+		final Place currentPlace = _placeController.getWhere();
+		// are we right in here?
+		if (currentPlace != null && currentPlace instanceof ProfileChangeViewPlace) {
+			final long loginId = Long.parseLong(((ProfileChangeViewPlace) currentPlace).getId());
+
+			getProfileView(loginId);
+		} else {
+			// back to news list
+			goTo(new NewsListPlace());
+		}
+		panel.setWidget(_profileChangeView.asWidget());
+	}
+
+	private void getProfileView(Long id) {
+		System.out.println(">>>>> ProfileViewpresenter.getProfileView");
+		ProfileServiceAsync service = GWT.create(ProfileService.class);
+		service.getUserProfileByUserLoginId(id, new AsyncCallback<UserProfileRemote>() {
+
+			@Override
+			public void onSuccess(UserProfileRemote result) {
+				_profile = result;
+				_profileChangeView.setProfileData(_profile);
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+			}
+		});
+
+	}
+
+	@Override
+	public void goTo(Place place) {
+		_placeController.goTo(place);
+	}
+}

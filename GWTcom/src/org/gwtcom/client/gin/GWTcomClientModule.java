@@ -5,6 +5,7 @@ import org.gwtcom.client.activity.DateItemActivity;
 import org.gwtcom.client.activity.DateListActivity;
 import org.gwtcom.client.activity.NewsItemActivity;
 import org.gwtcom.client.activity.NewsListActivity;
+import org.gwtcom.client.activity.ProfileChangeViewActivity;
 import org.gwtcom.client.activity.ProfileViewActivity;
 import org.gwtcom.client.place.AppPlaceController;
 import org.gwtcom.client.view.dates.DateItem;
@@ -15,6 +16,8 @@ import org.gwtcom.client.view.news.NewsItem;
 import org.gwtcom.client.view.news.NewsItemImpl;
 import org.gwtcom.client.view.news.NewsList;
 import org.gwtcom.client.view.news.NewsListImpl;
+import org.gwtcom.client.view.profile.ProfileChangeView;
+import org.gwtcom.client.view.profile.ProfileChangeViewImpl;
 import org.gwtcom.client.view.profile.ProfileView;
 import org.gwtcom.client.view.profile.ProfileViewImpl;
 
@@ -54,6 +57,10 @@ public class GWTcomClientModule extends AbstractGinModule {
 		bind(ProfileViewActivity.class).in(Singleton.class);
 
 		bind(ProfileView.class).to(ProfileViewImpl.class).in(Singleton.class);
+		
+		bind(ProfileChangeViewActivity.class).in(Singleton.class);
+
+		bind(ProfileChangeView.class).to(ProfileChangeViewImpl.class).in(Singleton.class);
 
 		// ***** DO NOT FORGET TO INITIALIZE PRESENTERS IN GWTcom.java *****
 
