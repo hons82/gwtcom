@@ -43,13 +43,13 @@
 		}
 		
 		.keyText {
+			padding: 5px 10px 5px 0;
 			text-align: right;
-			width: 200px;
+			width: 50px;
 		}
 		
 		.valueText {
 			text-align: left;
-			width: 80%;
 		}
 		
 		@if user.agent ie6 {
@@ -88,26 +88,26 @@
 							<g:HTMLPanel styleName='{style.panel}'>
 								<table>
 									<tr>
-										<td styleName='{style.keyText}'>
+										<td class='{style.keyText}'>
 											<g:Label>Name: </g:Label>
 										</td>
-										<td styleName='{style.valueText}'>
+										<td class='{style.valueText}'>
 											<g:Label ui:field="name"></g:Label>
 										</td>
 									</tr>
 									<tr>
-										<td styleName='{style.keyText}'>
+										<td class='{style.keyText}'>
 											<g:Label>e-mail: </g:Label>
 										</td>
-										<td styleName='{style.valueText}'>
+										<td class='{style.valueText}'>
 											<g:Label ui:field="email"></g:Label>
 										</td>
 									</tr>
 									<tr>
-										<td styleName='{style.keyText}'>
+										<td class='{style.keyText}'>
 											<g:Label>Gender: </g:Label>
 										</td>
-										<td styleName='{style.valueText}'>
+										<td class='{style.valueText}'>
 											<g:Label ui:field="gender"></g:Label>
 										</td>
 									</tr>

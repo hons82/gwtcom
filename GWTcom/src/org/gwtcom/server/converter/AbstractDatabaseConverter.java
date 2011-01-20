@@ -5,7 +5,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractDatabaseConverter {
-	
+
 	protected EntityManager _entityManager;
 
 	@Autowired

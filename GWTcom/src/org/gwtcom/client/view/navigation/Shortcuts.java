@@ -17,9 +17,9 @@ public class Shortcuts extends ResizeComposite {
 
 	private static final Binder binder = GWT.create(Binder.class);
 
-	@UiField(provided=true)
+	@UiField(provided = true)
 	PublicMenu publicMenu;
-	@UiField(provided=true)
+	@UiField(provided = true)
 	PrivateMenu privateMenu;
 
 	private final PlaceController _placeController;
@@ -29,29 +29,29 @@ public class Shortcuts extends ResizeComposite {
 	public Shortcuts(PlaceController placeController, GWTcomConstants constants) {
 		_placeController = placeController;
 		_constants = constants;
-		
+
 		publicMenu = new PublicMenu(_placeController, _constants);
 		privateMenu = new PrivateMenu(_placeController, _constants);
 		initWidget(binder.createAndBindUi(this));
-		
+
 		initView();
 	}
-	
-	private void initView(){
-//		privateMenu.addNavigationMenuChangedHandler(new INavigationMenuChangeEvent() {
-//
-//			@Override
-//			public void onCategoryChange(NavigationMenuChangeEvent event) {
-//				// TODO Auto-generated method stub
-//				System.out.println("EventType: "+event.getAssociatedType());
-//				
-//			}});
-	
+
+	private void initView() {
+		// privateMenu.addNavigationMenuChangedHandler(new INavigationMenuChangeEvent() {
+		//
+		// @Override
+		// public void onCategoryChange(NavigationMenuChangeEvent event) {
+		// // TODO Auto-generated method stub
+		// System.out.println("EventType: "+event.getAssociatedType());
+		//
+		// }});
+
 	}
 
 	public void setLoggedIn(UserLoginRemote result) {
 		publicMenu.setLoggedIn(result);
 		privateMenu.setLoggedIn(result);
 	}
-	
+
 }

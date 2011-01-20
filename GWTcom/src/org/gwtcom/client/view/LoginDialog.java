@@ -26,23 +26,23 @@ public class LoginDialog extends DialogBox {
 
 	private static final Binder binder = GWT.create(Binder.class);
 
-	 @UiField
-    TextBox userName;
+	@UiField
+	TextBox userName;
 
-    @UiField
-    PasswordTextBox password;
+	@UiField
+	PasswordTextBox password;
 
-    @UiField
-    Button cancelBtn;
-    
-    @UiField
-    Button submitBtn;
-    
+	@UiField
+	Button cancelBtn;
+
+	@UiField
+	Button submitBtn;
+
 	@UiField
 	Label loading;
 
 	public LoginDialog() {
-		//setText("Login");
+		// setText("Login");
 		setWidget(binder.createAndBindUi(this));
 
 		setAnimationEnabled(true);

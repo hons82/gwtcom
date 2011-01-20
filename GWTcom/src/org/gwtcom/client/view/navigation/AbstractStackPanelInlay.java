@@ -7,5 +7,5 @@ import com.google.gwt.user.client.ui.Composite;
 public abstract class AbstractStackPanelInlay extends Composite {
 
 	public abstract void setLoggedIn(UserLoginRemote loggedIn);
-	
+
 }

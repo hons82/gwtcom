@@ -44,14 +44,19 @@
    			height: 100%;
 		}
 		
+		.table {
+   			width: 500px;
+		}
+		
 		.keyText {
+			padding: 5px 20px 5px 0;
 			text-align: right;
-			width: 200px;
+			width: 100px;
 		}
 		
 		.valueText {
 			text-align: left;
-			width: 80%;
+			width: 300px;
 		}
 		
 		.buttons {
@@ -98,13 +103,56 @@
 					<g:header>
 						<span class='{style.tab}'>General</span>
 					</g:header>
-					<g:Label>General</g:Label>
+					<g:ScrollPanel>
+						<g:HTMLPanel styleName='{style.panel}'>
+							<h2>General Information</h2>
+							<table class='{style.table}'>
+								<tr>
+									<td class='{style.keyText}'>
+										<g:Label>Name</g:Label>
+									</td>
+									<td>
+										<g:TextBox ui:field="name" styleName='{style.valueText}'></g:TextBox>
+									</td>
+								</tr>
+								<tr>
+									<td class='{style.keyText}'>
+										<g:Label>Surname</g:Label>
+									</td>
+									<td>
+										<g:TextBox ui:field="surname" styleName='{style.valueText}'></g:TextBox>
+									</td>
+								</tr>
+								<tr>
+									<td class='{style.keyText}'>
+										<g:Label>e-mail</g:Label>
+									</td>
+									<td>
+										<g:TextBox ui:field="email" styleName='{style.valueText}'></g:TextBox>
+									</td>
+								</tr>
+								<tr>
+									<td class='{style.keyText}'>
+										<g:Label>Gender</g:Label>
+									</td>
+									<td class='{style.valueText}'>
+										<g:RadioButton ui:name="gender" ui:field="gender_male">Male
+										</g:RadioButton>
+										<g:RadioButton ui:name="gender" ui:field="gender_female">Female
+										</g:RadioButton>
+									</td>
+								</tr>
+							</table>
+						</g:HTMLPanel>
+					</g:ScrollPanel>
 				</g:tab>
 				<g:tab>
 					<g:header>
 						<span class='{style.tab}'>Picture</span>
 					</g:header>
-					<g:Label>Pictures</g:Label>
+					<g:HTMLPanel styleName='{style.panel}'>
+						<h2>Profile Picture</h2>
+					</g:HTMLPanel>
 				</g:tab>
 			</g:TabLayoutPanel>
 		</g:center>

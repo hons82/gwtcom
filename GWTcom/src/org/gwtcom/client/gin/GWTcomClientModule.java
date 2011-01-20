@@ -57,7 +57,7 @@ public class GWTcomClientModule extends AbstractGinModule {
 		bind(ProfileViewActivity.class).in(Singleton.class);
 
 		bind(ProfileView.class).to(ProfileViewImpl.class).in(Singleton.class);
-		
+
 		bind(ProfileChangeViewActivity.class).in(Singleton.class);
 
 		bind(ProfileChangeView.class).to(ProfileChangeViewImpl.class).in(Singleton.class);

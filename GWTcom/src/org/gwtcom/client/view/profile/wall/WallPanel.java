@@ -39,13 +39,13 @@ public class WallPanel extends ResizeComposite {
 	public void clearWall() {
 		wallitems.clear();
 	}
-	
-	public String getInputContent(){
+
+	public String getInputContent() {
 		return inputContent.getValue();
 	}
 
 	public void addWallPostClickHandler(ClickHandler clickHandler) {
 		inputSubmit.addClickHandler(clickHandler);
 	}
-	
+
 }

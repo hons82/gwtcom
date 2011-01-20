@@ -1,5 +1,6 @@
 package org.gwtcom.client.activity;
 
+import org.gwt.mosaic.ui.client.InfoPanel;
 import org.gwtcom.client.place.NewsListPlace;
 import org.gwtcom.client.place.ProfileChangeViewPlace;
 import org.gwtcom.client.service.ProfileService;
@@ -9,6 +10,8 @@ import org.gwtcom.shared.UserProfileRemote;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
@@ -38,6 +41,15 @@ public class ProfileChangeViewActivity extends AbstractActivity implements Profi
 		// are we right in here?
 		if (currentPlace != null && currentPlace instanceof ProfileChangeViewPlace) {
 			final long loginId = Long.parseLong(((ProfileChangeViewPlace) currentPlace).getId());
+
+			_profileChangeView.cancelButtonClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					_profileChangeView.setProfileData(_profile);
+					InfoPanel.show("Change Profile", "Changes discarded");
+				}
+			});
 
 			getProfileView(loginId);
 		} else {

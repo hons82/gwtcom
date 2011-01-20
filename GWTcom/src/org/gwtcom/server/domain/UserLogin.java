@@ -22,11 +22,10 @@ public class UserLogin extends BaseDomainObject {
 
 	@Column(name = "authorities")
 	private Set<Key> _authorities;
-	
+
 	@Column(name = "userprofile")
 	@OneToOne
 	private UserProfile _userprofile;
-
 
 	public UserLogin() {
 		super();

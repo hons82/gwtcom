@@ -34,6 +34,6 @@ public interface GWTcomGinjector extends Ginjector {
 	DateItemActivity getDateItemActivity();
 
 	ProfileViewActivity getProfileViewActivity();
-	
+
 	ProfileChangeViewActivity getProfileChangeViewActivity();
 }

@@ -18,5 +18,5 @@ public interface NewsList extends IsWidget {
 	public interface Presenter {
 		void goTo(Place place);
 	}
-	
+
 }

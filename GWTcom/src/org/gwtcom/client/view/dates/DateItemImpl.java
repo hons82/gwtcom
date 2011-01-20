@@ -51,7 +51,7 @@ public class DateItemImpl extends ResizeComposite implements DateItem {
 		System.out.println(">>>>> NewsItem.setData()");
 		if (item != null) {
 			DateTimeFormat fmt = DateTimeFormat.getFormat("EEE. dd MMM. yyyy HH:mm:ss");
-			
+
 			id.setValue(String.valueOf(item.getId()));
 			title.setInnerText(item.getTitle());
 			author.setInnerText(item.getAuthor() != null
@@ -69,7 +69,7 @@ public class DateItemImpl extends ResizeComposite implements DateItem {
 			// HTML. Failure to do so would open your application to XSS
 			// attacks.
 			content.setHTML("blabla");
-		}else{
+		} else {
 			id.setValue(String.valueOf(-1));
 			title.setInnerText("<empty>");
 			author.setInnerText("<empty>");
@@ -89,9 +89,9 @@ public class DateItemImpl extends ResizeComposite implements DateItem {
 	public Widget asWidget() {
 		return this;
 	}
-	
+
 	@UiHandler("back")
-	public void onClickBack(ClickEvent e){
+	public void onClickBack(ClickEvent e) {
 		_presenter.goTo(new DateListPlace());
 	}
 

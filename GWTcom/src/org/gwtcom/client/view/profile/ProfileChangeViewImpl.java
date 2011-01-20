@@ -4,9 +4,14 @@ import org.gwtcom.client.view.bundles.ProfileClientBundle;
 import org.gwtcom.shared.UserProfileRemote;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.PushButton;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.ResizeComposite;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -20,6 +25,21 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 	private static final Binder binder = GWT.create(Binder.class);
 	private static final ProfileClientBundle profileBundle = GWT.create(ProfileClientBundle.class);
 
+	@UiField
+	TextBox name;
+	@UiField
+	TextBox surname;
+	@UiField
+	TextBox email;
+	@UiField
+	RadioButton gender_male;
+	@UiField
+	RadioButton gender_female;
+	@UiField
+	PushButton saveBtn;
+	@UiField
+	PushButton cancelBtn;
+
 	private Presenter _presenter;
 
 	public ProfileChangeViewImpl() {
@@ -30,25 +50,37 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 	public void setProfileData(UserProfileRemote item) {
 		System.out.println(">>>>> ProfileItem.setData()");
 		if (item != null) {
-//			name.setText(item.getName());
-//			email.setText(item.getEmail());
-//			gender.setText((item.getGender() == 0 ? "male" : "female"));
-//
-//			Image image = new Image(profileBundle.noprofile());
-//			if (item.getProfileImage() != null && item.getProfileImage().getImage() != null) {
-//				// add the real image to the panel
-//				StringBuilder sb = new StringBuilder();
-//				sb.append("data:image/gif;base64,");
-//				sb.append(item.getProfileImage().getImage());
-//
-//				image.setUrl(sb.toString());
-//			}
-//			image.setSize("175px", "200px");
-//			imagePanel.clear();
-//			imagePanel.add(image, "imageDiv");
+			name.setText(item.getName());
+			surname.setText(item.getSurname());
+			email.setText(item.getEmail());
+			gender_male.setValue(item.getGender() == 0 ? true : false);
+			gender_female.setValue(item.getGender() == 0 ? false : true);
+
+			// Image image = new Image(profileBundle.noprofile());
+			// if (item.getProfileImage() != null && item.getProfileImage().getImage() != null) {
+			// // add the real image to the panel
+			// StringBuilder sb = new StringBuilder();
+			// sb.append("data:image/gif;base64,");
+			// sb.append(item.getProfileImage().getImage());
+			//
+			// image.setUrl(sb.toString());
+			// }
+			// image.setSize("175px", "200px");
+			// imagePanel.clear();
+			// imagePanel.add(image, "imageDiv");
 		} else {
 			// TODO
 		}
+	}
+
+	@Override
+	public void cancelButtonClickHandler(ClickHandler clickHandler) {
+		cancelBtn.addClickHandler(clickHandler);
+	}
+
+	@Override
+	public void saveButtonClickHandler(ClickHandler clickHandler) {
+		saveBtn.addClickHandler(clickHandler);
 	}
 
 	@Override

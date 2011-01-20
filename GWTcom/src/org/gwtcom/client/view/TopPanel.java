@@ -49,7 +49,7 @@ public class TopPanel extends Composite {
 		signOutLink.setVisible(false);
 
 		initializeLocaleBox();
-		
+
 	}
 
 	@UiHandler("aboutLink")

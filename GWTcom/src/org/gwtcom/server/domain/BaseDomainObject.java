@@ -15,7 +15,7 @@ public abstract class BaseDomainObject {
 	private static final long serialVersionUID = 8043009673990162687L;
 
 	@Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key _id;
 
 	public Key getId() {

@@ -113,7 +113,7 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 
 			_profile.setVisible(false);
 			_profileChange.setVisible(false);
-			
+
 			removeAllPrivateHandler();
 		}
 
