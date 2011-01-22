@@ -13,6 +13,8 @@ public interface ProfileService extends RemoteService {
 
 	public UserProfileRemote getUserProfile(Long userProfileId) throws ServiceSecurityException;
 
+	public boolean updateUserProfile(UserProfileRemote profile);
+
 	public UserProfileRemote getUserProfileByUserLoginId(Long userLoginId);
 
 	public List<WallEntryRemote> getPublicWallEntries(Long userProfileId) throws ServiceSecurityException;

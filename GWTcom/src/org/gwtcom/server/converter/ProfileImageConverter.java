@@ -21,7 +21,7 @@ public class ProfileImageConverter implements IConverter<ProfileImageRemote, Pro
 	}
 
 	@Override
-	public ProfileImage convertRemoteToDomain(ProfileImageRemote remote) {
+	public ProfileImage convertRemoteToDomain(ProfileImage domain, ProfileImageRemote remote) {
 		// TODO Auto-generated method stub
 		return null;
 	}

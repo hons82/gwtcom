@@ -106,6 +106,8 @@
 					<g:ScrollPanel>
 						<g:HTMLPanel styleName='{style.panel}'>
 							<h2>General Information</h2>
+							<g:Hidden ui:field="loginId" />
+							<g:Hidden ui:field="profileId" />
 							<table class='{style.table}'>
 								<tr>
 									<td class='{style.keyText}'>

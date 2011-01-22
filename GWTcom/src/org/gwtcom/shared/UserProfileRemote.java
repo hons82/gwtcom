@@ -1,10 +1,7 @@
 package org.gwtcom.shared;
 
-public class UserProfileRemote extends BaseDomainRemote {
+public class UserProfileRemote extends ParentBaseDomainRemote {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -54859122938958369L;
 
 	private String _name;

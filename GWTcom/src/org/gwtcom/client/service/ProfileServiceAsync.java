@@ -10,6 +10,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface ProfileServiceAsync {
 
 	public void getUserProfile(Long userProfileId, AsyncCallback<UserProfileRemote> callback);
+	
+	public void updateUserProfile(UserProfileRemote profile, AsyncCallback<Boolean> callback);
 
 	public void getUserProfileByUserLoginId(Long userLoginId, AsyncCallback<UserProfileRemote> callback);
 

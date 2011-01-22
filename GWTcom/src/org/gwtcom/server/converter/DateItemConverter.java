@@ -36,7 +36,7 @@ public class DateItemConverter implements IConverter<DateItemRemote, DateItem> {
 	}
 
 	@Override
-	public DateItem convertRemoteToDomain(DateItemRemote remote) {
+	public DateItem convertRemoteToDomain(DateItem domain, DateItemRemote remote) {
 		// TODO Auto-generated method stub
 		return null;
 	}

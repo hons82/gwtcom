@@ -10,6 +10,8 @@ import com.google.gwt.user.client.ui.Widget;
 public interface ProfileChangeView {
 
 	public abstract void setProfileData(UserProfileRemote item);
+	
+	public abstract UserProfileRemote updateProfileData(UserProfileRemote profile);
 
 	public void cancelButtonClickHandler(ClickHandler clickHandler);
 

@@ -43,7 +43,7 @@ public class CustomUserDetailService implements UserDetailsService {
 	}
 
 	private final String[] _roles = { "ROLE_ADMIN", "ROLE_USER" };
-	private final String[][] _users = { { "hons", "hons" } };
+	private final String[][] _users = { { "hons", "hons" }, { "chito", "chito" } };
 
 	private final ShaPasswordEncoder _encoder;
 

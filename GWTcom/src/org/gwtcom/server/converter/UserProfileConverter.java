@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("userProfileConverter")
-public class UserProfileConverter implements IConverter<UserProfileRemote, UserProfile> {
+public class UserProfileConverter implements
+		IConverter<UserProfileRemote, UserProfile> {
 
 	private ProfileImageConverter _profileImageConverter;
 
@@ -19,6 +20,7 @@ public class UserProfileConverter implements IConverter<UserProfileRemote, UserP
 	public UserProfileRemote convertDomainToRemote(UserProfile domain) {
 		UserProfileRemote remote = new UserProfileRemote();
 		if (domain != null) {
+			remote.setParentId(domain.getLogin().getId().getId());
 			remote.setId(domain.getId().getId());
 			remote.setName(domain.getName());
 			remote.setSurname(domain.getSurname());
@@ -30,9 +32,14 @@ public class UserProfileConverter implements IConverter<UserProfileRemote, UserP
 	}
 
 	@Override
-	public UserProfile convertRemoteToDomain(UserProfileRemote remote) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserProfile convertRemoteToDomain(UserProfile domain, UserProfileRemote remote) {
+		if (domain != null && remote!=null) {
+			domain.setName(remote.getName());
+			domain.setSurname(remote.getSurname());
+			domain.setEmail(remote.getEmail());
+			domain.setGender(remote.getGender());
+		}
+		return domain;
 	}
 
 }

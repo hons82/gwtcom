@@ -19,7 +19,7 @@ public class UserLoginConverter implements IConverter<UserLoginRemote, UserLogin
 	}
 
 	@Override
-	public UserLogin convertRemoteToDomain(UserLoginRemote remote) {
+	public UserLogin convertRemoteToDomain(UserLogin domain, UserLoginRemote remote) {
 		// TODO Auto-generated method stub
 		return null;
 	}

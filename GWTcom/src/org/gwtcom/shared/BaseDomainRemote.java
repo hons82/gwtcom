@@ -13,4 +13,5 @@ public abstract class BaseDomainRemote implements IsSerializable {
 	public void setId(Long id) {
 		_id = id;
 	}
+
 }

@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.ResizeComposite;
@@ -25,6 +26,10 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 	private static final Binder binder = GWT.create(Binder.class);
 	private static final ProfileClientBundle profileBundle = GWT.create(ProfileClientBundle.class);
 
+	@UiField
+	Hidden loginId;
+	@UiField
+	Hidden profileId;
 	@UiField
 	TextBox name;
 	@UiField
@@ -50,6 +55,8 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 	public void setProfileData(UserProfileRemote item) {
 		System.out.println(">>>>> ProfileItem.setData()");
 		if (item != null) {
+			loginId.setValue(String.valueOf(item.getParentId()));
+			profileId.setValue(String.valueOf(item.getId()));
 			name.setText(item.getName());
 			surname.setText(item.getSurname());
 			email.setText(item.getEmail());
@@ -71,6 +78,19 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 		} else {
 			// TODO
 		}
+	}
+
+	@Override
+	public UserProfileRemote updateProfileData(UserProfileRemote profile) {
+		if (Long.valueOf(profileId.getValue()) == profile.getId() && Long.valueOf(loginId.getValue()) == profile.getParentId()) {
+			// TODO: This check is important, and could throw an Exception if not
+			System.out.println(">>>>> ProfileChangeView.updateProfileData --> IDs equal");
+		}
+		profile.setName(name.getText());
+		profile.setSurname(surname.getText());
+		profile.setEmail(email.getText());
+		profile.setGender(gender_male.getValue() ? 0 : 1);
+		return profile;
 	}
 
 	@Override

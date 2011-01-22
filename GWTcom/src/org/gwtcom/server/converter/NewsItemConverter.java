@@ -36,7 +36,7 @@ public class NewsItemConverter implements IConverter<NewsItemRemote, NewsItem> {
 	}
 
 	@Override
-	public NewsItem convertRemoteToDomain(NewsItemRemote remote) {
+	public NewsItem convertRemoteToDomain(NewsItem domain, NewsItemRemote remote) {
 		// TODO Auto-generated method stub
 		return null;
 	}

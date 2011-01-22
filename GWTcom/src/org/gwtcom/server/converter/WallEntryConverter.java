@@ -32,7 +32,7 @@ public class WallEntryConverter extends AbstractDatabaseConverter implements ICo
 	}
 
 	@Override
-	public WallEntry convertRemoteToDomain(WallEntryRemote remote) {
+	public WallEntry convertRemoteToDomain(WallEntry domain, WallEntryRemote remote) {
 		// TODO Auto-generated method stub
 		return null;
 	}

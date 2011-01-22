@@ -16,6 +16,8 @@ import org.gwtcom.shared.UserProfileRemote;
 import org.gwtcom.shared.WallEntryRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -75,7 +77,7 @@ public class ProfileServiceImpl extends AbstractUserAwareService implements Prof
 
 	@Override
 	public WallEntryRemote addWallPost(Long userLoginId, String content) {
-		// TODO: Ther should be a better way
+		// TODO: There should be a better way
 
 		// gather all information about the author
 		UserLogin loggedInUser = getUserLogin();
@@ -118,6 +120,17 @@ public class ProfileServiceImpl extends AbstractUserAwareService implements Prof
 			}
 		}
 		return _wallEntryConverter.convertDomainToRemote(wallEntry);
+	}
+
+	@Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
+	public boolean updateUserProfile(UserProfileRemote profile) {
+		Key parentkey = KeyFactory.createKey(UserLogin.class.getSimpleName(), profile.getParentId());
+		Key key = KeyFactory.createKey(parentkey, UserProfile.class.getSimpleName(), profile.getId());
+		UserProfile domain = _entityManager.find(UserProfile.class, key);
+		domain = _userProfileConverter.convertRemoteToDomain(domain, profile);
+		_entityManager.merge(domain);
+		return true;
 	}
 
 }

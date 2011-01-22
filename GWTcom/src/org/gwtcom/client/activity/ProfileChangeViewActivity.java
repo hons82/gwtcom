@@ -51,6 +51,27 @@ public class ProfileChangeViewActivity extends AbstractActivity implements Profi
 				}
 			});
 
+			_profileChangeView.saveButtonClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					_profile = _profileChangeView.updateProfileData(_profile);
+					ProfileServiceAsync service = GWT.create(ProfileService.class);
+					service.updateUserProfile(_profile, new AsyncCallback<Boolean>() {
+
+						@Override
+						public void onSuccess(Boolean result) {
+							InfoPanel.show("Change Profile", "Changes saved");
+						}
+
+						@Override
+						public void onFailure(Throwable caught) {
+							InfoPanel.show("Change Profile", "Saving changes failed");
+						}
+					});
+				}
+			});
+
 			getProfileView(loginId);
 		} else {
 			// back to news list

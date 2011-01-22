@@ -7,5 +7,5 @@ public interface IConverter<R extends BaseDomainRemote, D extends BaseDomainObje
 
 	public R convertDomainToRemote(D domain);
 
-	public D convertRemoteToDomain(R remote);
+	public D convertRemoteToDomain(D domain, R remote);
 }
