@@ -34,6 +34,27 @@ public class ProfileViewActivity extends AbstractActivity implements ProfileView
 		_placeController = placeController;
 		_profileView = profileView;
 		_profileView.setPresenter(this);
+		_profileView.addWallPostClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				ProfileServiceAsync service = GWT.create(ProfileService.class);
+				service.addWallPost(_profileView.getLoginId(), _profileView.getWallPostInputContent(),
+						new AsyncCallback<WallEntryRemote>() {
+
+							@Override
+							public void onSuccess(WallEntryRemote result) {
+								_profileView.addProfileWallEntry(result);
+							}
+
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert(caught.getMessage());
+							}
+						});
+			}
+		});
+
 	}
 
 	@Override
@@ -42,27 +63,7 @@ public class ProfileViewActivity extends AbstractActivity implements ProfileView
 		final Place currentPlace = _placeController.getWhere();
 		if (currentPlace != null && currentPlace instanceof ProfileViewPlace) {
 			final long loginId = Long.parseLong(((ProfileViewPlace) currentPlace).getId());
-			_profileView.addWallPostClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					ProfileServiceAsync service = GWT.create(ProfileService.class);
-					service.addWallPost(loginId, _profileView.getWallPostInputContent(),
-							new AsyncCallback<WallEntryRemote>() {
-
-								@Override
-								public void onSuccess(WallEntryRemote result) {
-									_profileView.addProfileWallEntry(result);
-								}
-
-								@Override
-								public void onFailure(Throwable caught) {
-									Window.alert(caught.getMessage());
-								}
-							});
-				}
-			});
-
+			
 			getProfileView(loginId);
 		} else {
 			// back to news list

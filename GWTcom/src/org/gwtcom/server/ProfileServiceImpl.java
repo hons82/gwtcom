@@ -16,8 +16,6 @@ import org.gwtcom.shared.UserProfileRemote;
 import org.gwtcom.shared.WallEntryRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -123,13 +121,21 @@ public class ProfileServiceImpl extends AbstractUserAwareService implements Prof
 	}
 
 	@Override
-	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public boolean updateUserProfile(UserProfileRemote profile) {
 		Key parentkey = KeyFactory.createKey(UserLogin.class.getSimpleName(), profile.getParentId());
 		Key key = KeyFactory.createKey(parentkey, UserProfile.class.getSimpleName(), profile.getId());
-		UserProfile domain = _entityManager.find(UserProfile.class, key);
-		domain = _userProfileConverter.convertRemoteToDomain(domain, profile);
-		_entityManager.merge(domain);
+		EntityTransaction tx = _entityManager.getTransaction();
+		try {
+			tx.begin();
+			UserProfile domain = _entityManager.find(UserProfile.class, key);
+			domain = _userProfileConverter.convertRemoteToDomain(domain, profile);
+			_entityManager.merge(domain);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx.isActive())
+				tx.rollback();
+			return false;
+		}
 		return true;
 	}
 

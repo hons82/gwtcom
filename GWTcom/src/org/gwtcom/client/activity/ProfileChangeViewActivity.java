@@ -32,6 +32,38 @@ public class ProfileChangeViewActivity extends AbstractActivity implements Profi
 		_placeController = placeController;
 		_profileChangeView = profileChangeView;
 		_profileChangeView.setPresenter(this);
+		
+
+		_profileChangeView.cancelButtonClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				_profileChangeView.setProfileData(_profile);
+				InfoPanel.show("Change Profile", "Changes discarded");
+			}
+		});
+
+		_profileChangeView.saveButtonClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				_profile = _profileChangeView.updateProfileData(_profile);
+				ProfileServiceAsync service = GWT.create(ProfileService.class);
+				service.updateUserProfile(_profile, new AsyncCallback<Boolean>() {
+
+					@Override
+					public void onSuccess(Boolean result) {
+						InfoPanel.show("Change Profile", "Changes saved");
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						InfoPanel.show("Change Profile", "Saving changes failed");
+					}
+				});
+			}
+		});
+
 	}
 
 	@Override
@@ -41,36 +73,6 @@ public class ProfileChangeViewActivity extends AbstractActivity implements Profi
 		// are we right in here?
 		if (currentPlace != null && currentPlace instanceof ProfileChangeViewPlace) {
 			final long loginId = Long.parseLong(((ProfileChangeViewPlace) currentPlace).getId());
-
-			_profileChangeView.cancelButtonClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					_profileChangeView.setProfileData(_profile);
-					InfoPanel.show("Change Profile", "Changes discarded");
-				}
-			});
-
-			_profileChangeView.saveButtonClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					_profile = _profileChangeView.updateProfileData(_profile);
-					ProfileServiceAsync service = GWT.create(ProfileService.class);
-					service.updateUserProfile(_profile, new AsyncCallback<Boolean>() {
-
-						@Override
-						public void onSuccess(Boolean result) {
-							InfoPanel.show("Change Profile", "Changes saved");
-						}
-
-						@Override
-						public void onFailure(Throwable caught) {
-							InfoPanel.show("Change Profile", "Saving changes failed");
-						}
-					});
-				}
-			});
 
 			getProfileView(loginId);
 		} else {

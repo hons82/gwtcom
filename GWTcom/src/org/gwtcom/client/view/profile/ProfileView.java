@@ -11,6 +11,10 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.Widget;
 
 public interface ProfileView {
+	
+	public abstract Long getLoginId();
+	
+	public abstract Long getProfileId();
 
 	public abstract void setProfileData(UserProfileRemote item);
 

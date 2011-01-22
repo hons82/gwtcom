@@ -81,6 +81,8 @@
 			<g:DockLayoutPanel>
 				<g:west size='250'>
 					<g:VerticalPanel>
+						<g:Hidden ui:field="loginId" />
+						<g:Hidden ui:field="profileId" />
 						<g:HTMLPanel ui:field="imagePanel" styleName='{style.panel}'>
 							<div id="imageDiv" class="{style.imagePanel}" />
 						</g:HTMLPanel>

@@ -4,6 +4,7 @@ import org.gwt.mosaic.ui.client.InfoPanel;
 import org.gwtcom.client.event.ILoginLogoutClickEvent;
 import org.gwtcom.client.event.LoginLogoutClickEvent;
 import org.gwtcom.client.i18n.GWTcomConstants;
+import org.gwtcom.client.place.NewsListPlace;
 import org.gwtcom.client.service.AuthenticationService;
 import org.gwtcom.client.service.AuthenticationServiceAsync;
 import org.gwtcom.client.view.navigation.Shortcuts;
@@ -77,6 +78,10 @@ public class GWTmainView extends ResizeComposite {
 			public void onLoginLogoutClick(LoginLogoutClickEvent event) {
 				topPanel.setLoggedIn(event.isLoggedIn());
 				shortcuts.setLoggedIn(event.isLoggedIn());
+				if (event.isLoggedIn()==null){
+					// Go back to the main Page
+					_placeController.goTo(new NewsListPlace());
+				}
 			}
 		});
 	}

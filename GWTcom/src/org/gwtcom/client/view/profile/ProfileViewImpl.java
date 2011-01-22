@@ -13,6 +13,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ResizeComposite;
@@ -29,6 +30,10 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 	private static final Binder binder = GWT.create(Binder.class);
 	private static final ProfileClientBundle profileBundle = GWT.create(ProfileClientBundle.class);
 
+	@UiField
+	Hidden loginId;
+	@UiField
+	Hidden profileId;
 	@UiField
 	Label name;
 	@UiField
@@ -50,6 +55,8 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 	public void setProfileData(UserProfileRemote item) {
 		System.out.println(">>>>> ProfileItem.setData()");
 		if (item != null) {
+			loginId.setValue(String.valueOf(item.getParentId()));
+			profileId.setValue(String.valueOf(item.getId()));
 			name.setText(item.getName() + " " + item.getSurname());
 			email.setText(item.getEmail());
 			gender.setText((item.getGender() == 0 ? "male" : "female"));
@@ -69,6 +76,16 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 		} else {
 			// TODO
 		}
+	}
+
+	@Override
+	public Long getProfileId() {
+		return Long.parseLong(profileId.getValue());
+	}
+	
+	@Override
+	public Long getLoginId() {
+		return Long.parseLong(loginId.getValue());
 	}
 
 	@Override
