@@ -1,0 +1,19 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+  <ui:style field='style'
+    type='org.gwtcom.client.view.navigation.AdminMenu.Style'>
+
+  .publicmenu {
+    padding: 0.5em;
+    line-height: 150%;
+  }
+
+  .item {
+  	display: block;
+ 	}
+  </ui:style>
+
+  <g:FlowPanel styleName='{style.publicmenu}' ui:field='panel'/>
+</ui:UiBinder>

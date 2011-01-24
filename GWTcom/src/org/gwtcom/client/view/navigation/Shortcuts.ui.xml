@@ -8,7 +8,9 @@
 	<ui:image field='gradient' src='../img/other/gradient_bg_dark.png'
 		repeatStyle='Horizontal' />
 
-	<ui:style>
+	<ui:style field='style'
+		type='org.gwtcom.client.view.navigation.Shortcuts.Style'>
+		
   .shortcuts {
     border-left: 1px solid #999;
     border-right: 1px solid #999;
@@ -60,18 +62,34 @@
       margin-right: 0.5em;
       float: left;
     }
+    
+    @if user.agent ie6 {
+	  .adminStackIcon {
+	    background-image: url(privategroup_ie6.gif);
+	    width: 31px;
+	    height: 22px;
+	    float: left;
+	  }
+	
+
+  } @else {
+    @sprite .adminStackIcon {
+      gwt-image: 'privatestackgroup';
+      margin-right: 0.5em;
+      float: left;
+    }
   
  }
   </ui:style>
 
 
-	<g:StackLayoutPanel styleName='{style.shortcuts}'
+	<g:StackLayoutPanel ui:field="stackPanel" styleName='{style.shortcuts}'
 		unit='EM'>
 		<g:stack>
 			<g:header size='3'>
 				<div class='{style.stackHeader}'>
 					<div class='{style.publicStackIcon}' />
-					<ui:msg key='publicMenuTitle'>Public</ui:msg> 
+					<ui:msg key='publicMenuTitle'>Public</ui:msg>
 				</div>
 			</g:header>
 			<gwtcom:PublicMenu ui:field='publicMenu' />
@@ -81,14 +99,15 @@
 			<g:header size='3'>
 				<div class='{style.stackHeader}'>
 					<div class='{style.privateStackIcon}' />
-					<ui:msg key='privateMenuTitle'>Public</ui:msg> 
+					<ui:msg key='privateMenuTitle'>Private</ui:msg>
 				</div>
 			</g:header>
 			<gwtcom:PrivateMenu ui:field='privateMenu' />
 		</g:stack>
 
-		<!-- <g:stack> <g:header size='3'><div class='{style.stackHeader}'><div 
-			class='{style.contactsIcon}'/> Contacts</div></g:header> <gwtcom:Contacts 
-			ui:field='contacts'/> </g:stack> -->
+	 <g:stack> <g:header size='3'> <div class='{style.stackHeader}'> <div 
+		class='{style.adminStackIcon}' /> <ui:msg key='AdminMenuTitle'>Admin</ui:msg> 
+		</div> </g:header> <gwtcom:AdminMenu ui:field='adminMenu' /> </g:stack>
+
 	</g:StackLayoutPanel>
 </ui:UiBinder>
