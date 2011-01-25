@@ -3,9 +3,10 @@ package org.gwtcom.client.gin;
 import org.gwtcom.client.AppController;
 import org.gwtcom.client.activity.DateItemActivity;
 import org.gwtcom.client.activity.DateListActivity;
+import org.gwtcom.client.activity.NewsChangeActivity;
 import org.gwtcom.client.activity.NewsItemActivity;
 import org.gwtcom.client.activity.NewsListActivity;
-import org.gwtcom.client.activity.ProfileChangeViewActivity;
+import org.gwtcom.client.activity.ProfileChangeActivity;
 import org.gwtcom.client.activity.ProfileViewActivity;
 import org.gwtcom.client.place.AppPlaceController;
 import org.gwtcom.client.view.dates.DateItem;
@@ -16,6 +17,8 @@ import org.gwtcom.client.view.news.NewsItem;
 import org.gwtcom.client.view.news.NewsItemImpl;
 import org.gwtcom.client.view.news.NewsList;
 import org.gwtcom.client.view.news.NewsListImpl;
+import org.gwtcom.client.view.news.change.NewsChange;
+import org.gwtcom.client.view.news.change.NewsChangeImpl;
 import org.gwtcom.client.view.profile.ProfileChangeView;
 import org.gwtcom.client.view.profile.ProfileChangeViewImpl;
 import org.gwtcom.client.view.profile.ProfileView;
@@ -45,6 +48,10 @@ public class GWTcomClientModule extends AbstractGinModule {
 		bind(NewsItemActivity.class).in(Singleton.class);
 
 		bind(NewsItem.class).to(NewsItemImpl.class).in(Singleton.class);
+		
+		bind(NewsChangeActivity.class).in(Singleton.class);
+
+		bind(NewsChange.class).to(NewsChangeImpl.class).in(Singleton.class);
 
 		bind(DateListActivity.class).in(Singleton.class);
 
@@ -58,7 +65,7 @@ public class GWTcomClientModule extends AbstractGinModule {
 
 		bind(ProfileView.class).to(ProfileViewImpl.class).in(Singleton.class);
 
-		bind(ProfileChangeViewActivity.class).in(Singleton.class);
+		bind(ProfileChangeActivity.class).in(Singleton.class);
 
 		bind(ProfileChangeView.class).to(ProfileChangeViewImpl.class).in(Singleton.class);
 

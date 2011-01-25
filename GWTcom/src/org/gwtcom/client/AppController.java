@@ -4,9 +4,10 @@ import org.gwtcom.client.gin.GWTcomGinjector;
 import org.gwtcom.client.i18n.GWTcomConstants;
 import org.gwtcom.client.place.DateItemPlace;
 import org.gwtcom.client.place.DateListPlace;
+import org.gwtcom.client.place.NewsChangePlace;
 import org.gwtcom.client.place.NewsItemPlace;
 import org.gwtcom.client.place.NewsListPlace;
-import org.gwtcom.client.place.ProfileChangeViewPlace;
+import org.gwtcom.client.place.ProfileChangePlace;
 import org.gwtcom.client.place.ProfileViewPlace;
 import org.gwtcom.client.view.GWTmainView;
 
@@ -59,7 +60,6 @@ public class AppController implements ActivityMapper {
 		if (place instanceof NewsListPlace)
 			return _injector.getNewsListActivity();
 		else if (place instanceof NewsItemPlace)
-
 			return _injector.getNewsItemActivity();
 		else if (place instanceof DateListPlace)
 			return _injector.getDateListActivity();
@@ -67,8 +67,10 @@ public class AppController implements ActivityMapper {
 			return _injector.getDateItemActivity();
 		else if (place instanceof ProfileViewPlace)
 			return _injector.getProfileViewActivity();
-		else if (place instanceof ProfileChangeViewPlace)
-			return _injector.getProfileChangeViewActivity();
+		else if (place instanceof ProfileChangePlace)
+			return _injector.getProfileChangeActivity();
+		else if (place instanceof NewsChangePlace)
+			return _injector.getNewsChangeActivity();
 		return null;
 	}
 

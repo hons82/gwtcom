@@ -3,8 +3,7 @@ package org.gwtcom.client.view.navigation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gwtcom.client.place.ProfileChangeViewPlace;
-import org.gwtcom.client.place.ProfileViewPlace;
+import org.gwtcom.client.place.NewsChangePlace;
 import org.gwtcom.shared.UserLoginRemote;
 
 import com.google.gwt.core.client.GWT;
@@ -27,9 +26,8 @@ import com.google.gwt.user.client.ui.Widget;
 public class AdminMenu extends AbstractStackPanelInlay {
 
 	public static interface CwConstants extends Constants {
-		String cwProfileTitle();
 
-		String cwProfileChangeTitle();
+		String cwNewsChangeTitle();
 
 		String cwNoAccess();
 	}
@@ -50,9 +48,7 @@ public class AdminMenu extends AbstractStackPanelInlay {
 
 	private final Label _noAccess;
 
-	private final Anchor _profile;
-
-	private final Anchor _profileChange;
+	private final Anchor _newsChange;
 
 	private final List<HandlerRegistration> _profileHandlerRegistration;
 
@@ -71,8 +67,7 @@ public class AdminMenu extends AbstractStackPanelInlay {
 		_noAccess = new Label(_constants.cwNoAccess());
 		panel.add(_noAccess);
 
-		_profile = addItem(_constants.cwProfileTitle());
-		_profileChange = addItem(_constants.cwProfileChangeTitle());
+		_newsChange = addItem(_constants.cwNewsChangeTitle());
 	}
 
 	private Anchor addItem(final String item) {
@@ -87,32 +82,20 @@ public class AdminMenu extends AbstractStackPanelInlay {
 		if (loggedIn != null) {
 			_noAccess.setVisible(false);
 
-			// Show your Profile
-			_profile.setVisible(true);
-			_profileHandlerRegistration.add(_profile.addClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					System.out.println(">>> PrivateMenu.Profile.OnClick()");
-					_placeController.goTo(new ProfileViewPlace(loggedIn));
-				}
-			}));
-
 			// Change the actual Profile
-			_profileChange.setVisible(true);
-			_profileHandlerRegistration.add(_profileChange.addClickHandler(new ClickHandler() {
+			_newsChange.setVisible(true);
+			_profileHandlerRegistration.add(_newsChange.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					System.out.println(">>> PrivateMenu.ProfileChange.OnClick()");
-					_placeController.goTo(new ProfileChangeViewPlace(loggedIn));
+					System.out.println(">>> AdminMenu.NewsChange.OnClick()");
+					_placeController.goTo(new NewsChangePlace(loggedIn));
 				}
 			}));
 		} else {
 			_noAccess.setVisible(true);
 
-			_profile.setVisible(false);
-			_profileChange.setVisible(false);
+			_newsChange.setVisible(false);
 
 			removeAllPrivateHandler();
 		}

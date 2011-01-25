@@ -1,0 +1,75 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
+	ui:generateLocales="default" xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:w="urn:import:org.gwtcom.client.view.widget" xmlns:gwtcom="urn:import:org.gwtcom.client.view"
+	xmlns:nav="urn:import:org.gwtcom.client.view.navigation">
+
+	<ui:image field='newsiconimage' src='../../img/icon/newsicon.png' />
+	<ui:image field='gradient' src='../../img/other/gradient_bg_dark.png'
+		repeatStyle='Horizontal' />
+
+	<ui:style>
+		.main {
+			background-color: transparent;
+			height: 100%;
+		}
+		
+		.header {
+			gwt-image: 'gradient';
+			background-color: #C6C6C6;
+			cursor: pointer;
+			text-shadow: rgba(255, 255, 255, 1) 0 1px 1px;
+			font-size: 1.2em;
+			font-weight: bold;
+			color: #000000;
+			padding: .5em;
+		}
+		
+		.scrollable {
+			height: 100%;
+			width: 100%;
+			border: 1px solid #ccc;
+			text-align: left;
+		}
+		
+		.contentarea {
+			height: 100%;
+			width: 100%;
+			border: 1px solid #ccc;
+			text-align: left;
+		}
+		
+		@if user.agent ie6 {
+	  		.newsIcon {
+	  	   	    background-image: url(newsicon_ie6.gif);
+	    		width: 31px;
+	    		height: 22px;
+	    		float: left;
+	 		 }
+	    } @else {
+    		@sprite .newsIcon {
+      			gwt-image: 'newsiconimage';
+      			margin-right: 0.5em;
+      			float: left;
+    		}
+  
+ 		}
+	</ui:style>
+
+	<g:DockLayoutPanel unit='PX' styleName='{style.main}'>
+		<g:north size='38'>
+			<g:HTMLPanel styleName='{style.header}'>
+				<div class='{style.newsIcon}' />
+				<ui:msg key='newsChangeTitle'>Admin News</ui:msg>
+			</g:HTMLPanel>
+		</g:north>
+		<g:west size="300">
+			<nav:ShowMorePagerPanel addStyleNames='{style.scrollable}'
+				ui:field='pagerPanel' />
+		</g:west>
+		<g:center>
+			<w:CompleteRichTextArea styleName='{style.contentarea}' />
+		</g:center>
+	</g:DockLayoutPanel>
+</ui:UiBinder>

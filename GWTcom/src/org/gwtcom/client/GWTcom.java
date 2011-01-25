@@ -55,10 +55,11 @@ public class GWTcom implements EntryPoint {
 		//
 		/**/injector.getNewsListActivity(); /**/
 		/**/injector.getNewsItemActivity(); /**/
+		/**/injector.getNewsChangeActivity(); /**/
 		/**/injector.getDateListActivity(); /**/
 		/**/injector.getDateItemActivity(); /**/
 		/**/injector.getProfileViewActivity(); /**/
-		/**/injector.getProfileChangeViewActivity(); /**/
+		/**/injector.getProfileChangeActivity(); /**/
 
 		// AppController appActivity = injector.getAppActivity();
 		// appActivity.go(RootLayoutPanel.get());

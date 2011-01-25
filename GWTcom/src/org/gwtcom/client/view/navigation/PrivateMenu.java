@@ -3,7 +3,7 @@ package org.gwtcom.client.view.navigation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gwtcom.client.place.ProfileChangeViewPlace;
+import org.gwtcom.client.place.ProfileChangePlace;
 import org.gwtcom.client.place.ProfileViewPlace;
 import org.gwtcom.shared.UserLoginRemote;
 
@@ -105,7 +105,7 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 				@Override
 				public void onClick(ClickEvent event) {
 					System.out.println(">>> PrivateMenu.ProfileChange.OnClick()");
-					_placeController.goTo(new ProfileChangeViewPlace(loggedIn));
+					_placeController.goTo(new ProfileChangePlace(loggedIn));
 				}
 			}));
 		} else {

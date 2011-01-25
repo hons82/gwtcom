@@ -2,7 +2,7 @@ package org.gwtcom.client.activity;
 
 import org.gwt.mosaic.ui.client.InfoPanel;
 import org.gwtcom.client.place.NewsListPlace;
-import org.gwtcom.client.place.ProfileChangeViewPlace;
+import org.gwtcom.client.place.ProfileChangePlace;
 import org.gwtcom.client.service.ProfileService;
 import org.gwtcom.client.service.ProfileServiceAsync;
 import org.gwtcom.client.view.profile.ProfileChangeView;
@@ -20,14 +20,14 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 
-public class ProfileChangeViewActivity extends AbstractActivity implements ProfileChangeView.Presenter {
+public class ProfileChangeActivity extends AbstractActivity implements ProfileChangeView.Presenter {
 
 	private final PlaceController _placeController;
 	private final ProfileChangeView _profileChangeView;
 	private UserProfileRemote _profile;
 
 	@Inject
-	public ProfileChangeViewActivity(ProfileChangeView profileChangeView, PlaceController placeController) {
+	public ProfileChangeActivity(ProfileChangeView profileChangeView, PlaceController placeController) {
 		super();
 		_placeController = placeController;
 		_profileChangeView = profileChangeView;
@@ -71,8 +71,8 @@ public class ProfileChangeViewActivity extends AbstractActivity implements Profi
 		System.out.println(">>>>>NewsItemPresenter.start()");
 		final Place currentPlace = _placeController.getWhere();
 		// are we right in here?
-		if (currentPlace != null && currentPlace instanceof ProfileChangeViewPlace) {
-			final long loginId = Long.parseLong(((ProfileChangeViewPlace) currentPlace).getId());
+		if (currentPlace != null && currentPlace instanceof ProfileChangePlace) {
+			final long loginId = Long.parseLong(((ProfileChangePlace) currentPlace).getId());
 
 			getProfileView(loginId);
 		} else {
