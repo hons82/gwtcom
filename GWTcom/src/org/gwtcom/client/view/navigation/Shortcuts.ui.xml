@@ -10,77 +10,68 @@
 
 	<ui:style field='style'
 		type='org.gwtcom.client.view.navigation.Shortcuts.Style'>
-		
-  .shortcuts {
-    border-left: 1px solid #999;
-    border-right: 1px solid #999;
-    border-bottom: 1px solid #999;
-  }
+		.shortcuts {
+			border-left: 1px solid #999;
+			border-right: 1px solid #999;
+			border-bottom: 1px solid #999;
+		}
+		@sprite .stackHeader {
+		    gwt-image: 'gradient';
+		    background-color: #b4b6bc;
+		    cursor: pointer;
+		    text-shadow: rgba(255, 255, 255, 1) 0 1px 1px;
+		    font-size: 1.2em;
+		    font-weight: bold;
+		    color: #000;
+		    padding: .5em;
+		    border-top: 1px solid #888;
+ 			}
 
-  @sprite .stackHeader {
-    gwt-image: 'gradient';
-    background-color: #b4b6bc;
-    cursor: pointer;
-    text-shadow: rgba(255, 255, 255, 1) 0 1px 1px;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #000;
-    padding: .5em;
-    border-top: 1px solid #888;
-  }
+ 			@if user.agent ie6 {
+  			.publicStackIcon {
+    			background-image: url(publicgroup_ie6.gif);
+			    width: 31px;
+			    height: 22px;
+			    float: left;
+			}
+		} @else {
+			@sprite .publicStackIcon {
+			    gwt-image: 'publicstackgroup';
+			    margin-right: 0.5em;
+			    float: left;
+			}
+			}
 
-  @if user.agent ie6 {
-	  .publicStackIcon {
-	    background-image: url(publicgroup_ie6.gif);
-	    width: 31px;
-	    height: 22px;
-	    float: left;
-	  }
-	
-
-  } @else {
-    @sprite .publicStackIcon {
-      gwt-image: 'publicstackgroup';
-      margin-right: 0.5em;
-      float: left;
-    }
-  
- }
- 
-   @if user.agent ie6 {
-	  .privateStackIcon {
-	    background-image: url(privategroup_ie6.gif);
-	    width: 31px;
-	    height: 22px;
-	    float: left;
-	  }
-	
-
-  } @else {
-    @sprite .privateStackIcon {
-      gwt-image: 'privatestackgroup';
-      margin-right: 0.5em;
-      float: left;
-    }
-    
-    @if user.agent ie6 {
-	  .adminStackIcon {
-	    background-image: url(privategroup_ie6.gif);
-	    width: 31px;
-	    height: 22px;
-	    float: left;
-	  }
-	
-
-  } @else {
-    @sprite .adminStackIcon {
-      gwt-image: 'privatestackgroup';
-      margin-right: 0.5em;
-      float: left;
-    }
-  
- }
-  </ui:style>
+  			@if user.agent ie6 {
+  			.privateStackIcon {
+			    background-image: url(privategroup_ie6.gif);
+			    width: 31px;
+			    height: 22px;
+			    float: left;
+  			}
+		} @else {
+   			@sprite .privateStackIcon {
+     				gwt-image: 'privatestackgroup';
+			    margin-right: 0.5em;
+			    float: left;
+   			}
+   		}
+   
+   		@if user.agent ie6 {
+  			.adminStackIcon {
+			    background-image: url(privategroup_ie6.gif);
+			    width: 31px;
+			    height: 22px;
+			    float: left;
+  			}
+  		} @else {
+   			@sprite .adminStackIcon {
+     				gwt-image: 'privatestackgroup';
+     				margin-right: 0.5em;
+     				float: left;
+   			}
+ 		}
+	</ui:style>
 
 
 	<g:StackLayoutPanel ui:field="stackPanel" styleName='{style.shortcuts}'
@@ -105,9 +96,15 @@
 			<gwtcom:PrivateMenu ui:field='privateMenu' />
 		</g:stack>
 
-	 <g:stack> <g:header size='3'> <div class='{style.stackHeader}'> <div 
-		class='{style.adminStackIcon}' /> <ui:msg key='AdminMenuTitle'>Admin</ui:msg> 
-		</div> </g:header> <gwtcom:AdminMenu ui:field='adminMenu' /> </g:stack>
+		<g:stack>
+			<g:header size='3'>
+				<div class='{style.stackHeader}'>
+					<div class='{style.adminStackIcon}' />
+					<ui:msg key='AdminMenuTitle'>Admin</ui:msg>
+				</div>
+			</g:header>
+			<gwtcom:AdminMenu ui:field='adminMenu' />
+		</g:stack>
 
 	</g:StackLayoutPanel>
 </ui:UiBinder>
