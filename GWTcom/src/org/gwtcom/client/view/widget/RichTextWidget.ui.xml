@@ -1,0 +1,32 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gwtcom='urn:import:org.gwtcom.client.view'
+	xmlns:tool='urn:import:org.gwtcom.client.view.widget.richTextToolbar'>
+
+	<ui:style>
+		.main {
+			background-color: transparent;
+			padding: 5px;
+			height: 100%;
+			width: 100%;
+		}
+		
+		.toolbar {
+			background: transparent;
+		}
+		
+		.textarea {
+			border-top: 1px solid #C6C6C6;
+			height: 100%;
+			width: 100%;
+		}
+	</ui:style>
+
+	<g:DockLayoutPanel unit='PX' styleName='{style.main}'>
+		<g:north size='60'>
+			<tool:RichTextToolbar ui:field="toolbar"  addStyleNames='{style.toolbar}'></tool:RichTextToolbar>
+		</g:north>
+		<g:center>
+			<g:RichTextArea ui:field="textarea" addStyleNames='{style.textarea}'></g:RichTextArea>
+		</g:center>
+	</g:DockLayoutPanel>
+</ui:UiBinder>
