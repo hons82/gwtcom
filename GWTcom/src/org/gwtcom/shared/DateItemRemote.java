@@ -7,10 +7,6 @@ import com.google.gwt.view.client.ProvidesKey;
 public class DateItemRemote extends BaseDomainRemote {
 
 	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3111001610680053708L;
-	/**
 	 * The key provider that provides the unique ID
 	 */
 	public static final ProvidesKey<DateItemRemote> KEY_PROVIDER = new ProvidesKey<DateItemRemote>() {

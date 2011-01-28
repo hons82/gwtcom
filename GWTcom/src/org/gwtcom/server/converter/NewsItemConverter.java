@@ -31,6 +31,7 @@ public class NewsItemConverter implements IConverter<NewsItemRemote, NewsItem> {
 			remote.setDateAdded(domain.getDateAdded());
 			// entityManager.createQuery("SELECT _author FROM " + NewsItem.class.getName()).getResultList();
 			remote.setAuthor(userProfileConverter.convertDomainToRemote(domain.getAuthor()));
+			remote.setContent(domain.getContent() != null ? domain.getContent().getValue() : "");
 		}
 		return remote;
 	}

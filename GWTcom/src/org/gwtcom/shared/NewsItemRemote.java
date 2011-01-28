@@ -7,11 +7,6 @@ import com.google.gwt.view.client.ProvidesKey;
 public class NewsItemRemote extends BaseDomainRemote {
 
 	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8967170750468895279L;
-
-	/**
 	 * The key provider that provides the unique ID
 	 */
 	public static final ProvidesKey<NewsItemRemote> KEY_PROVIDER = new ProvidesKey<NewsItemRemote>() {
@@ -24,17 +19,19 @@ public class NewsItemRemote extends BaseDomainRemote {
 	private Date _dateAdded;
 	private UserProfileRemote _author;
 	private String _title;
+	private String _content;
 
 	public NewsItemRemote() {
-		new NewsItemRemote(0l, new Date(System.currentTimeMillis()), null, "");
+		new NewsItemRemote(0l, new Date(System.currentTimeMillis()), null, "", "");
 	}
 
-	public NewsItemRemote(Long id, Date dateAdded, UserProfileRemote author, String title) {
+	public NewsItemRemote(Long id, Date dateAdded, UserProfileRemote author, String title, String content) {
 		super();
 		setId(id);
 		_dateAdded = dateAdded;
 		_author = author;
 		_title = title;
+		_content = content;
 	}
 
 	public Date getDateAdded() {
@@ -59,6 +56,14 @@ public class NewsItemRemote extends BaseDomainRemote {
 
 	public void setTitle(String title) {
 		_title = title;
+	}
+
+	public void setContent(String content) {
+		_content = content;
+	}
+
+	public String getContent() {
+		return _content;
 	}
 
 }

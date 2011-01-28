@@ -1,6 +1,7 @@
 package org.gwtcom.client.view.news.change;
 
 import org.gwtcom.client.view.navigation.ShowMorePagerPanel;
+import org.gwtcom.client.view.widget.RichTextWidget;
 import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.cell.client.AbstractCell;
@@ -71,6 +72,8 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 
 	@UiField
 	ShowMorePagerPanel pagerPanel;
+	@UiField
+	RichTextWidget content;
 
 	private final CellList<NewsItemRemote> cellList;
 
@@ -99,8 +102,13 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 			public void onSelectionChange(SelectionChangeEvent event) {
 				if (event.getSource() instanceof SingleSelectionModel<?>) {
 					NewsItemRemote dest = ((SingleSelectionModel<NewsItemRemote>) event.getSource()).getSelectedObject();
-					if (dest != null);
-						//_presenter.goTo(new NewsItemPlace(dest));
+					if (dest != null) {
+						content.setEnabled(true);
+						content.setContentAsHTML(dest.getContent());
+					} else {
+						content.setEnabled(false);
+						content.setContent("");
+					}
 				}
 			}
 		});

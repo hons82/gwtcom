@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import com.google.appengine.api.datastore.Text;
+
 @Entity
 public class NewsItem extends BaseDomainObject {
 
@@ -20,7 +22,7 @@ public class NewsItem extends BaseDomainObject {
 	private String _title;
 
 	@Column(name = "content")
-	private String _content;
+	private Text _content;
 
 	public NewsItem() {
 		super();
@@ -42,11 +44,11 @@ public class NewsItem extends BaseDomainObject {
 		_title = title;
 	}
 
-	public String getContent() {
+	public Text getContent() {
 		return _content;
 	}
 
-	public void setContent(String content) {
+	public void setContent(Text content) {
 		_content = content;
 	}
 
