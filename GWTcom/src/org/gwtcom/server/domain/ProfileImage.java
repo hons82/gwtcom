@@ -23,6 +23,7 @@ public class ProfileImage extends BaseDomainObject {
 	private byte[] _pictureThumb;
 
 	public ProfileImage() {
+		_picture = new byte[0];
 	}
 
 	public void setPicture(byte[] picture) {
@@ -30,7 +31,7 @@ public class ProfileImage extends BaseDomainObject {
 	}
 
 	public byte[] getPicture() {
-		return _picture != null ? _picture : new byte[0];
+		return _picture;
 	}
 
 	public void setPictureThumb(byte[] pictureThumb) {

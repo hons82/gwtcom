@@ -1,7 +1,5 @@
 package org.gwtcom.server.domain;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -11,9 +9,6 @@ import com.google.appengine.api.datastore.Text;
 public class NewsItem extends BaseDomainObject {
 
 	private static final long serialVersionUID = 8922196591001353438L;
-
-	@Column(name = "dateAdded")
-	private Date _dateAdded;
 
 	@Column(name = "author")
 	private UserProfile _author;
@@ -50,14 +45,6 @@ public class NewsItem extends BaseDomainObject {
 
 	public void setContent(Text content) {
 		_content = content;
-	}
-
-	public void setDateAdded(Date dateAdded) {
-		_dateAdded = dateAdded;
-	}
-
-	public Date getDateAdded() {
-		return _dateAdded;
 	}
 
 }

@@ -37,14 +37,14 @@ public class DateItemActivity extends AbstractActivity implements DateItem.Prese
 
 		final Place currentPlace = _placeController.getWhere();
 		if (currentPlace != null && currentPlace instanceof DateItemPlace) {
-			getDateItem(Long.parseLong(((DateItemPlace) currentPlace).getId()));
+			getDateItem(((DateItemPlace) currentPlace).getId());
 		} else {
 			goTo(new DateListPlace());
 		}
 		panel.setWidget(_dateItemView.asWidget());
 	}
 
-	private void getDateItem(Long id) {
+	private void getDateItem(String id) {
 		System.out.println(">>>>> DateItempresenter.getDateItem");
 		DatesServiceAsync service = GWT.create(DatesService.class);
 		service.getDateItem(id, new AsyncCallback<DateItemRemote>() {

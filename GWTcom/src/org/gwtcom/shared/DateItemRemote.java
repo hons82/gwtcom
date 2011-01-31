@@ -21,10 +21,10 @@ public class DateItemRemote extends BaseDomainRemote {
 	private String _title;
 
 	public DateItemRemote() {
-		this(0l, new Date(System.currentTimeMillis()), null, "");
+		this("", new Date(System.currentTimeMillis()), null, "");
 	}
 
-	public DateItemRemote(Long id, Date dateAdded, UserProfileRemote author, String title) {
+	public DateItemRemote(String id, Date dateAdded, UserProfileRemote author, String title) {
 		super();
 		setId(id);
 		_dateAdded = dateAdded;

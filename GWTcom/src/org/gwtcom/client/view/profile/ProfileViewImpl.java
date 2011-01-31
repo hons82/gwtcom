@@ -79,13 +79,13 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 	}
 
 	@Override
-	public Long getProfileId() {
-		return Long.parseLong(profileId.getValue());
+	public String getProfileId() {
+		return profileId.getValue();
 	}
 	
 	@Override
-	public Long getLoginId() {
-		return Long.parseLong(loginId.getValue());
+	public String getLoginId() {
+		return loginId.getValue();
 	}
 
 	@Override

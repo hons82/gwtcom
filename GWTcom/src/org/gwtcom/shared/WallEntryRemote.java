@@ -7,17 +7,16 @@ public class WallEntryRemote extends BaseDomainRemote {
 	 * 
 	 */
 	private static final long serialVersionUID = -7658507519406365236L;
-	private Long _id;
 	private Date _dateAdded;
 	private UserProfileRemote _owner;
 	private UserProfileRemote _author;
 	private String _content;
 
 	public WallEntryRemote() {
-		this(0l, new Date(System.currentTimeMillis()), null, null, "");
+		this("", new Date(System.currentTimeMillis()), null, null, "");
 	}
 
-	public WallEntryRemote(Long id, Date dateAdded, UserProfileRemote owner, UserProfileRemote author, String content) {
+	public WallEntryRemote(String id, Date dateAdded, UserProfileRemote owner, UserProfileRemote author, String content) {
 		super();
 		setId(id);
 		setDateAdded(dateAdded);

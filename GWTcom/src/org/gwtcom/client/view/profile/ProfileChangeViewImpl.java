@@ -82,7 +82,7 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 
 	@Override
 	public UserProfileRemote updateProfileData(UserProfileRemote profile) {
-		if (Long.valueOf(profileId.getValue()) == profile.getId() && Long.valueOf(loginId.getValue()) == profile.getParentId()) {
+		if (profileId.getValue() == profile.getId() && loginId.getValue() == profile.getParentId()) {
 			// TODO: This check is important, and could throw an Exception if not
 			System.out.println(">>>>> ProfileChangeView.updateProfileData --> IDs equal");
 		}

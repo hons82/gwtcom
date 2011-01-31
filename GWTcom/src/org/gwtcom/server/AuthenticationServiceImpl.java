@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.Query;
 
 import org.gwtcom.client.service.AuthenticationService;
-import org.gwtcom.server.converter.UserLoginConverter;
+import org.gwtcom.server.converter.gaeimpl.UserLoginConverter;
 import org.gwtcom.server.domain.UserLogin;
 import org.gwtcom.server.security.CustomUserDetailService;
 import org.gwtcom.shared.UserLoginRemote;

@@ -17,7 +17,7 @@ public interface DatesService extends RemoteService {
 	 */
 	List<DateItemRemote> getPublicDates();
 
-	DateItemRemote getDateItem(Long item);
+	DateItemRemote getDateItem(String item);
 
 	/**
 	 * Returns the number of private publications.
@@ -26,5 +26,7 @@ public interface DatesService extends RemoteService {
 	 * @exception ServiceSecurityException
 	 */
 	List<DateItemRemote> getPrivateDates() throws ServiceSecurityException;
+
+	void removeDateItem(DateItemRemote item);
 
 }

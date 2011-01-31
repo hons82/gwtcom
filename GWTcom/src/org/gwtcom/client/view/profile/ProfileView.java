@@ -12,9 +12,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 public interface ProfileView {
 	
-	public abstract Long getLoginId();
+	public abstract String getLoginId();
 	
-	public abstract Long getProfileId();
+	public abstract String getProfileId();
 
 	public abstract void setProfileData(UserProfileRemote item);
 

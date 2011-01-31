@@ -3,13 +3,13 @@ package org.gwtcom.shared;
 
 public abstract class ParentBaseDomainRemote extends BaseDomainRemote {
 
-	private Long _parentId;
+	private String _parentId;
 
-	public void setParentId(Long parentId) {
+	public void setParentId(String parentId) {
 		_parentId = parentId;
 	}
 
-	public Long getParentId() {
+	public String getParentId() {
 		return _parentId;
 	}
 }

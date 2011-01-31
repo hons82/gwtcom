@@ -1,12 +1,15 @@
-package org.gwtcom.server.converter;
+package org.gwtcom.server.converter.gaeimpl;
 
+import org.gwtcom.server.converter.IConverter;
 import org.gwtcom.server.domain.UserProfile;
 import org.gwtcom.shared.UserProfileRemote;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-@Service("userProfileConverter")
-public class UserProfileConverter implements
+import com.google.appengine.api.datastore.KeyFactory;
+
+@Repository("userProfileConverter")
+public class UserProfileConverter  implements
 		IConverter<UserProfileRemote, UserProfile> {
 
 	private ProfileImageConverter _profileImageConverter;
@@ -20,8 +23,8 @@ public class UserProfileConverter implements
 	public UserProfileRemote convertDomainToRemote(UserProfile domain) {
 		UserProfileRemote remote = new UserProfileRemote();
 		if (domain != null) {
-			remote.setParentId(domain.getLogin().getId().getId());
-			remote.setId(domain.getId().getId());
+			remote.setId(KeyFactory.keyToString(domain.getId()));
+//			remote.setParentId(convertToString(domain.getId().getParent()));
 			remote.setName(domain.getName());
 			remote.setSurname(domain.getSurname());
 			remote.setEmail(domain.getEmail());

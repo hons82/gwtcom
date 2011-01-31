@@ -62,7 +62,7 @@ public class ProfileViewActivity extends AbstractActivity implements ProfileView
 		System.out.println(">>>>>NewsItemPresenter.start()");
 		final Place currentPlace = _placeController.getWhere();
 		if (currentPlace != null && currentPlace instanceof ProfileViewPlace) {
-			final long loginId = Long.parseLong(((ProfileViewPlace) currentPlace).getId());
+		String loginId = ((ProfileViewPlace) currentPlace).getId();
 			
 			getProfileView(loginId);
 		} else {
@@ -72,7 +72,7 @@ public class ProfileViewActivity extends AbstractActivity implements ProfileView
 		panel.setWidget(_profileView.asWidget());
 	}
 
-	private void getProfileView(Long id) {
+	private void getProfileView(String id) {
 		System.out.println(">>>>> ProfileViewpresenter.getProfileView");
 		ProfileServiceAsync service = GWT.create(ProfileService.class);
 		service.getUserProfileByUserLoginId(id, new AsyncCallback<UserProfileRemote>() {

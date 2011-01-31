@@ -1,17 +1,12 @@
 package org.gwtcom.server;
 
 import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.PersistenceContext;
 
 public abstract class AbstractDatabaseService {
 
+	@PersistenceContext
 	protected EntityManager _entityManager;
-
-	@Autowired
-	public void setEntityManager(EntityManager entityManager) {
-		_entityManager = entityManager;
-	}
 
 	public EntityManager getEntityManager() {
 		return _entityManager;

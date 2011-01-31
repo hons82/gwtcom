@@ -72,7 +72,7 @@ public class ProfileChangeActivity extends AbstractActivity implements ProfileCh
 		final Place currentPlace = _placeController.getWhere();
 		// are we right in here?
 		if (currentPlace != null && currentPlace instanceof ProfileChangePlace) {
-			final long loginId = Long.parseLong(((ProfileChangePlace) currentPlace).getId());
+			String loginId = ((ProfileChangePlace) currentPlace).getId();
 
 			getProfileView(loginId);
 		} else {
@@ -82,7 +82,7 @@ public class ProfileChangeActivity extends AbstractActivity implements ProfileCh
 		panel.setWidget(_profileChangeView.asWidget());
 	}
 
-	private void getProfileView(Long id) {
+	private void getProfileView(String id) {
 		System.out.println(">>>>> ProfileViewpresenter.getProfileView");
 		ProfileServiceAsync service = GWT.create(ProfileService.class);
 		service.getUserProfileByUserLoginId(id, new AsyncCallback<UserProfileRemote>() {

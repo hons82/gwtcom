@@ -37,14 +37,14 @@ public class NewsItemActivity extends AbstractActivity implements NewsItem.Prese
 
 		final Place currentPlace = _placeController.getWhere();
 		if (currentPlace != null && currentPlace instanceof NewsItemPlace) {
-			getNewsItem(Long.parseLong(((NewsItemPlace) currentPlace).getId()));
+			getNewsItem(((NewsItemPlace) currentPlace).getId());
 		} else {
 			goTo(new NewsListPlace());
 		}
 		panel.setWidget(_newsItemView.asWidget());
 	}
 
-	private void getNewsItem(Long id) {
+	private void getNewsItem(String id) {
 		System.out.println(">>>>> NewsItemActivity.getNewsItem");
 		NewsServiceAsync service = GWT.create(NewsService.class);
 		service.getNewsItem(id, new AsyncCallback<NewsItemRemote>() {
@@ -61,7 +61,7 @@ public class NewsItemActivity extends AbstractActivity implements NewsItem.Prese
 		});
 	}
 
-	public void setNewsItemId(Long id) {
+	public void setNewsItemId(String id) {
 		if (_newsItem == null) {
 			_newsItem = new NewsItemRemote();
 		}

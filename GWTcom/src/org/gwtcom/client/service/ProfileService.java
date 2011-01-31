@@ -11,14 +11,14 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("gwtcom/profileService")
 public interface ProfileService extends RemoteService {
 
-	public UserProfileRemote getUserProfile(Long userProfileId) throws ServiceSecurityException;
+	public UserProfileRemote getUserProfile(String userProfileId) throws ServiceSecurityException;
 
 	public boolean updateUserProfile(UserProfileRemote profile);
 
-	public UserProfileRemote getUserProfileByUserLoginId(Long userLoginId);
+	public UserProfileRemote getUserProfileByUserLoginId(String userLoginId);
 
-	public List<WallEntryRemote> getPublicWallEntries(Long userProfileId) throws ServiceSecurityException;
+	public List<WallEntryRemote> getPublicWallEntries(String userProfileId) throws ServiceSecurityException;
 
-	public WallEntryRemote addWallPost(Long userProfileId, String content);
+	public WallEntryRemote addWallPost(String userProfileId, String content);
 
 }

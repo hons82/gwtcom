@@ -1,7 +1,5 @@
 package org.gwtcom.server.domain;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -11,9 +9,6 @@ import com.google.appengine.api.datastore.Key;
 public class WallEntry extends BaseDomainObject {
 
 	private static final long serialVersionUID = 4673308759394854464L;
-
-	@Column(name = "dateAdded")
-	private Date _dateAdded;
 
 	@Column(name = "owner")
 	private Key _owner;
@@ -42,14 +37,6 @@ public class WallEntry extends BaseDomainObject {
 
 	public void setContent(String content) {
 		_content = content;
-	}
-
-	public void setDateAdded(Date dateAdded) {
-		_dateAdded = dateAdded;
-	}
-
-	public Date getDateAdded() {
-		return _dateAdded;
 	}
 
 	public void setOwner(Key owner) {

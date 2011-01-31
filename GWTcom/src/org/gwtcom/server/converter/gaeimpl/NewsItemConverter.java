@@ -1,12 +1,15 @@
-package org.gwtcom.server.converter;
+package org.gwtcom.server.converter.gaeimpl;
 
+import org.gwtcom.server.converter.IConverter;
 import org.gwtcom.server.domain.NewsItem;
 import org.gwtcom.shared.NewsItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-@Service("newsItemConverter")
-public class NewsItemConverter implements IConverter<NewsItemRemote, NewsItem> {
+import com.google.appengine.api.datastore.KeyFactory;
+
+@Repository("newsItemConverter")
+public class NewsItemConverter  implements IConverter<NewsItemRemote, NewsItem> {
 
 	protected UserProfileConverter userProfileConverter;
 
@@ -26,7 +29,7 @@ public class NewsItemConverter implements IConverter<NewsItemRemote, NewsItem> {
 	public NewsItemRemote convertDomainToRemote(NewsItem domain) {
 		NewsItemRemote remote = new NewsItemRemote();
 		if (domain != null) {
-			remote.setId(domain.getId().getId());
+			remote.setId(KeyFactory.keyToString(domain.getId()));
 			remote.setTitle(domain.getTitle());
 			remote.setDateAdded(domain.getDateAdded());
 			// entityManager.createQuery("SELECT _author FROM " + NewsItem.class.getName()).getResultList();

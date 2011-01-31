@@ -12,6 +12,8 @@ public interface DatesServiceAsync {
 
 	public void getPrivateDates(AsyncCallback<List<DateItemRemote>> callback);
 
-	void getDateItem(Long item, AsyncCallback<DateItemRemote> callback);
+	void getDateItem(String item, AsyncCallback<DateItemRemote> callback);
+
+	void removeDateItem(DateItemRemote item, AsyncCallback<Void> callback);
 
 }

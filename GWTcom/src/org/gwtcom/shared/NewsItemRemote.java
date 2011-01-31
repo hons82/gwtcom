@@ -22,10 +22,10 @@ public class NewsItemRemote extends BaseDomainRemote {
 	private String _content;
 
 	public NewsItemRemote() {
-		new NewsItemRemote(0l, new Date(System.currentTimeMillis()), null, "", "");
+		new NewsItemRemote("", new Date(System.currentTimeMillis()), null, "", "");
 	}
 
-	public NewsItemRemote(Long id, Date dateAdded, UserProfileRemote author, String title, String content) {
+	public NewsItemRemote(String id, Date dateAdded, UserProfileRemote author, String title, String content) {
 		super();
 		setId(id);
 		_dateAdded = dateAdded;

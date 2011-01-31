@@ -1,19 +1,21 @@
-package org.gwtcom.server.converter;
+package org.gwtcom.server.converter.gaeimpl;
 
+import org.gwtcom.server.converter.IConverter;
 import org.gwtcom.server.domain.ProfileImage;
 import org.gwtcom.shared.ProfileImageRemote;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.gwt.user.server.Base64Utils;
 
-@Service("profileImageConverter")
+@Repository("profileImageConverter")
 public class ProfileImageConverter implements IConverter<ProfileImageRemote, ProfileImage> {
 
 	@Override
 	public ProfileImageRemote convertDomainToRemote(ProfileImage domain) {
 		ProfileImageRemote remote = new ProfileImageRemote();
 		if (domain != null) {
-			remote.setId(domain.getId().getId());
+			remote.setId(KeyFactory.keyToString(domain.getId()));
 			remote.setImage(domain.getPicture() != null ? Base64Utils.toBase64(domain.getPicture()) : null);
 			remote.setImageThumb(domain.getPictureThumb() != null ? Base64Utils.toBase64(domain.getPictureThumb()) : null);
 		}

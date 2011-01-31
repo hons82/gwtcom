@@ -9,13 +9,13 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ProfileServiceAsync {
 
-	public void getUserProfile(Long userProfileId, AsyncCallback<UserProfileRemote> callback);
+	public void getUserProfile(String userProfileId, AsyncCallback<UserProfileRemote> callback);
 	
 	public void updateUserProfile(UserProfileRemote profile, AsyncCallback<Boolean> callback);
 
-	public void getUserProfileByUserLoginId(Long userLoginId, AsyncCallback<UserProfileRemote> callback);
+	public void getUserProfileByUserLoginId(String userLoginId, AsyncCallback<UserProfileRemote> callback);
 
-	public void getPublicWallEntries(Long userProfileId, AsyncCallback<List<WallEntryRemote>> callback);
+	public void getPublicWallEntries(String userProfileId, AsyncCallback<List<WallEntryRemote>> callback);
 
-	public void addWallPost(Long userProfileId, String content, AsyncCallback<WallEntryRemote> asyncCallback);
+	public void addWallPost(String userProfileId, String content, AsyncCallback<WallEntryRemote> asyncCallback);
 }

@@ -1,23 +1,19 @@
-package org.gwtcom.server.converter;
+package org.gwtcom.server.converter.gaeimpl;
 
+import org.gwtcom.server.converter.IConverter;
 import org.gwtcom.server.domain.DateItem;
 import org.gwtcom.shared.DateItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-@Service("dateItemConverter")
-public class DateItemConverter implements IConverter<DateItemRemote, DateItem> {
+import com.google.appengine.api.datastore.KeyFactory;
 
-	protected UserProfileConverter userProfileConverter;
-
-	// protected EntityManager entityManager;
-	//
-	// @Autowired
-	// public void setentityManager(EntityManager entityManager) {
-	// this.entityManager = entityManager;
-	// }
+@Repository("dateItemConverter")
+public class DateItemConverter  implements IConverter<DateItemRemote, DateItem> {
 
 	@Autowired
+	protected UserProfileConverter userProfileConverter;
+
 	public void setUserProfileConverter(UserProfileConverter userProfileConverter) {
 		this.userProfileConverter = userProfileConverter;
 	}
@@ -26,7 +22,7 @@ public class DateItemConverter implements IConverter<DateItemRemote, DateItem> {
 	public DateItemRemote convertDomainToRemote(DateItem domain) {
 		DateItemRemote remote = new DateItemRemote();
 		if (domain != null) {
-			remote.setId(domain.getId().getId());
+			remote.setId(KeyFactory.keyToString(domain.getId()));
 			remote.setTitle(domain.getTitle());
 			remote.setDateAdded(domain.getDateAdded());
 			// entityManager.createQuery("SELECT _author FROM " + NewsItem.class.getName()).getResultList();
