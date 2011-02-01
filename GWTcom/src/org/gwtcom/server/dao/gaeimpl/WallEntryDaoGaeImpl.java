@@ -14,7 +14,6 @@ import org.gwtcom.server.domain.WallEntry;
 import org.gwtcom.shared.WallEntryRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -28,6 +27,10 @@ public class WallEntryDaoGaeImpl extends GenericDaoGaeImpl<WallEntry, String> im
 	@Autowired
 	protected UserProfileDao _userProfileDao;
 
+	public WallEntryDaoGaeImpl(){
+		super(WallEntry.class);
+	}
+	
 	@Override
 	public List<WallEntryRemote> getPublicWallEntries(String userLoginId) {
 		List<WallEntryRemote> ret = new ArrayList<WallEntryRemote>();
@@ -42,8 +45,7 @@ public class WallEntryDaoGaeImpl extends GenericDaoGaeImpl<WallEntry, String> im
 	}
 
 	@Override
-	@Transactional(readOnly = false)
-	public WallEntryRemote addWallPost(String userLoginId, String loggedInUserId, String content) {
+	public WallEntryRemote addWallPost(String userProfileId, String loggedInUserId, String content) {
 		// TODO: There should be a better way
 
 		// gather all information about the author
@@ -53,11 +55,10 @@ public class WallEntryDaoGaeImpl extends GenericDaoGaeImpl<WallEntry, String> im
 
 		if (loggedInUser != null && loggedInUserProfile != null) {
 			// gather all needed information about the owner of the wall
-			UserLogin wallUserLogin = _userLoginDao.retrieve(userLoginId);
-			UserProfile wallUserProfile = wallUserLogin != null ? wallUserLogin.getUserprofile() : null;
+			UserProfile wallUserProfile = _userProfileDao.retrieve(userProfileId);
 			List<Key> wallUserWall = wallUserProfile != null ? wallUserProfile.getWall() : null;
 
-			if (wallUserLogin != null && wallUserProfile != null && wallUserWall != null) {
+			if (wallUserProfile != null && wallUserWall != null) {
 
 				wallEntry.setOwner(wallUserProfile.getId());
 				wallEntry.setAuthor(loggedInUserProfile != null ? loggedInUserProfile.getId() : null);
@@ -67,7 +68,7 @@ public class WallEntryDaoGaeImpl extends GenericDaoGaeImpl<WallEntry, String> im
 
 				wallUserWall.add(wallEntry.getId());
 				wallUserProfile.setWall(wallUserWall);
-				_userProfileDao.saveOrUpdate(wallUserProfile);
+				_userLoginDao.saveOrUpdate(wallUserProfile.getLogin());
 
 			}
 		}

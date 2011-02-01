@@ -1,32 +1,33 @@
 package org.gwtcom.server.security;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 import org.gwtcom.server.AbstractDatabaseService;
+import org.gwtcom.server.dao.AuthorityDao;
+import org.gwtcom.server.dao.UserLoginDao;
 import org.gwtcom.server.domain.Authority;
 import org.gwtcom.server.domain.ProfileImage;
 import org.gwtcom.server.domain.UserLogin;
 import org.gwtcom.server.domain.UserProfile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.google.appengine.api.datastore.Key;
 import com.google.gwt.user.server.Base64Utils;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailService extends AbstractDatabaseService implements UserDetailsService {
+
+	@Autowired
+	private AuthorityDao _authorityDao;
+	@Autowired
+	private UserLoginDao _userLoginDao;
 
 	//
 	private static final String IMAGE_B64 = "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==";
@@ -48,17 +49,17 @@ public class CustomUserDetailService extends AbstractDatabaseService implements 
 	private void initUsers() {
 		// Initialize Roles
 		for (int i = 0; i < _roles.length; i++) {
-			if (getAuthoritybyName(_roles[i]) == null) {
+			if (_authorityDao.getAuthoritybyName(_roles[i]) == null) {
 				createRole(_roles[i]);
 			}
 		}
 
 		// Initialize Users
 		for (int i = 0; i < _users.length; i++) {
-			if (getUserbyName(_users[i][0]) == null) {
+			if (_userLoginDao.getUserLoginByName(_users[i][0]) == null) {
 				createUser(_users[i][0], _users[i][1]);
-				addRoletoUser(_users[i][0], getAuthoritybyName(_roles[0]));
-				addRoletoUser(_users[i][0], getAuthoritybyName(_roles[1]));
+				addRoletoUser(_users[i][0], _authorityDao.getAuthoritybyName(_roles[0]));
+				addRoletoUser(_users[i][0], _authorityDao.getAuthoritybyName(_roles[1]));
 				addProfiletoUser(_users[i][0]);
 				System.out.println("Created User <" + _users[i][0] + "> with encoded Password: "
 						+ _encoder.encodePassword(_users[i][1], null));
@@ -74,92 +75,52 @@ public class CustomUserDetailService extends AbstractDatabaseService implements 
 		initUsers();
 
 		System.out.println(">>>>> CustomUserDetailService.loadUserbyName(" + name + ")");
-		UserLogin user = getUserbyName(name);
+		UserLogin user = _userLoginDao.getUserLoginByName(name);
 		if (user == null) {
 			throw new UsernameNotFoundException("User " + name + " not found!");
 		}
-		Collection<GrantedAuthority> auth = getAuthorities(user.getAuthorities());
+		Collection<GrantedAuthority> auth = _authorityDao.getGrantedAuthorities(user);
 
 		return new User(user.getName(), user.getPassword(), true, true, true, true, auth);
 	}
 
-	private Collection<GrantedAuthority> getAuthorities(Set<Key> auth) {
-		List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
-		for (Iterator<Key> iterator = auth.iterator(); iterator.hasNext();) {
-			Key k = iterator.next();
-			Authority a = _entityManager.find(Authority.class, k);
-			authList.add(new GrantedAuthorityImpl(a.getAuthname()));
-		}
-		return authList;
-	}
-
-	@Transactional(readOnly = true)
-	private UserLogin getUserbyName(final String name) {
-		try {
-			return (UserLogin) _entityManager.createQuery(
-					"SELECT FROM " + UserLogin.class.getName() + " WHERE _name =\"" + name + "\"").getSingleResult();
-		} catch (Exception e) {
-			// Todo
-			System.out.println("getUserbyname not found");
-		}
-		return null;
-	}
-
-	@Transactional(readOnly = true)
-	private Authority getAuthoritybyName(final String name) {
-		try {
-			return (Authority) _entityManager.createQuery(
-					"SELECT FROM " + Authority.class.getName() + " WHERE _authname =\"" + name + "\"").getSingleResult();
-		} catch (Exception e) {
-			// Todo
-			System.out.println("getAuthorityByName not found");
-		}
-		return null;
-	}
-
-	@Transactional(readOnly = false)
 	private void createUser(String name, String password) {
 		UserLogin user = new UserLogin();
 		user.setName(name);
 		user.setPassword(encodePassword(password));
-		_entityManager.persist(user);
+		_userLoginDao.saveOrUpdate(user);
 	}
 
-	@Transactional(readOnly = false)
 	private void addRoletoUser(String name, Authority auth) {
-		UserLogin user = getUserbyName(name);
-		if (user != null) {
-			user.getAuthorities().add(auth.getId());
-			_entityManager.persist(user);
-		}
+		_userLoginDao.addRoletoUser(name, auth);
 	}
 
-	@Transactional(readOnly = false)
 	private void addProfiletoUser(String name) {
-		UserLogin user = getUserbyName(name);
+		UserLogin user = _userLoginDao.getUserLoginByName(name);
 		if (user != null) {
 			UserProfile profile = new UserProfile("Johnny B.", "Good");
 			profile.setEmail("somemail@aa.org");
 			profile.setGender(UserProfile.GENDER_MALE);
 			profile.setLogin(user);
+			//_userProfileDao.saveOrUpdate(profile);
 
 			ProfileImage profileImage = new ProfileImage();
 			profileImage.setPicture(Base64Utils.fromBase64(IMAGE_B64));
-			_entityManager.persist(profileImage);
-
+			profileImage.setUserprofile(profile);
+			//_profileImageDao.saveOrUpdate(profileImage);
+			
 			profile.setProfileImage(profileImage);
-			_entityManager.persist(profile);
+			//_userProfileDao.saveOrUpdate(profile);
 
 			user.setUserprofile(profile);
-			_entityManager.persist(user);
+			_userLoginDao.saveOrUpdate(user);
 		}
 	}
 
-	@Transactional(readOnly = false)
 	private void createRole(String name) {
 		Authority auth = new Authority();
 		auth.setAuthname(name);
-		_entityManager.persist(auth);
+		_authorityDao.saveOrUpdate(auth);
 	}
 
 	public String encodePassword(String password) {

@@ -31,8 +31,6 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 	private static final ProfileClientBundle profileBundle = GWT.create(ProfileClientBundle.class);
 
 	@UiField
-	Hidden loginId;
-	@UiField
 	Hidden profileId;
 	@UiField
 	Label name;
@@ -55,7 +53,6 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 	public void setProfileData(UserProfileRemote item) {
 		System.out.println(">>>>> ProfileItem.setData()");
 		if (item != null) {
-			loginId.setValue(String.valueOf(item.getParentId()));
 			profileId.setValue(String.valueOf(item.getId()));
 			name.setText(item.getName() + " " + item.getSurname());
 			email.setText(item.getEmail());
@@ -83,11 +80,6 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 		return profileId.getValue();
 	}
 	
-	@Override
-	public String getLoginId() {
-		return loginId.getValue();
-	}
-
 	@Override
 	public void setProfileWallData(List<WallEntryRemote> result) {
 		wall.clearWall();

@@ -36,6 +36,11 @@ public abstract class BaseDomainObject {
 	@Column(name = "userLastChange")
 	private Key _userDeleted;
 
+	public BaseDomainObject(){
+		_dateAdded = new Date();
+		_dateLastUpdate = new Date();
+	}
+	
 	public Key getId() {
 		return _id;
 	}

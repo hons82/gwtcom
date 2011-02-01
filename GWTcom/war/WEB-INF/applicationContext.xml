@@ -13,7 +13,8 @@
 
 	<!-- Service layer -->
 	<context:annotation-config />
-	<tx:annotation-driven />
+	<tx:annotation-driven mode="proxy"
+		transaction-manager="transactionManager" />
 
 	<!-- Enable support for @Repository components -->
 	<context:component-scan base-package="org.gwtcom.server.converter.gaeimpl" />
@@ -26,17 +27,24 @@
 		<property name="persistenceUnitName" value="transactions-optional" />
 	</bean>
 
-	<!-- 
-	 <bean id="persistenceUnitManager"
+	<bean id="datastoreService"
+		class="com.google.appengine.api.datastore.DatastoreServiceFactory"
+		factory-method="getDatastoreService" />
+
+	<bean id="memcacheServiceUser"
+		class="com.google.appengine.api.memcache.MemcacheServiceFactory"
+		factory-method="getMemcacheService">
+		<constructor-arg value="UserCache" />
+	</bean>
+
+	<bean id="persistenceUnitManager"
 		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
 		<property name="persistenceXmlLocation">
 			<value>classpath:META-INF/persistence.xml</value>
 		</property>
 	</bean>
-
 	<bean
 		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-	 -->
 
 	<!-- Transaction manager for a single EntityManagerFactory (alternative 
 		to JTA) -->

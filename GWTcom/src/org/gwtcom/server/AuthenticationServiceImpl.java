@@ -1,11 +1,8 @@
 package org.gwtcom.server;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
 import org.gwtcom.client.service.AuthenticationService;
 import org.gwtcom.server.converter.gaeimpl.UserLoginConverter;
+import org.gwtcom.server.dao.UserLoginDao;
 import org.gwtcom.server.domain.UserLogin;
 import org.gwtcom.server.security.CustomUserDetailService;
 import org.gwtcom.shared.UserLoginRemote;
@@ -26,18 +23,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Service("authenticationService")
 public class AuthenticationServiceImpl extends AbstractDatabaseService implements AuthenticationService {
 
+	@Autowired
+	private UserLoginDao _userLoginDao;
+	@Autowired
 	private UserLoginConverter _userLoginConverter;
+	@Autowired
 	private CustomUserDetailService _customUserDetailsService;
 
-	@Autowired
-	public void setuserLoginConverter(UserLoginConverter userLoginConverter) {
-		_userLoginConverter = userLoginConverter;
-	}
-
-	@Autowired
-	public void setCustomUserDetailService(CustomUserDetailService customUserDetailsService) {
-		_customUserDetailsService = customUserDetailsService;
-	}
 
 	@Override
 	public UserLoginRemote authenticate(String username, String password) {
@@ -96,30 +88,14 @@ public class AuthenticationServiceImpl extends AbstractDatabaseService implement
 		// TODO: That's maybe not enough of security
 		if (authentication != null && authentication.isAuthenticated()
 				&& !authentication.getPrincipal().equals("anonymousUser")) {
-			return getUserLoginByName(authentication.getPrincipal().toString());
+			return _userLoginDao.getUserLoginByName(authentication.getPrincipal().toString());
 		}
 		return null;
 	}
 
 	private UserLoginRemote getUserLoginRemoteByName(String name) {
-		UserLogin userLoginByName = getUserLoginByName(name);
+		UserLogin userLoginByName = _userLoginDao.getUserLoginByName(name);
 		return (userLoginByName != null ? _userLoginConverter.convertDomainToRemote(userLoginByName) : null);
-	}
-
-	@SuppressWarnings("unchecked")
-	private UserLogin getUserLoginByName(String name) {
-		Query query = getEntityManager().createQuery(
-				"SELECT FROM " + UserLogin.class.getName() + " WHERE _name = :nameParam");
-		query.setParameter("nameParam", name);
-		List<UserLogin> udl = query.getResultList();
-		if (udl != null && udl.size() == 1) {
-			UserLogin ud = udl.get(0);
-			if (ud.getUserprofile() != null) {
-				return ud;
-			}
-		}
-		System.out.println("User has no profile attached!");
-		return null;
 	}
 
 }

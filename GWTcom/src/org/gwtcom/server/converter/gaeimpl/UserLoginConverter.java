@@ -17,7 +17,8 @@ public class UserLoginConverter implements IConverter<UserLoginRemote, UserLogin
 			remote.setId(KeyFactory.keyToString(domain.getId()));
 			remote.setName(domain.getName());
 			remote.setUsername(domain.getName());
-			remote.setProfileId(KeyFactory.keyToString(domain.getUserprofile().getId()));
+			remote.setProfileId(domain.getUserprofile() != null ? KeyFactory.keyToString(domain.getUserprofile().getId())
+					: "");
 		}
 		return remote;
 	}

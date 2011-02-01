@@ -23,6 +23,8 @@ public interface GenericDao<T extends BaseDomainObject, PK extends Serializable>
 
 	public void setType(Class<T> type);
 
+	public T refresh(T entity);
+
 //	public Object createId(PK id);
 //
 //	public Object createId(Class<? extends BaseDomainObject> targetClass, PK id);

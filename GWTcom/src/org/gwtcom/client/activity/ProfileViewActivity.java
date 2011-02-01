@@ -39,7 +39,7 @@ public class ProfileViewActivity extends AbstractActivity implements ProfileView
 			@Override
 			public void onClick(ClickEvent event) {
 				ProfileServiceAsync service = GWT.create(ProfileService.class);
-				service.addWallPost(_profileView.getLoginId(), _profileView.getWallPostInputContent(),
+				service.addWallPost(_profileView.getProfileId(), _profileView.getWallPostInputContent(),
 						new AsyncCallback<WallEntryRemote>() {
 
 							@Override

@@ -63,7 +63,13 @@ public class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends Serializab
 	}
 
 	@Override
-	@Transactional(readOnly=false)
+	public T refresh(T entity) {
+		_entityManager.refresh(entity);
+		return entity;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
 	public T saveOrUpdate(T entity) {
 		if (entity.getId() != null) {
 			entity = _entityManager.merge(entity);
@@ -74,7 +80,7 @@ public class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends Serializab
 	}
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional(readOnly = false)
 	public void delete(T entity) {
 		if (entity != null) {
 			entity.setDateDeleted(new Date());
@@ -83,7 +89,7 @@ public class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends Serializab
 	}
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional(readOnly = false)
 	public void purge(T entity) {
 		if (entity != null) {
 			_entityManager.remove(entity);
@@ -91,7 +97,7 @@ public class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends Serializab
 	}
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional(readOnly = false)
 	public T restore(PK id) {
 		if (id != null) {
 			T entity = retrieve(id);

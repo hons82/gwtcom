@@ -6,6 +6,7 @@ import org.gwtcom.client.service.ProfileService;
 import org.gwtcom.server.dao.UserLoginDao;
 import org.gwtcom.server.dao.UserProfileDao;
 import org.gwtcom.server.dao.WallEntryDao;
+import org.gwtcom.shared.UserLoginRemote;
 import org.gwtcom.shared.UserProfileRemote;
 import org.gwtcom.shared.WallEntryRemote;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,9 @@ public class ProfileServiceImpl extends AbstractUserAwareService implements Prof
 
 	@Override
 	public WallEntryRemote addWallPost(String userLoginId, String content) {
-		return _wallEntryDao.addWallPost(userLoginId, getUserLoginRemote().getId(), content);
+		UserLoginRemote loggedInUserRemote = getUserLoginRemote();
+		return loggedInUserRemote != null ? _wallEntryDao.addWallPost(userLoginId, getUserLoginRemote().getId(), content)
+				: null;
 	}
 
 	@Override

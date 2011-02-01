@@ -12,13 +12,9 @@ import com.google.appengine.api.datastore.KeyFactory;
 public class UserProfileConverter  implements
 		IConverter<UserProfileRemote, UserProfile> {
 
-	private ProfileImageConverter _profileImageConverter;
-
 	@Autowired
-	public void setProfileImageConverter(ProfileImageConverter profileImageConverter) {
-		_profileImageConverter = profileImageConverter;
-	}
-
+	private ProfileImageConverter _profileImageConverter;
+	
 	@Override
 	public UserProfileRemote convertDomainToRemote(UserProfile domain) {
 		UserProfileRemote remote = new UserProfileRemote();

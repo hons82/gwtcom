@@ -6,6 +6,9 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.api.datastore.ShortBlob;
+
 @Entity
 public class ProfileImage extends BaseDomainObject {
 
@@ -17,29 +20,30 @@ public class ProfileImage extends BaseDomainObject {
 
 	@Lob
 	@Column(name = "picture")
-	private byte[] _picture;
+	private Blob _picture;
 
 	@Transient
-	private byte[] _pictureThumb;
+	private ShortBlob _pictureThumb;
 
 	public ProfileImage() {
-		_picture = new byte[0];
+		// _picture = new byte[0];
 	}
 
-	public void setPicture(byte[] picture) {
-		_picture = picture;
+	public void setPicture(final byte[] picture) {
+		_picture = new Blob(picture);
 	}
 
 	public byte[] getPicture() {
-		return _picture;
+		return _picture != null ? _picture.getBytes() : new byte[0];
 	}
 
 	public void setPictureThumb(byte[] pictureThumb) {
-		_pictureThumb = pictureThumb;
+		// TODO: check if size smaller than 500 bytes
+		_pictureThumb = new ShortBlob(pictureThumb);
 	}
 
 	public byte[] getPictureThumb() {
-		return _pictureThumb != null ? _pictureThumb : new byte[0];
+		return _pictureThumb != null ? _pictureThumb.getBytes() : new byte[0];
 	}
 
 	public void setUserprofile(UserProfile userprofile) {

@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 public class BaseDomainObjectDaoGaeImpl extends GenericDaoGaeImpl<BaseDomainObject, String> implements
 		BaseDomainObjectDao {
 
+	public BaseDomainObjectDaoGaeImpl() {
+		super(BaseDomainObject.class);
+	}
 }
