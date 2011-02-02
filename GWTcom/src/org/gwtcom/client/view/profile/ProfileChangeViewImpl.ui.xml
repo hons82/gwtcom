@@ -152,9 +152,16 @@
 					<g:header>
 						<span class='{style.tab}'>Picture</span>
 					</g:header>
-					<g:HTMLPanel styleName='{style.panel}'>
-						<h2>Profile Picture</h2>
-					</g:HTMLPanel>
+					<g:ScrollPanel>
+						<g:VerticalPanel>
+							<g:HTMLPanel styleName='{style.panel}'>
+								<h2>Profile Picture</h2>
+							</g:HTMLPanel>
+							<g:HTMLPanel ui:field="imagePanel" styleName='{style.panel}'>
+								<div id="imageDiv" class="{style.imagePanel}" />
+							</g:HTMLPanel>
+						</g:VerticalPanel>
+					</g:ScrollPanel>
 				</g:tab>
 			</g:TabLayoutPanel>
 		</g:center>

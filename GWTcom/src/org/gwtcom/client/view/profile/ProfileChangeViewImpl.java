@@ -8,7 +8,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Hidden;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.ResizeComposite;
@@ -40,6 +42,10 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 	RadioButton gender_male;
 	@UiField
 	RadioButton gender_female;
+	
+	@UiField
+	HTMLPanel imagePanel;
+	
 	@UiField
 	PushButton saveBtn;
 	@UiField
@@ -63,18 +69,18 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 			gender_male.setValue(item.getGender() == 0 ? true : false);
 			gender_female.setValue(item.getGender() == 0 ? false : true);
 
-			// Image image = new Image(profileBundle.noprofile());
-			// if (item.getProfileImage() != null && item.getProfileImage().getImage() != null) {
-			// // add the real image to the panel
-			// StringBuilder sb = new StringBuilder();
-			// sb.append("data:image/gif;base64,");
-			// sb.append(item.getProfileImage().getImage());
-			//
-			// image.setUrl(sb.toString());
-			// }
-			// image.setSize("175px", "200px");
-			// imagePanel.clear();
-			// imagePanel.add(image, "imageDiv");
+			Image image = new Image(profileBundle.noprofile());
+			if (item.getProfileImage() != null && item.getProfileImage().getImage() != null) {
+				// add the real image to the panel
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/gif;base64,");
+				sb.append(item.getProfileImage().getImage());
+
+				image.setUrl(sb.toString());
+			}
+			image.setSize("175px", "200px");
+			imagePanel.clear();
+			imagePanel.add(image, "imageDiv");
 		} else {
 			// TODO
 		}
