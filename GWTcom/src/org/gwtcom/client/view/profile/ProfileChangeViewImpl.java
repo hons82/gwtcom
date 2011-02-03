@@ -62,6 +62,7 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 	public ProfileChangeViewImpl() {
 		fileUpload = new SingleUploader(FileInputType.BROWSER_INPUT);
 		fileUpload.setFileInputSize(40);
+		fileUpload.setServletPath("/profilePictureUpload.gupld");
 		initWidget(binder.createAndBindUi(this));
 	}
 

@@ -66,6 +66,19 @@
 		<url-pattern>/gwtcom/service/*</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>uploadServlet</servlet-name>
+		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>uploadServlet</servlet-name>
+		<url-pattern>*.gupld</url-pattern>
+	</servlet-mapping>
+	
+	<!--<servlet> <servlet-name>fileLoad</servlet-name> <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> 
+		<load-on-startup>1</load-on-startup> </servlet> <servlet-mapping> <servlet-name>fileLoad</servlet-name> 
+		<url-pattern>*.gupld</url-pattern> </servlet-mapping> -->
+
 	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>GWTcom.html</welcome-file>

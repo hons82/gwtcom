@@ -13,6 +13,8 @@
 
 	<!-- Service layer -->
 	<context:annotation-config />
+	<context:spring-configured />
+
 	<tx:annotation-driven mode="proxy"
 		transaction-manager="transactionManager" />
 
@@ -21,6 +23,7 @@
 	<context:component-scan base-package="org.gwtcom.server.dao.gaeimpl" />
 	<context:component-scan base-package="org.gwtcom.server" />
 
+	<bean id="uploadServlet" class="org.gwtcom.server.file.GaeUploadServlet"/>
 
 	<bean id="entityManagerFactory" lazy-init="true"
 		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">

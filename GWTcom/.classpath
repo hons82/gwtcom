@@ -17,7 +17,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.asm-3.0.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-acl-3.0.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-config-3.0.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-core-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-core-3.0.2.RELEASE.jar" sourcepath="C:/Users/Hannes Tribus/.m2/repository/org/springframework/security/spring-security-core/3.0.2.RELEASE/spring-security-core-3.0.2.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-web-3.0.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.aop-3.0.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.transaction-3.0.2.RELEASE.jar"/>
@@ -32,7 +32,11 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-2.0.0.m2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtx-1.5.4-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtupload-gae-0.6.3.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-fileupload-1.2.2.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtupload-0.6.3-compat.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-fileupload-1.2.2.jar" sourcepath="C:/Users/Hannes Tribus/.m2/repository/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtupload-0.6.3-compat.jar" sourcepath="C:/Users/Hannes Tribus/.m2/repository/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-jdbc-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-aspects-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/aspectjrt.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
