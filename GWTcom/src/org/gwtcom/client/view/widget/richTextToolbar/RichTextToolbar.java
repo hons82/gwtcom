@@ -105,16 +105,16 @@ public class RichTextToolbar extends Composite {
 			Widget sender = (Widget) event.getSource();
 
 			if (sender == backColors) {
-				basic.setBackColor(backColors.getValue(backColors.getSelectedIndex()));
+				formatter.setBackColor(backColors.getValue(backColors.getSelectedIndex()));
 				backColors.setSelectedIndex(0);
 			} else if (sender == foreColors) {
-				basic.setForeColor(foreColors.getValue(foreColors.getSelectedIndex()));
+				formatter.setForeColor(foreColors.getValue(foreColors.getSelectedIndex()));
 				foreColors.setSelectedIndex(0);
 			} else if (sender == fonts) {
-				basic.setFontName(fonts.getValue(fonts.getSelectedIndex()));
+				formatter.setFontName(fonts.getValue(fonts.getSelectedIndex()));
 				fonts.setSelectedIndex(0);
 			} else if (sender == fontSizes) {
-				basic.setFontSize(fontSizesConstants[fontSizes.getSelectedIndex() - 1]);
+				formatter.setFontSize(fontSizesConstants[fontSizes.getSelectedIndex() - 1]);
 				fontSizes.setSelectedIndex(0);
 			}
 		}
@@ -124,47 +124,47 @@ public class RichTextToolbar extends Composite {
 			Widget sender = (Widget) event.getSource();
 
 			if (sender == bold) {
-				basic.toggleBold();
+				formatter.toggleBold();
 			} else if (sender == italic) {
-				basic.toggleItalic();
+				formatter.toggleItalic();
 			} else if (sender == underline) {
-				basic.toggleUnderline();
+				formatter.toggleUnderline();
 			} else if (sender == subscript) {
-				basic.toggleSubscript();
+				formatter.toggleSubscript();
 			} else if (sender == superscript) {
-				basic.toggleSuperscript();
+				formatter.toggleSuperscript();
 			} else if (sender == strikethrough) {
-				basic.toggleStrikethrough();
+				formatter.toggleStrikethrough();
 			} else if (sender == indent) {
-				basic.rightIndent();
+				formatter.rightIndent();
 			} else if (sender == outdent) {
-				basic.leftIndent();
+				formatter.leftIndent();
 			} else if (sender == justifyLeft) {
-				basic.setJustification(RichTextArea.Justification.LEFT);
+				formatter.setJustification(RichTextArea.Justification.LEFT);
 			} else if (sender == justifyCenter) {
-				basic.setJustification(RichTextArea.Justification.CENTER);
+				formatter.setJustification(RichTextArea.Justification.CENTER);
 			} else if (sender == justifyRight) {
-				basic.setJustification(RichTextArea.Justification.RIGHT);
+				formatter.setJustification(RichTextArea.Justification.RIGHT);
 			} else if (sender == insertImage) {
 				String url = Window.prompt("Enter an image URL:", "http://");
 				if (url != null) {
-					basic.insertImage(url);
+					formatter.insertImage(url);
 				}
 			} else if (sender == createLink) {
 				String url = Window.prompt("Enter a link URL:", "http://");
 				if (url != null) {
-					basic.createLink(url);
+					formatter.createLink(url);
 				}
 			} else if (sender == removeLink) {
-				basic.removeLink();
+				formatter.removeLink();
 			} else if (sender == hr) {
-				basic.insertHorizontalRule();
+				formatter.insertHorizontalRule();
 			} else if (sender == ol) {
-				basic.insertOrderedList();
+				formatter.insertOrderedList();
 			} else if (sender == ul) {
-				basic.insertUnorderedList();
+				formatter.insertUnorderedList();
 			} else if (sender == removeFormat) {
-				basic.removeFormat();
+				formatter.removeFormat();
 			} else if (sender == richText) {
 				// We use the RichTextArea's onKeyUp event to update the toolbar status.
 				// This will catch any cases where the user moves the cursur using the
@@ -196,7 +196,7 @@ public class RichTextToolbar extends Composite {
 	private final EventHandler handler = new EventHandler();
 
 	private final RichTextArea richText;
-	private final RichTextArea.Formatter basic;
+	private final RichTextArea.Formatter formatter;
 
 	private final VerticalPanel outer = new VerticalPanel();
 	private final HorizontalPanel topPanel = new HorizontalPanel();
@@ -233,7 +233,7 @@ public class RichTextToolbar extends Composite {
 	 */
 	public RichTextToolbar(RichTextArea richText) {
 		this.richText = richText;
-		this.basic = richText.getFormatter();
+		this.formatter = richText.getFormatter();
 
 		outer.add(topPanel);
 		outer.add(bottomPanel);
@@ -244,7 +244,7 @@ public class RichTextToolbar extends Composite {
 		setStyleName("gwt-RichTextToolbar");
 		richText.addStyleName("hasRichTextToolbar");
 
-		if (basic != null) {
+		if (formatter != null) {
 			topPanel.add(bold = createToggleButton(richTextToolbarClientBundle.bold(), strings.cwbold()));
 			topPanel.add(italic = createToggleButton(richTextToolbarClientBundle.italic(), strings.cwitalic()));
 			topPanel.add(underline = createToggleButton(richTextToolbarClientBundle.underline(), strings.cwunderline()));
@@ -272,7 +272,7 @@ public class RichTextToolbar extends Composite {
 					strings.cwremoveFormat()));
 		}
 
-		if (basic != null) {
+		if (formatter != null) {
 			bottomPanel.add(backColors = createColorList("Background"));
 			bottomPanel.add(foreColors = createColorList("Foreground"));
 			bottomPanel.add(fonts = createFontList());
@@ -350,13 +350,13 @@ public class RichTextToolbar extends Composite {
 	 * Updates the status of all the stateful buttons.
 	 */
 	private void updateStatus() {
-		if (basic != null) {
-			bold.setDown(basic.isBold());
-			italic.setDown(basic.isItalic());
-			underline.setDown(basic.isUnderlined());
-			subscript.setDown(basic.isSubscript());
-			superscript.setDown(basic.isSuperscript());
-			strikethrough.setDown(basic.isStrikethrough());
+		if (formatter != null) {
+			bold.setDown(formatter.isBold());
+			italic.setDown(formatter.isItalic());
+			underline.setDown(formatter.isUnderlined());
+			subscript.setDown(formatter.isSubscript());
+			superscript.setDown(formatter.isSuperscript());
+			strikethrough.setDown(formatter.isStrikethrough());
 		}
 	}
 }

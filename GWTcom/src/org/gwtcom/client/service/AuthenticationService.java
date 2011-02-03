@@ -5,7 +5,7 @@ import org.gwtcom.shared.UserLoginRemote;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("gwtcom/authenticationService")
+@RemoteServiceRelativePath("service/authenticationService")
 public interface AuthenticationService extends RemoteService {
 
 	/**

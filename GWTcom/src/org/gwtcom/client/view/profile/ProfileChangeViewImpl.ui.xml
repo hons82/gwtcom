@@ -1,8 +1,10 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gwtcom='urn:import:org.gwtcom.client.view'
-	xmlns:wall='urn:import:org.gwtcom.client.view.profile.wall'>
+	xmlns:wall='urn:import:org.gwtcom.client.view.profile.wall'
+	xmlns:upload='urn:import:gwtupload.client'>
 
 	<ui:image field='profileiconimage' src='../img/icon/profileicon.png' />
+	<ui:image field='upimage' src='../img/other/up.png' />
 	<ui:image field='saveimage' src='../img/other/accept.png' />
 	<ui:image field='cancelimage' src='../img/other/cancel.png' />
 	<ui:image field='gradient' src='../img/other/gradient_bg_dark.png'
@@ -160,6 +162,10 @@
 							<g:HTMLPanel ui:field="imagePanel" styleName='{style.panel}'>
 								<div id="imageDiv" class="{style.imagePanel}" />
 							</g:HTMLPanel>
+							<upload:SingleUploader ui:field="fileUpload" />
+							<!-- <g:FileUpload ui:field="fileUpload" /> <g:PushButton ui:field="upload" 
+								enabled="true" styleName='{style.footerItem}'> <g:upFace image='{upimage}'> 
+								<ui:msg key='back'> <b>Upload</b> </ui:msg> </g:upFace> </g:PushButton> -->
 						</g:VerticalPanel>
 					</g:ScrollPanel>
 				</g:tab>

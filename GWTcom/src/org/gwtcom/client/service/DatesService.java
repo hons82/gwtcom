@@ -7,7 +7,7 @@ import org.gwtcom.shared.DateItemRemote;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("gwtcom/datesService")
+@RemoteServiceRelativePath("service/datesService")
 public interface DatesService extends RemoteService {
 
 	/**

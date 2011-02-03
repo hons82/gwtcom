@@ -1,5 +1,8 @@
 package org.gwtcom.client.view.profile;
 
+import gwtupload.client.IFileInput.FileInputType;
+import gwtupload.client.SingleUploader;
+
 import org.gwtcom.client.view.bundles.ProfileClientBundle;
 import org.gwtcom.shared.UserProfileRemote;
 
@@ -42,10 +45,13 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 	RadioButton gender_male;
 	@UiField
 	RadioButton gender_female;
-	
+
 	@UiField
 	HTMLPanel imagePanel;
-	
+
+	@UiField(provided = true)
+	SingleUploader fileUpload;
+
 	@UiField
 	PushButton saveBtn;
 	@UiField
@@ -54,6 +60,8 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 	private Presenter _presenter;
 
 	public ProfileChangeViewImpl() {
+		fileUpload = new SingleUploader(FileInputType.BROWSER_INPUT);
+		fileUpload.setFileInputSize(40);
 		initWidget(binder.createAndBindUi(this));
 	}
 

@@ -31,5 +31,8 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-0.4.0-rc4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-2.0.0.m2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtx-1.5.4-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtupload-gae-0.6.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtupload-0.6.3-compat.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

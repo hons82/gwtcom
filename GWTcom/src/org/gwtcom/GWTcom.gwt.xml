@@ -5,6 +5,8 @@
 	<!-- Inherit Mosaic Web Toolkit stuff. -->
 	<inherits name='org.gwt.mosaic.Mosaic' />
 	<inherits name='org.gwt.mosaic2g.Mosaic' />
+	<!-- Include GWTUpload library -->
+	<inherits name="gwtupload.GWTUpload" />
 
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->

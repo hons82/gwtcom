@@ -8,7 +8,7 @@ import org.gwtcom.shared.WallEntryRemote;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("gwtcom/profileService")
+@RemoteServiceRelativePath("service/profileService")
 public interface ProfileService extends RemoteService {
 
 	public UserProfileRemote getUserProfile(String userProfileId) throws ServiceSecurityException;

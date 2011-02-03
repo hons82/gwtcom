@@ -7,7 +7,7 @@ import org.gwtcom.shared.NewsItemRemote;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("gwtcom/newsService")
+@RemoteServiceRelativePath("service/newsService")
 public interface NewsService extends RemoteService {
 
 	/**

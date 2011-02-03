@@ -63,7 +63,7 @@
 
 	<servlet-mapping>
 		<servlet-name>springGwtRemoteServiceServlet</servlet-name>
-		<url-pattern>/gwtcom/*</url-pattern>
+		<url-pattern>/gwtcom/service/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->
