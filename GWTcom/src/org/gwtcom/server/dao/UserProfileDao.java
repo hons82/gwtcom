@@ -11,5 +11,7 @@ public interface UserProfileDao extends GenericDao<UserProfile, String>{
 	public boolean updateUserProfile(UserProfileRemote profile);
 
 	public UserProfileRemote getUserProfile(UserLogin userLogin);
+	
+	public UserProfile getProfileWithWall(String userProfileId);
 
 }

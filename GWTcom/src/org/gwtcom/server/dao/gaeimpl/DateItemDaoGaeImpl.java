@@ -10,6 +10,8 @@ import org.gwtcom.server.domain.DateItem;
 import org.gwtcom.shared.DateItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.appengine.api.datastore.Text;
 
@@ -24,6 +26,7 @@ public class DateItemDaoGaeImpl extends GenericDaoGaeImpl<DateItem, String> impl
 	}
 
 	@Override
+	@Transactional(readOnly=true, propagation=Propagation.REQUIRED)
 	public List<DateItemRemote> getPublicDates() {
 		List<DateItemRemote> ret = new ArrayList<DateItemRemote>();
 		if (retrieveAll().size()<1) {

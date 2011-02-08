@@ -2,7 +2,6 @@ package org.gwtcom.server.security;
 
 import java.util.Collection;
 
-import org.gwtcom.server.AbstractDatabaseService;
 import org.gwtcom.server.dao.AuthorityDao;
 import org.gwtcom.server.dao.UserLoginDao;
 import org.gwtcom.server.domain.Authority;
@@ -22,7 +21,7 @@ import org.springframework.stereotype.Service;
 import com.google.gwt.user.server.Base64Utils;
 
 @Service("customUserDetailsService")
-public class CustomUserDetailService extends AbstractDatabaseService implements UserDetailsService {
+public class CustomUserDetailService implements UserDetailsService {
 
 	@Autowired
 	private AuthorityDao _authorityDao;

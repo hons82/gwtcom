@@ -10,6 +10,8 @@ import org.gwtcom.server.domain.NewsItem;
 import org.gwtcom.shared.NewsItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.appengine.api.datastore.Text;
 
@@ -24,6 +26,7 @@ public class NewsItemDaoGaeImpl extends GenericDaoGaeImpl<NewsItem, String> impl
 	}
 
 	@Override
+	@Transactional(readOnly=true, propagation=Propagation.REQUIRED)
 	public List<NewsItemRemote> getPublicNews() {
 		List<NewsItemRemote> ret = new ArrayList<NewsItemRemote>();
 		// TODO: this is just a test

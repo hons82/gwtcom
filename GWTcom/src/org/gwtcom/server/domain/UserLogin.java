@@ -3,6 +3,7 @@ package org.gwtcom.server.domain;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -24,7 +25,7 @@ public class UserLogin extends BaseDomainObject {
 	private Set<Key> _authorities;
 
 	@Column(name = "userprofile")
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private UserProfile _userprofile;
 
 	public UserLogin() {

@@ -8,10 +8,8 @@ import org.gwtcom.shared.DateItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service("datesService")
-@Transactional(readOnly = true)
 public class DatesServiceImpl implements DatesService {
 
 	@Autowired
@@ -34,7 +32,6 @@ public class DatesServiceImpl implements DatesService {
 
 	@Override
 	@Secured("ROLE_ADMIN")
-	@Transactional(readOnly = false)
 	public void removeDateItem(DateItemRemote item) {
 		_datesItemDao.deleteDateItem(item);
 	}

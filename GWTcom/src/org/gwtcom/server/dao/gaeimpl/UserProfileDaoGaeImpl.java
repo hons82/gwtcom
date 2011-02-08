@@ -1,8 +1,6 @@
 package org.gwtcom.server.dao.gaeimpl;
 
-import org.gwtcom.server.converter.gaeimpl.ProfileImageConverter;
 import org.gwtcom.server.converter.gaeimpl.UserProfileConverter;
-import org.gwtcom.server.dao.ProfileImageDao;
 import org.gwtcom.server.dao.UserProfileDao;
 import org.gwtcom.server.domain.UserLogin;
 import org.gwtcom.server.domain.UserProfile;
@@ -16,10 +14,6 @@ public class UserProfileDaoGaeImpl extends GenericDaoGaeImpl<UserProfile, String
 
 	@Autowired
 	private UserProfileConverter _userProfileConverter;
-	@Autowired
-	private ProfileImageConverter _profileImageConverter;
-	@Autowired
-	private ProfileImageDao _profileImageDao;
 
 	public UserProfileDaoGaeImpl() {
 		super(UserProfile.class);
@@ -27,12 +21,12 @@ public class UserProfileDaoGaeImpl extends GenericDaoGaeImpl<UserProfile, String
 
 	@Override
 	public UserProfileRemote getUserProfile(String userProfileId) {
-			return _userProfileConverter.convertDomainToRemote(retrieve(userProfileId));
+		return _userProfileConverter.convertDomainToRemote(retrieve(userProfileId));
 	}
 
 	@Override
 	public UserProfileRemote getUserProfile(UserLogin userLogin) {
-		//TODO
+		// TODO
 		return _userProfileConverter.convertDomainToRemote(userLogin != null ? userLogin.getUserprofile() : null);
 	}
 
@@ -45,6 +39,14 @@ public class UserProfileDaoGaeImpl extends GenericDaoGaeImpl<UserProfile, String
 		domain = _userProfileConverter.convertRemoteToDomain(domain, profile);
 		saveOrUpdate(domain);
 		return true;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public UserProfile getProfileWithWall(String userProfileId) {
+		UserProfile userProfile = retrieve(userProfileId);
+		userProfile.getWall().size();
+		return userProfile;
 	}
 
 }

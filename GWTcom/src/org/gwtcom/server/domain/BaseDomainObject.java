@@ -15,8 +15,6 @@ import com.google.appengine.api.datastore.Key;
 @MappedSuperclass
 public abstract class BaseDomainObject {
 
-	private static final long serialVersionUID = 8043009673990162687L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key _id;
@@ -87,6 +85,19 @@ public abstract class BaseDomainObject {
 
 	public void setUserDeleted(Key userDeleted) {
 		_userDeleted = userDeleted;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return getId().equals(((BaseDomainObject)obj).getId());
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+	    int result = 1;
+	    result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+	    return result;
 	}
 
 }

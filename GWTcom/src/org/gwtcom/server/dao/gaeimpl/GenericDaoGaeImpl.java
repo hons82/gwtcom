@@ -9,16 +9,21 @@ import javax.persistence.PersistenceContext;
 
 import org.gwtcom.server.dao.GenericDao;
 import org.gwtcom.server.domain.BaseDomainObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.KeyFactory;
 
 @Repository("genericDao")
-public class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends Serializable> implements GenericDao<T, PK> {
+public abstract class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends Serializable> implements
+		GenericDao<T, PK> {
 
 	@PersistenceContext
 	protected EntityManager _entityManager;
+	@Autowired
+	protected DatastoreService _datastoreService;
 
 	protected Class<T> type;
 
@@ -59,6 +64,7 @@ public class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends Serializab
 	@SuppressWarnings("unchecked")
 	public List<T> retrieveAll() {
 		List<T> resultList = _entityManager.createQuery("SELECT FROM " + getType().getName()).getResultList();
+		resultList.size();
 		return resultList;
 	}
 
@@ -73,9 +79,8 @@ public class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends Serializab
 	public T saveOrUpdate(T entity) {
 		if (entity.getId() != null) {
 			entity = _entityManager.merge(entity);
-		} else {
-			_entityManager.persist(entity);
 		}
+		_entityManager.persist(entity);
 		return entity;
 	}
 

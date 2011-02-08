@@ -16,10 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @Repository("wallEntryDao")
 public class WallEntryDaoGaeImpl extends GenericDaoGaeImpl<WallEntry, String> implements WallEntryDao {
-	
+
 	@Autowired
 	private WallEntryConverter _wallEntryConverter;
 	@Autowired
@@ -27,21 +28,28 @@ public class WallEntryDaoGaeImpl extends GenericDaoGaeImpl<WallEntry, String> im
 	@Autowired
 	protected UserProfileDao _userProfileDao;
 
-	public WallEntryDaoGaeImpl(){
+	public WallEntryDaoGaeImpl() {
 		super(WallEntry.class);
 	}
-	
+
 	@Override
 	public List<WallEntryRemote> getPublicWallEntries(String userLoginId) {
 		List<WallEntryRemote> ret = new ArrayList<WallEntryRemote>();
 
-		UserLogin login = _userLoginDao.retrieve(userLoginId);
-
-		for (Key key : login.getUserprofile().getWall()) {
+		for (Key key : getWallForUserLogin(userLoginId)) {
 			WallEntry item = _entityManager.find(WallEntry.class, key);
 			ret.add(_wallEntryConverter.convertDomainToRemote(item));
 		}
 		return ret;
+	}
+
+	private List<Key> getWallForUserLogin(String userLoginId) {
+		UserLogin login = _userLoginDao.retrieve(userLoginId);
+		UserProfile wallUserProfile = _userProfileDao.getProfileWithWall(KeyFactory.keyToString(login.getUserprofile().getId()));
+		List<Key> wall = wallUserProfile.getWall();
+		wall.size();
+		System.out.println(">>>>> Wall size: " + wall.size());
+		return wall;
 	}
 
 	@Override
@@ -54,24 +62,26 @@ public class WallEntryDaoGaeImpl extends GenericDaoGaeImpl<WallEntry, String> im
 		WallEntry wallEntry = new WallEntry();
 
 		if (loggedInUser != null && loggedInUserProfile != null) {
+			UserLogin userLogin = _userLoginDao.getUserLoginByProfileId(userProfileId);
 			// gather all needed information about the owner of the wall
-			UserProfile wallUserProfile = _userProfileDao.retrieve(userProfileId);
-			List<Key> wallUserWall = wallUserProfile != null ? wallUserProfile.getWall() : null;
+			List<Key> wallUserWall = getWallForUserLogin(KeyFactory.keyToString(userLogin.getId()));
 
-			if (wallUserProfile != null && wallUserWall != null) {
+			if (wallUserWall != null) {
 
-				wallEntry.setOwner(wallUserProfile.getId());
+				wallEntry.setOwner(userLogin.getUserprofile().getId());
 				wallEntry.setAuthor(loggedInUserProfile != null ? loggedInUserProfile.getId() : null);
 				wallEntry.setDateAdded(new Date());
 				wallEntry.setContent(content);
 				saveOrUpdate(wallEntry);
 
 				wallUserWall.add(wallEntry.getId());
-				wallUserProfile.setWall(wallUserWall);
-				_userLoginDao.saveOrUpdate(wallUserProfile.getLogin());
+				userLogin.getUserprofile().setWall(wallUserWall);
 
+				_userLoginDao.saveOrUpdate(userLogin);
+				System.out.println("");
 			}
 		}
 		return _wallEntryConverter.convertDomainToRemote(wallEntry);
 	}
+
 }

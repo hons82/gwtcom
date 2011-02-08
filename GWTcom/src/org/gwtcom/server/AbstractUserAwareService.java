@@ -4,7 +4,7 @@ import org.gwtcom.server.domain.UserLogin;
 import org.gwtcom.shared.UserLoginRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class AbstractUserAwareService extends AbstractDatabaseService {
+public abstract class AbstractUserAwareService {
 
 	private AuthenticationServiceImpl _authenticationService;
 

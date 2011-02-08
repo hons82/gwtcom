@@ -21,7 +21,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service("authenticationService")
-public class AuthenticationServiceImpl extends AbstractDatabaseService implements AuthenticationService {
+public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Autowired
 	private UserLoginDao _userLoginDao;

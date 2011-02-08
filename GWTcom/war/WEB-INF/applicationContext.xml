@@ -39,6 +39,8 @@
 		factory-method="getMemcacheService">
 		<constructor-arg value="UserCache" />
 	</bean>
+	
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
 	<bean id="persistenceUnitManager"
 		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">

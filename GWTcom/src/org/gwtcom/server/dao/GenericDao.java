@@ -18,15 +18,11 @@ public interface GenericDao<T extends BaseDomainObject, PK extends Serializable>
 	public void purge(T entity);
 	
 	public T restore(PK id);
-
+	
 	public Class<T> getType();
 
 	public void setType(Class<T> type);
 
 	public T refresh(T entity);
-
-//	public Object createId(PK id);
-//
-//	public Object createId(Class<? extends BaseDomainObject> targetClass, PK id);
 
 }

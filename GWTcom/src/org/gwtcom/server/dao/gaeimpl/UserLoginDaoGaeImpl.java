@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.gwtcom.server.converter.gaeimpl.UserLoginConverter;
 import org.gwtcom.server.dao.UserLoginDao;
+import org.gwtcom.server.dao.UserProfileDao;
 import org.gwtcom.server.domain.Authority;
 import org.gwtcom.server.domain.UserLogin;
+import org.gwtcom.server.domain.UserProfile;
 import org.gwtcom.shared.UserLoginRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,6 +18,8 @@ public class UserLoginDaoGaeImpl extends GenericDaoGaeImpl<UserLogin, String> im
 
 	@Autowired
 	private UserLoginConverter _userLoginConverter;
+	@Autowired
+	private UserProfileDao _userProfileDao;
 
 	public UserLoginDaoGaeImpl() {
 		super(UserLogin.class);
@@ -34,14 +38,13 @@ public class UserLoginDaoGaeImpl extends GenericDaoGaeImpl<UserLogin, String> im
 				"SELECT count(distinct _id) FROM " + UserLogin.class.getName() + " WHERE _name =\"" + name + "\"")
 				.getSingleResult();
 		if (count.intValue() == 1) {
-			@SuppressWarnings("unchecked")
 			List<UserLogin> resultList = _entityManager.createQuery(
 					"SELECT FROM " + UserLogin.class.getName() + " WHERE _name =\"" + name + "\"").getResultList();
 			return resultList.get(0);
 		}
 		return null;
 	}
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public void addRoletoUser(String name, Authority auth) {
@@ -50,5 +53,12 @@ public class UserLoginDaoGaeImpl extends GenericDaoGaeImpl<UserLogin, String> im
 			user.getAuthorities().add(auth.getId());
 			saveOrUpdate(user);
 		}
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public UserLogin getUserLoginByProfileId(String userProfileId) {
+		UserProfile userProfile = _userProfileDao.retrieve(userProfileId);
+		return (userProfile != null ? userProfile.getLogin() : null);
 	}
 }

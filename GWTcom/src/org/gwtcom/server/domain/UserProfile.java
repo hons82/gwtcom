@@ -35,7 +35,7 @@ public class UserProfile extends BaseDomainObject {
 	private ProfileImage _profileImage;
 
 	@Column(name = "login")
-	@OneToOne(mappedBy = "_userprofile", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy = "_userprofile")
 	private UserLogin _login;
 
 	// @Column(name = "newslist")
@@ -50,16 +50,14 @@ public class UserProfile extends BaseDomainObject {
 	private List<Key> _wall;
 
 	public UserProfile() {
-		this(null, null);
+		super();
+		setWall(new ArrayList<Key>());
 	}
 
 	public UserProfile(String name, String surname) {
-		super();
+		this();
 		setName(name);
 		setSurname(surname);
-		// setNewslist(new ArrayList<NewsItem>());
-		// setDateslist(new ArrayList<DateItem>());
-		setWall(new ArrayList<Key>());
 	}
 
 	public String getName() {
