@@ -3,11 +3,11 @@
 	xmlns:wall='urn:import:org.gwtcom.client.view.profile.wall'
 	xmlns:upload='urn:import:gwtupload.client'>
 
-	<ui:image field='profileiconimage' src='../img/icon/profileicon.png' />
-	<ui:image field='upimage' src='../img/other/up.png' />
-	<ui:image field='saveimage' src='../img/other/accept.png' />
-	<ui:image field='cancelimage' src='../img/other/cancel.png' />
-	<ui:image field='gradient' src='../img/other/gradient_bg_dark.png'
+	<ui:image field='profileiconimage' src='../../img/icon/profileicon.png' />
+	<ui:image field='upimage' src='../../img/other/up.png' />
+	<ui:image field='saveimage' src='../../img/other/accept.png' />
+	<ui:image field='cancelimage' src='../../img/other/cancel.png' />
+	<ui:image field='gradient' src='../../img/other/gradient_bg_dark.png'
 		repeatStyle='Horizontal' />
 
 	<ui:style>
@@ -98,6 +98,33 @@
 				Change Profile
 			</g:HTMLPanel>
 		</g:north>
+		<g:south size="50">
+			<g:HorizontalPanel styleName='{style.buttons}'>
+				<g:Cell>
+					<g:Label ui:field="status"></g:Label>
+				</g:Cell>
+				<g:cell width="50px" horizontalAlignment="ALIGN_RIGHT">
+					<g:PushButton ui:field="saveBtn" enabled="true"
+						styleName='{style.footerItem}'>
+						<g:upFace image='{saveimage}'>
+							<ui:msg key='save'>
+								<b>Save</b>
+							</ui:msg>
+						</g:upFace>
+					</g:PushButton>
+				</g:cell>
+				<g:cell width="50px" horizontalAlignment="ALIGN_RIGHT">
+					<g:PushButton ui:field="cancelBtn" enabled="true"
+						styleName='{style.footerItem}'>
+						<g:upFace image='{cancelimage}'>
+							<ui:msg key='cancel'>
+								<b>Cancel</b>
+							</ui:msg>
+						</g:upFace>
+					</g:PushButton>
+				</g:cell>
+			</g:HorizontalPanel>
+		</g:south>
 
 		<g:center>
 			<g:TabLayoutPanel barUnit='PX' barHeight='30'>
@@ -171,32 +198,5 @@
 				</g:tab>
 			</g:TabLayoutPanel>
 		</g:center>
-		<g:south size="50">
-			<g:HorizontalPanel styleName='{style.buttons}'>
-				<g:Cell>
-					<g:Label ui:field="status"></g:Label>
-				</g:Cell>
-				<g:cell width="50px" horizontalAlignment="ALIGN_RIGHT">
-					<g:PushButton ui:field="saveBtn" enabled="true"
-						styleName='{style.footerItem}'>
-						<g:upFace image='{saveimage}'>
-							<ui:msg key='save'>
-								<b>Save</b>
-							</ui:msg>
-						</g:upFace>
-					</g:PushButton>
-				</g:cell>
-				<g:cell width="50px" horizontalAlignment="ALIGN_RIGHT">
-					<g:PushButton ui:field="cancelBtn" enabled="true"
-						styleName='{style.footerItem}'>
-						<g:upFace image='{cancelimage}'>
-							<ui:msg key='cancel'>
-								<b>Cancel</b>
-							</ui:msg>
-						</g:upFace>
-					</g:PushButton>
-				</g:cell>
-			</g:HorizontalPanel>
-		</g:south>
 	</g:DockLayoutPanel>
 </ui:UiBinder>

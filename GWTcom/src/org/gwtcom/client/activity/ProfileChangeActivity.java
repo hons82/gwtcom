@@ -5,7 +5,7 @@ import org.gwtcom.client.place.NewsListPlace;
 import org.gwtcom.client.place.ProfileChangePlace;
 import org.gwtcom.client.service.ProfileService;
 import org.gwtcom.client.service.ProfileServiceAsync;
-import org.gwtcom.client.view.profile.ProfileChangeView;
+import org.gwtcom.client.view.profile.change.ProfileChangeView;
 import org.gwtcom.shared.UserProfileRemote;
 
 import com.google.gwt.activity.shared.AbstractActivity;

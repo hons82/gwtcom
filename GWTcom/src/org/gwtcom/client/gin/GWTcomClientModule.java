@@ -19,10 +19,10 @@ import org.gwtcom.client.view.news.NewsList;
 import org.gwtcom.client.view.news.NewsListImpl;
 import org.gwtcom.client.view.news.change.NewsChange;
 import org.gwtcom.client.view.news.change.NewsChangeImpl;
-import org.gwtcom.client.view.profile.ProfileChangeView;
-import org.gwtcom.client.view.profile.ProfileChangeViewImpl;
 import org.gwtcom.client.view.profile.ProfileView;
 import org.gwtcom.client.view.profile.ProfileViewImpl;
+import org.gwtcom.client.view.profile.change.ProfileChangeView;
+import org.gwtcom.client.view.profile.change.ProfileChangeViewImpl;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;

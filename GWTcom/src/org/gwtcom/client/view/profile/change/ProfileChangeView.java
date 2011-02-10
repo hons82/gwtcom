@@ -1,4 +1,4 @@
-package org.gwtcom.client.view.profile;
+package org.gwtcom.client.view.profile.change;
 
 import org.gwtcom.shared.UserProfileRemote;
 
