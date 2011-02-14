@@ -2,6 +2,7 @@ package org.gwtcom.client.activity;
 
 import java.util.List;
 
+import org.gwt.mosaic.ui.client.InfoPanel;
 import org.gwtcom.client.service.NewsService;
 import org.gwtcom.client.service.NewsServiceAsync;
 import org.gwtcom.client.view.news.change.NewsChange;
@@ -9,6 +10,8 @@ import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
@@ -32,6 +35,39 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 		_newsListChangeView = newsListChangeView;
 		_newsListChangeView.setPresenter(this);
 		_newslist = new ListDataProvider<NewsItemRemote>();
+
+		_newsListChangeView.cancelButtonClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				if (_newsListChangeView.getSelectedItem() != null) {
+					_newsListChangeView.getNewsList().getSelectionModel()
+							.setSelected(_newsListChangeView.getSelectedItem(), false);
+					InfoPanel.show("Change News", "Changes discarded");
+				}
+			}
+		});
+		_newsListChangeView.saveButtonClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				if (_newsListChangeView.getSelectedItem() != null) {
+					NewsServiceAsync service = GWT.create(NewsService.class);
+					service.updateNewsItem(_newsListChangeView.getSelectedItem(),_newsListChangeView.getContentasHTML(), new AsyncCallback<Boolean>() {
+
+						@Override
+						public void onSuccess(Boolean result) {
+							InfoPanel.show("Change News", "Changes saved");
+						}
+
+						@Override
+						public void onFailure(Throwable caught) {
+							InfoPanel.show("Change News", "Saving changes failed");
+						}
+					});
+				}
+			}
+		});
 	}
 
 	@Override

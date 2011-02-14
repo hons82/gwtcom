@@ -12,8 +12,10 @@ public interface NewsServiceAsync {
 
 	public void getPrivateNews(AsyncCallback<List<NewsItemRemote>> callback);
 
-	void getNewsItem(String item, AsyncCallback<NewsItemRemote> callback);
+	public void getNewsItem(String item, AsyncCallback<NewsItemRemote> callback);
 
-	void removeNewsItem(NewsItemRemote item, AsyncCallback<Void> callback);
+	public void removeNewsItem(NewsItemRemote item, AsyncCallback<Void> callback);
+
+	public void updateNewsItem(NewsItemRemote selectedItem, String contentasHTML, AsyncCallback<Boolean> asyncCallback);
 
 }

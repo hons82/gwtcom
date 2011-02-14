@@ -79,8 +79,9 @@ public abstract class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends S
 	public T saveOrUpdate(T entity) {
 		if (entity.getId() != null) {
 			entity = _entityManager.merge(entity);
+		} else {
+			_entityManager.persist(entity);
 		}
-		_entityManager.persist(entity);
 		return entity;
 	}
 

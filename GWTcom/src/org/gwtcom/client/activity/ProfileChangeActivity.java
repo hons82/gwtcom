@@ -34,6 +34,11 @@ public class ProfileChangeActivity extends AbstractActivity implements ProfileCh
 		_profileChangeView.setPresenter(this);
 		
 
+		init();
+
+	}
+
+	private void init() {
 		_profileChangeView.cancelButtonClickHandler(new ClickHandler() {
 
 			@Override
@@ -63,7 +68,6 @@ public class ProfileChangeActivity extends AbstractActivity implements ProfileCh
 				});
 			}
 		});
-
 	}
 
 	@Override

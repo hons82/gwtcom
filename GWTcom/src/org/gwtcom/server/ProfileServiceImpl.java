@@ -43,7 +43,7 @@ public class ProfileServiceImpl extends AbstractUserAwareService implements Prof
 	@Override
 	public WallEntryRemote addWallPost(String userLoginId, String content) {
 		UserLoginRemote loggedInUserRemote = getUserLoginRemote();
-		return loggedInUserRemote != null ? _wallEntryDao.addWallPost(userLoginId, getUserLoginRemote().getId(), content)
+		return loggedInUserRemote != null ? _wallEntryDao.addWallPost(userLoginId, loggedInUserRemote.getId(), content)
 				: null;
 	}
 

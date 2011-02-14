@@ -14,4 +14,6 @@ public interface NewsItemDao extends GenericDao<NewsItem, String>{
 
 	public void deleteNewsItem(NewsItemRemote item);
 
+	public boolean updateNewsItemContent(String loggedInUserId, String NewsItemId, String contentasHTML);
+
 }

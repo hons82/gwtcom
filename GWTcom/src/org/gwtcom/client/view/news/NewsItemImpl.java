@@ -65,6 +65,7 @@ public class NewsItemImpl extends ResizeComposite implements NewsItem {
 			if (item.getContent() != null) {
 				SafeHtmlBuilder sh = new SafeHtmlBuilder();
 				sh.appendEscaped(item.getContent());
+				// TODO: check HTML
 				content.setHTML(sh.toSafeHtml().asString());
 			}
 		} else {

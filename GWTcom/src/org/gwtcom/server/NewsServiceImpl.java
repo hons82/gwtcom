@@ -5,13 +5,14 @@ import java.util.List;
 import org.gwtcom.client.service.NewsService;
 import org.gwtcom.server.dao.NewsItemDao;
 import org.gwtcom.shared.NewsItemRemote;
+import org.gwtcom.shared.UserLoginRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("newsService")
-public class NewsServiceImpl implements NewsService {
+public class NewsServiceImpl extends AbstractUserAwareService implements NewsService {
 
 	@Autowired
 	private NewsItemDao _newsItemDao;
@@ -43,4 +44,10 @@ public class NewsServiceImpl implements NewsService {
 		return _newsItemDao.getNewsItem(id);
 	}
 
+	@Override
+	public boolean updateNewsItem(NewsItemRemote selectedItem, String contentasHTML) {
+		UserLoginRemote loggedInUserRemote = getUserLoginRemote();
+		return loggedInUserRemote != null ? _newsItemDao.updateNewsItemContent(loggedInUserRemote.getId(), selectedItem.getId(),
+				contentasHTML) : false;
+	}
 }

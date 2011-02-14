@@ -6,7 +6,10 @@ import java.util.List;
 
 import org.gwtcom.server.converter.gaeimpl.NewsItemConverter;
 import org.gwtcom.server.dao.NewsItemDao;
+import org.gwtcom.server.dao.UserLoginDao;
 import org.gwtcom.server.domain.NewsItem;
+import org.gwtcom.server.domain.UserLogin;
+import org.gwtcom.server.domain.UserProfile;
 import org.gwtcom.shared.NewsItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,13 +23,15 @@ public class NewsItemDaoGaeImpl extends GenericDaoGaeImpl<NewsItem, String> impl
 
 	@Autowired
 	private NewsItemConverter newsItemConverter;
+	@Autowired
+	protected UserLoginDao _userLoginDao;
 
 	public NewsItemDaoGaeImpl() {
 		super(NewsItem.class);
 	}
 
 	@Override
-	@Transactional(readOnly=true, propagation=Propagation.REQUIRED)
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public List<NewsItemRemote> getPublicNews() {
 		List<NewsItemRemote> ret = new ArrayList<NewsItemRemote>();
 		// TODO: this is just a test
@@ -65,9 +70,25 @@ public class NewsItemDaoGaeImpl extends GenericDaoGaeImpl<NewsItem, String> impl
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void deleteNewsItem(NewsItemRemote item) {
 		NewsItem domain = retrieve(item.getId());
 		delete(newsItemConverter.convertRemoteToDomain(domain, item));
+	}
+
+	@Override
+	public boolean updateNewsItemContent(String loggedInUserId, String NewsItemId, String contentasHTML) {
+		// gather all information about the author
+		UserLogin loggedInUser = _userLoginDao.retrieve(loggedInUserId);
+		UserProfile loggedInUserProfile = loggedInUser != null ? loggedInUser.getUserprofile() : null;
+
+		NewsItem newsItem = retrieve(NewsItemId);
+		newsItem.setUserLastUpdate(loggedInUserProfile.getId());
+		newsItem.setDateLastUpdate(new Date());
+		newsItem.setContent(new Text(contentasHTML));
+		
+		saveOrUpdate(newsItem);
+		return true;
 	}
 
 }

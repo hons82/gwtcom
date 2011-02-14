@@ -6,6 +6,7 @@ import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -14,6 +15,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.HasKeyboardPagingPolicy.KeyboardPagingPolicy;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
+import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -21,18 +23,18 @@ import com.google.gwt.view.client.SingleSelectionModel;
 
 public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 
-	static class ContactCell extends AbstractCell<NewsItemRemote> {
+	static class NewsCell extends AbstractCell<NewsItemRemote> {
 
 		/**
 		 * The html of the image used for contacts.
 		 */
 		private final String imageHtml;
 
-		public ContactCell() {
+		public NewsCell() {
 			this.imageHtml = "";
 		}
 
-		public ContactCell(ImageResource image) {
+		public NewsCell(ImageResource image) {
 			this.imageHtml = AbstractImagePrototype.create(image).getHTML();
 		}
 
@@ -74,8 +76,14 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 	ShowMorePagerPanel pagerPanel;
 	@UiField
 	RichTextWidget content;
+	
+	@UiField
+	PushButton saveBtn;
+	@UiField
+	PushButton cancelBtn;
 
 	private final CellList<NewsItemRemote> cellList;
+	private NewsItemRemote _selectedItem;
 
 	private Presenter _presenter;
 
@@ -83,12 +91,12 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 		System.out.println(">>>>>NewsChangeImpl()");
 
 		// Create a CellList.
-		ContactCell contactCell = new ContactCell();
+		NewsCell newsCell = new NewsCell();
 
 		// Set a key provider that provides a unique key for each contact. If key is
 		// used to identify contacts when fields (such as the name and address)
 		// change.
-		cellList = new CellList<NewsItemRemote>(contactCell, NewsItemRemote.KEY_PROVIDER);
+		cellList = new CellList<NewsItemRemote>(newsCell, NewsItemRemote.KEY_PROVIDER);
 		cellList.setPageSize(10);
 		cellList.setKeyboardPagingPolicy(KeyboardPagingPolicy.INCREASE_RANGE);
 
@@ -97,6 +105,7 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 				NewsItemRemote.KEY_PROVIDER);
 		cellList.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+
 			@SuppressWarnings("unchecked")
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
@@ -105,9 +114,11 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 					if (dest != null) {
 						content.setEnabled(true);
 						content.setContentAsHTML(dest.getContent());
+						_selectedItem = dest;
 					} else {
 						content.setEnabled(false);
 						content.setContent("");
+						_selectedItem = null;
 					}
 				}
 			}
@@ -119,6 +130,16 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 		cellList.setFocus(false);
 	}
 
+	@Override
+	public void cancelButtonClickHandler(ClickHandler clickHandler) {
+		cancelBtn.addClickHandler(clickHandler);
+	}
+
+	@Override
+	public void saveButtonClickHandler(ClickHandler clickHandler) {
+		saveBtn.addClickHandler(clickHandler);
+	}
+	
 	@Override
 	public HasClickHandlers getList() {
 		// TODO Auto-generated method stub
@@ -133,6 +154,16 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 	@Override
 	public CellList<NewsItemRemote> getNewsList() {
 		return cellList;
+	}
+
+	@Override
+	public NewsItemRemote getSelectedItem() {
+		return _selectedItem;
+	}
+	
+	@Override
+	public String getContentasHTML() {
+		return content.getContentasHTML();
 	}
 
 	@Override
