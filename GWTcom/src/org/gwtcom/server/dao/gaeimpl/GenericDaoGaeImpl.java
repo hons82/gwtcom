@@ -45,16 +45,6 @@ public abstract class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends S
 		this.type = type;
 	}
 
-	// @Override
-	// public Object createId(PK id) {
-	// return createId(getType(), id);
-	// }
-	//
-	// @Override
-	// public Object createId(final Class<? extends BaseDomainObject> targetClass, PK id) {
-	// return KeyFactory.stringToKey((String) id);
-	// }
-
 	@Override
 	public T retrieve(PK id) {
 		return _entityManager.find(this.getType(), KeyFactory.stringToKey((String) id));
@@ -92,6 +82,13 @@ public abstract class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends S
 			entity.setDateDeleted(new Date());
 			saveOrUpdate(entity);
 		}
+	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public void delete(PK id) {
+		T entity = retrieve(id);
+		delete(entity);
 	}
 
 	@Override

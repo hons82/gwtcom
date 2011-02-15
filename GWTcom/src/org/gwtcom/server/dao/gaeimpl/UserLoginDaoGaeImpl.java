@@ -1,5 +1,6 @@
 package org.gwtcom.server.dao.gaeimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.gwtcom.server.converter.gaeimpl.UserLoginConverter;
@@ -12,6 +13,9 @@ import org.gwtcom.shared.UserLoginRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @Repository("userLoginDao")
 public class UserLoginDaoGaeImpl extends GenericDaoGaeImpl<UserLogin, String> implements UserLoginDao {
@@ -60,5 +64,16 @@ public class UserLoginDaoGaeImpl extends GenericDaoGaeImpl<UserLogin, String> im
 	public UserLogin getUserLoginByProfileId(String userProfileId) {
 		UserProfile userProfile = _userProfileDao.retrieve(userProfileId);
 		return (userProfile != null ? userProfile.getLogin() : null);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<String> getAuthoritiesByUserLoginId(String userLoginId) {
+		UserLogin userLogin = retrieve(userLoginId);
+		List<String> ret = new ArrayList<String>();
+		for (Key key : userLogin.getAuthorities()) {
+			ret.add(KeyFactory.keyToString(key));
+		}
+		return ret;
 	}
 }

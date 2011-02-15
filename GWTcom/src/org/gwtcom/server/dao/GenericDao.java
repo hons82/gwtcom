@@ -13,6 +13,8 @@ public interface GenericDao<T extends BaseDomainObject, PK extends Serializable>
 	
 	public T saveOrUpdate(T entity);
 	
+	public void delete(PK id);
+	
 	public void delete(T entity);
 	
 	public void purge(T entity);

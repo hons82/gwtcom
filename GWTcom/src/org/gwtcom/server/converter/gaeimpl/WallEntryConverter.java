@@ -7,10 +7,8 @@ import org.gwtcom.shared.WallEntryRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.google.appengine.api.datastore.KeyFactory;
-
 @Repository("wallEntryConverter")
-public class WallEntryConverter implements IConverter<WallEntryRemote, WallEntry> {
+public class WallEntryConverter extends AbstractIdConverter implements IConverter<WallEntryRemote, WallEntry> {
 
 	@Autowired
 	private UserProfileConverter _userProfileConverter;
@@ -21,11 +19,11 @@ public class WallEntryConverter implements IConverter<WallEntryRemote, WallEntry
 	public WallEntryRemote convertDomainToRemote(WallEntry domain) {
 		WallEntryRemote remote = new WallEntryRemote();
 		if (domain != null) {
-			remote.setId(KeyFactory.keyToString(domain.getId()));
-			remote.setAuthor(_userProfileConverter.convertDomainToRemote(_userProfileDao.retrieve(KeyFactory
-					.keyToString(domain.getAuthor()))));
-			remote.setOwner(_userProfileConverter.convertDomainToRemote(_userProfileDao.retrieve(KeyFactory
-					.keyToString(domain.getOwner()))));
+			remote.setId(convertFromID(domain.getId()));
+			remote.setAuthor(_userProfileConverter.convertDomainToRemote(_userProfileDao.retrieve(convertFromID(domain
+					.getAuthor()))));
+			remote.setOwner(_userProfileConverter.convertDomainToRemote(_userProfileDao.retrieve(convertFromID(domain
+					.getOwner()))));
 			remote.setContent(domain.getContent());
 			remote.setDateAdded(domain.getDateAdded());
 		}
@@ -38,7 +36,4 @@ public class WallEntryConverter implements IConverter<WallEntryRemote, WallEntry
 		return null;
 	}
 
-	// private UserProfile getUserProfileByKey(Key userProfileKey) {
-	// return userProfileKey != null ? _entityManager.find(UserProfile.class, userProfileKey) : null;
-	// }
 }

@@ -3,6 +3,7 @@ package org.gwtcom.server.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Text;
 
 @Entity
@@ -11,7 +12,7 @@ public class NewsItem extends BaseDomainObject {
 	private static final long serialVersionUID = 8922196591001353438L;
 
 	@Column(name = "author")
-	private UserProfile _author;
+	private Key _author;
 
 	@Column(name = "title")
 	private String _title;
@@ -23,11 +24,11 @@ public class NewsItem extends BaseDomainObject {
 		super();
 	}
 
-	public UserProfile getAuthor() {
+	public Key getAuthor() {
 		return _author;
 	}
 
-	public void setAuthor(UserProfile author) {
+	public void setAuthor(Key author) {
 		_author = author;
 	}
 

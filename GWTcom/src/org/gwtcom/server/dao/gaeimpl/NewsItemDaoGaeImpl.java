@@ -7,6 +7,7 @@ import java.util.List;
 import org.gwtcom.server.converter.gaeimpl.NewsItemConverter;
 import org.gwtcom.server.dao.NewsItemDao;
 import org.gwtcom.server.dao.UserLoginDao;
+import org.gwtcom.server.dao.UserProfileDao;
 import org.gwtcom.server.domain.NewsItem;
 import org.gwtcom.server.domain.UserLogin;
 import org.gwtcom.server.domain.UserProfile;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
 
 @Repository("newsItemDao")
@@ -25,6 +27,8 @@ public class NewsItemDaoGaeImpl extends GenericDaoGaeImpl<NewsItem, String> impl
 	private NewsItemConverter newsItemConverter;
 	@Autowired
 	protected UserLoginDao _userLoginDao;
+	@Autowired
+	protected UserProfileDao _userProfileDao;
 
 	public NewsItemDaoGaeImpl() {
 		super(NewsItem.class);
@@ -39,21 +43,28 @@ public class NewsItemDaoGaeImpl extends GenericDaoGaeImpl<NewsItem, String> impl
 			createSampleNews();
 		} //
 		for (NewsItem item : retrieveAll()) {
-			ret.add(newsItemConverter.convertDomainToRemote(item));
+			NewsItemRemote remote = prepareNewsItemRemote(item);
+			if (remote != null)
+				ret.add(remote);
 		}
 		return ret;
+	}
+
+	private NewsItemRemote prepareNewsItemRemote(NewsItem item) {
+		if (item != null) {
+			NewsItemRemote remote = newsItemConverter.convertDomainToRemote(item);
+			if (item.getAuthor() != null)
+				remote.setAuthor(_userProfileDao.getUserProfile(KeyFactory.keyToString(item.getAuthor())));
+			return remote;
+		}
+		return null;
 	}
 
 	@Override
 	public NewsItemRemote getNewsItem(String id) {
 		System.out.println("Check for id <" + id + ">");
 		NewsItem item = retrieve(id);
-		if (item != null) {
-			System.out.println("item != null");
-			return newsItemConverter.convertDomainToRemote(item);
-		}
-		System.out.println("item == null");
-		return null;
+		return prepareNewsItemRemote(item);
 	}
 
 	private void createSampleNews() {
@@ -86,9 +97,23 @@ public class NewsItemDaoGaeImpl extends GenericDaoGaeImpl<NewsItem, String> impl
 		newsItem.setUserLastUpdate(loggedInUserProfile.getId());
 		newsItem.setDateLastUpdate(new Date());
 		newsItem.setContent(new Text(contentasHTML));
-		
+
 		saveOrUpdate(newsItem);
 		return true;
+	}
+
+	@Override
+	public NewsItemRemote addNewsItem(String loggedInUserId) {
+		// gather all information about the author
+		UserLogin loggedInUser = _userLoginDao.retrieve(loggedInUserId);
+		UserProfile loggedInUserProfile = loggedInUser != null ? loggedInUser.getUserprofile() : null;
+
+		NewsItem newsItem = new NewsItem();
+		newsItem.setAuthor(loggedInUserProfile.getId());
+		newsItem.setDateAdded(new Date());
+		newsItem.setTitle("<New NewsItem>");
+
+		return newsItemConverter.convertDomainToRemote(saveOrUpdate(newsItem));
 	}
 
 }

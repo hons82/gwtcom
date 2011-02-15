@@ -2,7 +2,6 @@ package org.gwtcom.server.dao.gaeimpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.gwtcom.server.dao.AuthorityDao;
@@ -15,7 +14,6 @@ import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 @Repository("authorityDao")
@@ -30,12 +28,11 @@ public class AuthorityDaoGaeImpl extends GenericDaoGaeImpl<Authority, String> im
 	
 	@Override
 	public Collection<GrantedAuthority> getGrantedAuthorities(UserLogin user) {
-		user = _userLoginDao.retrieve(KeyFactory.keyToString(user.getId()));
+		List<String> userauth = _userLoginDao.getAuthoritiesByUserLoginId(KeyFactory.keyToString(user.getId()));
 		List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
-		for (Iterator<Key> iterator = user.getAuthorities().iterator(); iterator.hasNext();) {
-			Key k = iterator.next();
-			Authority a = retrieve(KeyFactory.keyToString(k));
-			authList.add(new GrantedAuthorityImpl(a.getAuthname()));
+		for (String key : userauth) {
+			Authority authority = retrieve(key);
+			authList.add(new GrantedAuthorityImpl(authority.getAuthname()));
 		}
 		return authList;
 	}

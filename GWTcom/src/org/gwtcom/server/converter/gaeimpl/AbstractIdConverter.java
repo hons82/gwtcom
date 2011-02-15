@@ -1,17 +1,20 @@
 package org.gwtcom.server.converter.gaeimpl;
 
-import org.gwtcom.server.domain.BaseDomainObject;
+import org.gwtcom.server.converter.IIdConverter;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
-public class AbstractIdConverter {
+public abstract class AbstractIdConverter implements IIdConverter<Key, String> {
 
-	public String convertToString(Key id) {
-		return id != null ? String.valueOf(id.getId()) : "";
+	@Override
+	public String convertFromID(Key id) {
+		return KeyFactory.keyToString(id);
 	}
 
-	public Key convertToId(Class<? extends BaseDomainObject> type, String id) {
-		return id != null ? KeyFactory.createKey(type.getSimpleName(), Long.parseLong(id)) : null;
+	@Override
+	public Key convertToId(String encoded) {
+		return KeyFactory.stringToKey(encoded);
 	}
+
 }

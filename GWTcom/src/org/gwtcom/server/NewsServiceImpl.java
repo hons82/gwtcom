@@ -9,7 +9,6 @@ import org.gwtcom.shared.UserLoginRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service("newsService")
 public class NewsServiceImpl extends AbstractUserAwareService implements NewsService {
@@ -18,24 +17,13 @@ public class NewsServiceImpl extends AbstractUserAwareService implements NewsSer
 	private NewsItemDao _newsItemDao;
 
 	@Override
-	@Secured("ROLE_ADMIN")
-	public List<NewsItemRemote> getPrivateNews() {
-		List<NewsItemRemote> ret = getPublicNews();
-		return ret;
-	}
-
-	/**
-	 * @return
-	 */
-	@Override
-	public List<NewsItemRemote> getPublicNews() {
+	public List<NewsItemRemote> getAllNews() {
 		return _newsItemDao.getPublicNews();
 	}
 
 	@Override
 	@Secured("ROLE_ADMIN")
-	@Transactional(readOnly = false)
-	public void removeNewsItem(NewsItemRemote item) {
+	public void deleteNewsItem(NewsItemRemote item) {
 		_newsItemDao.deleteNewsItem(item);
 	}
 
@@ -49,5 +37,12 @@ public class NewsServiceImpl extends AbstractUserAwareService implements NewsSer
 		UserLoginRemote loggedInUserRemote = getUserLoginRemote();
 		return loggedInUserRemote != null ? _newsItemDao.updateNewsItemContent(loggedInUserRemote.getId(), selectedItem.getId(),
 				contentasHTML) : false;
+	}
+
+	@Override
+	@Secured("ROLE_ADMIN")
+	public NewsItemRemote addNewsItem() {
+		UserLoginRemote loggedInUserRemote = getUserLoginRemote();
+		return _newsItemDao.addNewsItem(loggedInUserRemote.getId());
 	}
 }

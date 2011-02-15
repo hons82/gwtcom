@@ -6,10 +6,8 @@ import org.gwtcom.shared.DateItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.google.appengine.api.datastore.KeyFactory;
-
 @Repository("dateItemConverter")
-public class DateItemConverter  implements IConverter<DateItemRemote, DateItem> {
+public class DateItemConverter extends AbstractIdConverter implements IConverter<DateItemRemote, DateItem> {
 
 	@Autowired
 	protected UserProfileConverter userProfileConverter;
@@ -22,7 +20,7 @@ public class DateItemConverter  implements IConverter<DateItemRemote, DateItem> 
 	public DateItemRemote convertDomainToRemote(DateItem domain) {
 		DateItemRemote remote = new DateItemRemote();
 		if (domain != null) {
-			remote.setId(KeyFactory.keyToString(domain.getId()));
+			remote.setId(convertFromID(domain.getId()));
 			remote.setTitle(domain.getTitle());
 			remote.setDateAdded(domain.getDateAdded());
 			// entityManager.createQuery("SELECT _author FROM " + NewsItem.class.getName()).getResultList();
