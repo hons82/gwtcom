@@ -6,6 +6,8 @@
 	xmlns:nav="urn:import:org.gwtcom.client.view.navigation">
 
 	<ui:image field='newsiconimage' src='../../img/icon/newsicon.png' />
+	<ui:image field='addimage' src='../../img/other/add.png' />
+	<ui:image field='deleteimage' src='../../img/other/remove.png' />
 	<ui:image field='saveimage' src='../../img/other/accept.png' />
 	<ui:image field='cancelimage' src='../../img/other/cancel.png' />
 	<ui:image field='gradient' src='../../img/other/gradient_bg_dark.png'
@@ -83,6 +85,26 @@
 		</g:west>
 		<g:south size="50">
 			<g:HorizontalPanel styleName='{style.buttons}'>
+				<g:cell width="50px" horizontalAlignment="ALIGN_RIGHT">
+					<g:PushButton ui:field="addBtn" enabled="true"
+						styleName='{style.footerItem}'>
+						<g:upFace image='{addimage}'>
+							<ui:msg key='add'>
+								<b>Add</b>
+							</ui:msg>
+						</g:upFace>
+					</g:PushButton>
+				</g:cell>
+				<g:cell width="50px" horizontalAlignment="ALIGN_RIGHT">
+					<g:PushButton ui:field="removeBtn" enabled="true"
+						styleName='{style.footerItem}'>
+						<g:upFace image='{deleteimage}'>
+							<ui:msg key='remove'>
+								<b>Remove</b>
+							</ui:msg>
+						</g:upFace>
+					</g:PushButton>
+				</g:cell>
 				<g:Cell>
 					<g:Label ui:field="status"></g:Label>
 				</g:Cell>

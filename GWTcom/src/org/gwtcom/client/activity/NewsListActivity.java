@@ -46,7 +46,7 @@ public class NewsListActivity extends AbstractActivity implements NewsList.Prese
 
 	private void fetchNewsList() {
 		NewsServiceAsync service = GWT.create(NewsService.class);
-		service.getPublicNews(new AsyncCallback<List<NewsItemRemote>>() {
+		service.getAllNews(new AsyncCallback<List<NewsItemRemote>>() {
 			@Override
 			public void onSuccess(List<NewsItemRemote> result) {
 				_newslist.setList(result);

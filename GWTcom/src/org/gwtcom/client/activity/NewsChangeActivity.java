@@ -36,6 +36,33 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 		_newsListChangeView.setPresenter(this);
 		_newslist = new ListDataProvider<NewsItemRemote>();
 
+		init();
+	}
+
+	private void init() {
+		_newsListChangeView.addButtonClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				NewsServiceAsync service = GWT.create(NewsService.class);
+				service.addNewsItem(new AsyncCallback<NewsItemRemote>() {
+
+					@Override
+					public void onSuccess(NewsItemRemote result) {
+						fetchNewsList();
+						_newsListChangeView.getNewsList().getSelectionModel().setSelected(result, true);
+						InfoPanel.show("Add News", "NewsItem Created");
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						InfoPanel.show("Add News", "Adding failed");
+					}
+				});
+
+			}
+		});
+
 		_newsListChangeView.cancelButtonClickHandler(new ClickHandler() {
 
 			@Override
@@ -53,18 +80,19 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 			public void onClick(ClickEvent event) {
 				if (_newsListChangeView.getSelectedItem() != null) {
 					NewsServiceAsync service = GWT.create(NewsService.class);
-					service.updateNewsItem(_newsListChangeView.getSelectedItem(),_newsListChangeView.getContentasHTML(), new AsyncCallback<Boolean>() {
+					service.updateNewsItem(_newsListChangeView.getSelectedItem(), _newsListChangeView.getContentasHTML(),
+							new AsyncCallback<Boolean>() {
 
-						@Override
-						public void onSuccess(Boolean result) {
-							InfoPanel.show("Change News", "Changes saved");
-						}
+								@Override
+								public void onSuccess(Boolean result) {
+									InfoPanel.show("Change News", "Changes saved");
+								}
 
-						@Override
-						public void onFailure(Throwable caught) {
-							InfoPanel.show("Change News", "Saving changes failed");
-						}
-					});
+								@Override
+								public void onFailure(Throwable caught) {
+									InfoPanel.show("Change News", "Saving changes failed");
+								}
+							});
 				}
 			}
 		});
@@ -82,7 +110,7 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 
 	private void fetchNewsList() {
 		NewsServiceAsync service = GWT.create(NewsService.class);
-		service.getPublicNews(new AsyncCallback<List<NewsItemRemote>>() {
+		service.getAllNews(new AsyncCallback<List<NewsItemRemote>>() {
 			@Override
 			public void onSuccess(List<NewsItemRemote> result) {
 				_newslist.setList(result);

@@ -15,20 +15,14 @@ public interface NewsService extends RemoteService {
 	 * 
 	 * @return
 	 */
-	List<NewsItemRemote> getPublicNews();
+	List<NewsItemRemote> getAllNews();
 
 	NewsItemRemote getNewsItem(String item);
 
-	/**
-	 * Returns the number of private publications.
-	 * 
-	 * @return
-	 * @exception ServiceSecurityException
-	 */
-	List<NewsItemRemote> getPrivateNews() throws ServiceSecurityException;
-
-	void removeNewsItem(NewsItemRemote item);
+	void deleteNewsItem(NewsItemRemote item);
 
 	boolean updateNewsItem(NewsItemRemote selectedItem, String contentasHTML);
+
+	NewsItemRemote addNewsItem();
 
 }

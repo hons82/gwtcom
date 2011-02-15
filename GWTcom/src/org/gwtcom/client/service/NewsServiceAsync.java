@@ -8,14 +8,14 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface NewsServiceAsync {
 
-	public void getPublicNews(AsyncCallback<List<NewsItemRemote>> callback);
-
-	public void getPrivateNews(AsyncCallback<List<NewsItemRemote>> callback);
+	public void getAllNews(AsyncCallback<List<NewsItemRemote>> callback);
 
 	public void getNewsItem(String item, AsyncCallback<NewsItemRemote> callback);
 
-	public void removeNewsItem(NewsItemRemote item, AsyncCallback<Void> callback);
+	public void deleteNewsItem(NewsItemRemote item, AsyncCallback<Void> callback);
 
 	public void updateNewsItem(NewsItemRemote selectedItem, String contentasHTML, AsyncCallback<Boolean> asyncCallback);
+
+	public void addNewsItem(AsyncCallback<NewsItemRemote> asyncCallback);
 
 }

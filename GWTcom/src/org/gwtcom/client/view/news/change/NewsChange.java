@@ -19,6 +19,10 @@ public interface NewsChange extends IsWidget {
 	}
 
 	public CellList<NewsItemRemote> getNewsList();
+
+	public void addButtonClickHandler(ClickHandler clickHandler);
+	
+	public void removeButtonClickHandler(ClickHandler clickHandler);
 	
 	public void cancelButtonClickHandler(ClickHandler clickHandler);
 

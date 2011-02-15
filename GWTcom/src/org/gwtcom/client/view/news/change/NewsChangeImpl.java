@@ -78,6 +78,10 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 	RichTextWidget content;
 	
 	@UiField
+	PushButton addBtn;
+	@UiField
+	PushButton removeBtn;
+	@UiField
 	PushButton saveBtn;
 	@UiField
 	PushButton cancelBtn;
@@ -130,6 +134,16 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 		cellList.setFocus(false);
 	}
 
+	@Override
+	public void addButtonClickHandler(ClickHandler clickHandler) {
+		addBtn.addClickHandler(clickHandler);
+	}
+
+	@Override
+	public void removeButtonClickHandler(ClickHandler clickHandler) {
+		removeBtn.addClickHandler(clickHandler);
+	}
+	
 	@Override
 	public void cancelButtonClickHandler(ClickHandler clickHandler) {
 		cancelBtn.addClickHandler(clickHandler);
