@@ -27,6 +27,6 @@ public interface DatesService extends RemoteService {
 	 */
 	List<DateItemRemote> getPrivateDates() throws ServiceSecurityException;
 
-	void removeDateItem(DateItemRemote item);
+	boolean deleteDateItem(DateItemRemote item);
 
 }

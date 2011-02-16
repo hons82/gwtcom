@@ -19,9 +19,9 @@ public interface NewsService extends RemoteService {
 
 	NewsItemRemote getNewsItem(String item);
 
-	void deleteNewsItem(NewsItemRemote item);
+	boolean deleteNewsItem(NewsItemRemote item);
 
-	boolean updateNewsItem(NewsItemRemote selectedItem, String contentasHTML);
+	boolean updateNewsItem(NewsItemRemote selectedItem);
 
 	NewsItemRemote addNewsItem();
 

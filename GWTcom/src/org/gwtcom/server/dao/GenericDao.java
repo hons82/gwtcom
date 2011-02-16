@@ -13,10 +13,6 @@ public interface GenericDao<T extends BaseDomainObject, PK extends Serializable>
 	
 	public T saveOrUpdate(T entity);
 	
-	public void delete(PK id);
-	
-	public void delete(T entity);
-	
 	public void purge(T entity);
 	
 	public T restore(PK id);
@@ -26,5 +22,9 @@ public interface GenericDao<T extends BaseDomainObject, PK extends Serializable>
 	public void setType(Class<T> type);
 
 	public T refresh(T entity);
+
+	void delete(T entity, PK userId);
+
+	void delete(PK id, PK userId);
 
 }

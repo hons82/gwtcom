@@ -14,6 +14,6 @@ public interface DatesServiceAsync {
 
 	void getDateItem(String item, AsyncCallback<DateItemRemote> callback);
 
-	void removeDateItem(DateItemRemote item, AsyncCallback<Void> callback);
+	void deleteDateItem(DateItemRemote item, AsyncCallback<Boolean> callback);
 
 }

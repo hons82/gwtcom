@@ -63,6 +63,28 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 			}
 		});
 
+		_newsListChangeView.removeButtonClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				if (_newsListChangeView.getSelectedItem() != null) {
+					NewsServiceAsync service = GWT.create(NewsService.class);
+					service.deleteNewsItem(_newsListChangeView.getSelectedItem(), new AsyncCallback<Boolean>() {
+
+						@Override
+						public void onSuccess(Boolean result) {
+							InfoPanel.show("Delete News", "Item Deleted");
+						}
+
+						@Override
+						public void onFailure(Throwable caught) {
+							InfoPanel.show("Delete News", "Item removing failed");
+						}
+					});
+				}
+			}
+		});
+
 		_newsListChangeView.cancelButtonClickHandler(new ClickHandler() {
 
 			@Override
@@ -78,21 +100,23 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (_newsListChangeView.getSelectedItem() != null) {
+				NewsItemRemote selectedItem = _newsListChangeView.getSelectedItem();
+				if (selectedItem != null) {
+					// update item with new values
+					selectedItem.setContent(_newsListChangeView.getContentasHTML());
 					NewsServiceAsync service = GWT.create(NewsService.class);
-					service.updateNewsItem(_newsListChangeView.getSelectedItem(), _newsListChangeView.getContentasHTML(),
-							new AsyncCallback<Boolean>() {
+					service.updateNewsItem(selectedItem, new AsyncCallback<Boolean>() {
 
-								@Override
-								public void onSuccess(Boolean result) {
-									InfoPanel.show("Change News", "Changes saved");
-								}
+						@Override
+						public void onSuccess(Boolean result) {
+							InfoPanel.show("Change News", "Changes saved");
+						}
 
-								@Override
-								public void onFailure(Throwable caught) {
-									InfoPanel.show("Change News", "Saving changes failed");
-								}
-							});
+						@Override
+						public void onFailure(Throwable caught) {
+							InfoPanel.show("Change News", "Saving changes failed");
+						}
+					});
 				}
 			}
 		});

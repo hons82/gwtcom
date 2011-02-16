@@ -9,9 +9,9 @@ import org.gwtcom.server.dao.NewsItemDao;
 import org.gwtcom.server.dao.UserLoginDao;
 import org.gwtcom.server.dao.UserProfileDao;
 import org.gwtcom.server.domain.NewsItem;
-import org.gwtcom.server.domain.UserLogin;
 import org.gwtcom.server.domain.UserProfile;
 import org.gwtcom.shared.NewsItemRemote;
+import org.gwtcom.shared.UserLoginRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -81,32 +81,31 @@ public class NewsItemDaoGaeImpl extends GenericDaoGaeImpl<NewsItem, String> impl
 	}
 
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void deleteNewsItem(NewsItemRemote item) {
-		NewsItem domain = retrieve(item.getId());
-		delete(newsItemConverter.convertRemoteToDomain(domain, item));
-	}
-
-	@Override
-	public boolean updateNewsItemContent(String loggedInUserId, String NewsItemId, String contentasHTML) {
-		// gather all information about the author
-		UserLogin loggedInUser = _userLoginDao.retrieve(loggedInUserId);
-		UserProfile loggedInUserProfile = loggedInUser != null ? loggedInUser.getUserprofile() : null;
-
-		NewsItem newsItem = retrieve(NewsItemId);
-		newsItem.setUserLastUpdate(loggedInUserProfile.getId());
-		newsItem.setDateLastUpdate(new Date());
-		newsItem.setContent(new Text(contentasHTML));
-
-		saveOrUpdate(newsItem);
+	public boolean deleteNewsItem(NewsItemRemote item, UserLoginRemote loggedInUserRemote) {
+		UserProfile loggedInUserProfile = _userLoginDao.getUserProfile(loggedInUserRemote);
+		delete(item.getId(), KeyFactory.keyToString(loggedInUserProfile.getId()));
 		return true;
 	}
 
 	@Override
-	public NewsItemRemote addNewsItem(String loggedInUserId) {
-		// gather all information about the author
-		UserLogin loggedInUser = _userLoginDao.retrieve(loggedInUserId);
-		UserProfile loggedInUserProfile = loggedInUser != null ? loggedInUser.getUserprofile() : null;
+	public boolean updateNewsItem(NewsItemRemote newsItemRemote, UserLoginRemote loggedInUserRemote) {
+		UserProfile loggedInUserProfile = _userLoginDao.getUserProfile(loggedInUserRemote);
+
+		if (newsItemRemote.getId() != null) {
+
+			NewsItem newsItem = newsItemConverter.convertRemoteToDomain(retrieve(newsItemRemote.getId()), newsItemRemote);
+			newsItem.setUserLastUpdate(loggedInUserProfile.getId());
+			newsItem.setDateLastUpdate(new Date());
+
+			saveOrUpdate(newsItem);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public NewsItemRemote addNewsItem(UserLoginRemote loggedInUserRemote) {
+		UserProfile loggedInUserProfile = _userLoginDao.getUserProfile(loggedInUserRemote);
 
 		NewsItem newsItem = new NewsItem();
 		newsItem.setAuthor(loggedInUserProfile.getId());

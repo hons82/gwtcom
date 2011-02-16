@@ -23,8 +23,9 @@ public class NewsServiceImpl extends AbstractUserAwareService implements NewsSer
 
 	@Override
 	@Secured("ROLE_ADMIN")
-	public void deleteNewsItem(NewsItemRemote item) {
-		_newsItemDao.deleteNewsItem(item);
+	public boolean deleteNewsItem(NewsItemRemote item) {
+		UserLoginRemote loggedInUserRemote = getUserLoginRemote();
+		return _newsItemDao.deleteNewsItem(item, loggedInUserRemote);
 	}
 
 	@Override
@@ -33,16 +34,15 @@ public class NewsServiceImpl extends AbstractUserAwareService implements NewsSer
 	}
 
 	@Override
-	public boolean updateNewsItem(NewsItemRemote selectedItem, String contentasHTML) {
+	public boolean updateNewsItem(NewsItemRemote selectedItem) {
 		UserLoginRemote loggedInUserRemote = getUserLoginRemote();
-		return loggedInUserRemote != null ? _newsItemDao.updateNewsItemContent(loggedInUserRemote.getId(), selectedItem.getId(),
-				contentasHTML) : false;
+		return loggedInUserRemote != null ? _newsItemDao.updateNewsItem(selectedItem, loggedInUserRemote) : false;
 	}
 
 	@Override
 	@Secured("ROLE_ADMIN")
 	public NewsItemRemote addNewsItem() {
 		UserLoginRemote loggedInUserRemote = getUserLoginRemote();
-		return _newsItemDao.addNewsItem(loggedInUserRemote.getId());
+		return _newsItemDao.addNewsItem(loggedInUserRemote);
 	}
 }

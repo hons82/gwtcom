@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.gwtcom.server.domain.NewsItem;
 import org.gwtcom.shared.NewsItemRemote;
+import org.gwtcom.shared.UserLoginRemote;
 
 public interface NewsItemDao extends GenericDao<NewsItem, String> {
 
@@ -11,10 +12,10 @@ public interface NewsItemDao extends GenericDao<NewsItem, String> {
 
 	public NewsItemRemote getNewsItem(String id);
 
-	public void deleteNewsItem(NewsItemRemote item);
+	public boolean deleteNewsItem(NewsItemRemote item, UserLoginRemote loggedInUserRemote);
 
-	public boolean updateNewsItemContent(String loggedInUserId, String NewsItemId, String contentasHTML);
+	public NewsItemRemote addNewsItem(UserLoginRemote loggedInUserRemote);
 
-	public NewsItemRemote addNewsItem(String loggedInUserId);
+	boolean updateNewsItem(NewsItemRemote newsItem, UserLoginRemote loggedInUserRemote);
 
 }

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository("newsItemConverter")
-public class NewsItemConverter  extends AbstractIdConverter implements IConverter<NewsItemRemote, NewsItem> {
+public class NewsItemConverter extends AbstractIdConverter implements IConverter<NewsItemRemote, NewsItem> {
 
 	@Autowired
 	protected UserProfileConverter userProfileConverter;

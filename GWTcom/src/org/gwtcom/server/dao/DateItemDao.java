@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.gwtcom.server.domain.DateItem;
 import org.gwtcom.shared.DateItemRemote;
+import org.gwtcom.shared.UserLoginRemote;
 
 public interface DateItemDao extends GenericDao<DateItem, String>{
 
@@ -12,6 +13,6 @@ public interface DateItemDao extends GenericDao<DateItem, String>{
 
 	public DateItemRemote getDateItem(String id);
 
-	public void deleteDateItem(DateItemRemote item);
+	boolean deleteDateItem(DateItemRemote item, UserLoginRemote loggedInUserRemote);
 
 }

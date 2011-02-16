@@ -6,13 +6,17 @@ import java.util.List;
 
 import org.gwtcom.server.converter.gaeimpl.DateItemConverter;
 import org.gwtcom.server.dao.DateItemDao;
+import org.gwtcom.server.dao.UserLoginDao;
 import org.gwtcom.server.domain.DateItem;
+import org.gwtcom.server.domain.UserProfile;
 import org.gwtcom.shared.DateItemRemote;
+import org.gwtcom.shared.UserLoginRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
 
 @Repository("DateItemDao")
@@ -20,6 +24,8 @@ public class DateItemDaoGaeImpl extends GenericDaoGaeImpl<DateItem, String> impl
 
 	@Autowired
 	private DateItemConverter dateItemConverter;
+	@Autowired
+	protected UserLoginDao _userLoginDao;
 
 	public DateItemDaoGaeImpl() {
 		super(DateItem.class);
@@ -64,9 +70,11 @@ public class DateItemDaoGaeImpl extends GenericDaoGaeImpl<DateItem, String> impl
 	}
 
 	@Override
-	public void deleteDateItem(DateItemRemote item) {
-		DateItem domain = retrieve(item.getId());
-		delete(dateItemConverter.convertRemoteToDomain(domain, item));
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public boolean deleteDateItem(DateItemRemote item, UserLoginRemote loggedInUserRemote) {
+		UserProfile loggedInUserProfile = _userLoginDao.getUserProfile(loggedInUserRemote);
+		delete(item.getId(), KeyFactory.keyToString(loggedInUserProfile.getId()));
+		return true;
 	}
 
 }

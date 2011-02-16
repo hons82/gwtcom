@@ -5,12 +5,13 @@ import java.util.List;
 import org.gwtcom.client.service.DatesService;
 import org.gwtcom.server.dao.DateItemDao;
 import org.gwtcom.shared.DateItemRemote;
+import org.gwtcom.shared.UserLoginRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 @Service("datesService")
-public class DatesServiceImpl implements DatesService {
+public class DatesServiceImpl extends AbstractUserAwareService implements DatesService {
 
 	@Autowired
 	private DateItemDao _datesItemDao;
@@ -32,8 +33,9 @@ public class DatesServiceImpl implements DatesService {
 
 	@Override
 	@Secured("ROLE_ADMIN")
-	public void removeDateItem(DateItemRemote item) {
-		_datesItemDao.deleteDateItem(item);
+	public boolean deleteDateItem(DateItemRemote item) {
+		UserLoginRemote loggedInUserRemote = getUserLoginRemote();
+		return _datesItemDao.deleteDateItem(item, loggedInUserRemote);
 	}
 
 	@Override

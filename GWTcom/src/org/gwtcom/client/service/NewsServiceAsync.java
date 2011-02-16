@@ -12,9 +12,9 @@ public interface NewsServiceAsync {
 
 	public void getNewsItem(String item, AsyncCallback<NewsItemRemote> callback);
 
-	public void deleteNewsItem(NewsItemRemote item, AsyncCallback<Void> callback);
+	public void deleteNewsItem(NewsItemRemote item, AsyncCallback<Boolean> callback);
 
-	public void updateNewsItem(NewsItemRemote selectedItem, String contentasHTML, AsyncCallback<Boolean> asyncCallback);
+	public void updateNewsItem(NewsItemRemote selectedItem, AsyncCallback<Boolean> asyncCallback);
 
 	public void addNewsItem(AsyncCallback<NewsItemRemote> asyncCallback);
 

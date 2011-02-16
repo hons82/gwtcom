@@ -76,4 +76,13 @@ public class UserLoginDaoGaeImpl extends GenericDaoGaeImpl<UserLogin, String> im
 		}
 		return ret;
 	}
+	
+	@Override
+	public UserProfile getUserProfile(UserLoginRemote loggedInUserRemote) {
+		// gather all information about the author
+		UserLogin loggedInUser = retrieve(loggedInUserRemote.getId());
+		UserProfile loggedInUserProfile = loggedInUser != null ? loggedInUser.getUserprofile() : null;
+		return loggedInUserProfile;
+	}
+
 }
