@@ -1,0 +1,2 @@
+serviceClass: org.gwtcom.client.service.AuthenticationService
+path: D497A9AD439DFDDDCE2CE42A5F3F0250.gwt.rpc

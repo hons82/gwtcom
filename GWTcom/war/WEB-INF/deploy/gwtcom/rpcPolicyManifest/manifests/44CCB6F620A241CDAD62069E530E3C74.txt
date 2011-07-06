@@ -1,0 +1,2 @@
+serviceClass: org.gwtcom.client.service.ProfileService
+path: 0142C18530B36CFDEFD5F9EEEAAD45B4.gwt.rpc

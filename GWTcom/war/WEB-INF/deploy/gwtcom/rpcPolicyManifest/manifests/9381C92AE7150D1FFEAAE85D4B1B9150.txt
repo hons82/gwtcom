@@ -1,0 +1,2 @@
+serviceClass: org.gwtcom.client.service.NewsService
+path: 3E4841E7BA81CC7FFE1BC5DAD4264C86.gwt.rpc
