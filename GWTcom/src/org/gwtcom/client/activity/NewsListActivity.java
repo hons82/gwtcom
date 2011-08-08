@@ -36,7 +36,7 @@ public class NewsListActivity extends AbstractActivity implements NewsList.Prese
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		System.out.println(">>>>>NewsListPresenter.start()");
+		System.out.println(">>>>>NewsListActivity.start()");
 
 		fetchNewsList();
 		panel.setWidget(_newsListView.asWidget());
@@ -49,11 +49,13 @@ public class NewsListActivity extends AbstractActivity implements NewsList.Prese
 		service.getAllNews(new AsyncCallback<List<NewsItemRemote>>() {
 			@Override
 			public void onSuccess(List<NewsItemRemote> result) {
+				System.out.println(">>>>>NewsListActivity.onSuccess()");
 				_newslist.setList(result);
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
+				System.out.println(">>>>>NewsListActivity.onFailure()");
 				Window.alert("Fail: " + caught.getMessage());
 			}
 		});

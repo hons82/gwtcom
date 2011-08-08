@@ -34,6 +34,7 @@ public class NewsServiceImpl extends AbstractUserAwareService implements NewsSer
 	}
 
 	@Override
+	@Secured("ROLE_ADMIN")
 	public boolean updateNewsItem(NewsItemRemote selectedItem) {
 		UserLoginRemote loggedInUserRemote = getUserLoginRemote();
 		return loggedInUserRemote != null ? _newsItemDao.updateNewsItem(selectedItem, loggedInUserRemote) : false;

@@ -23,7 +23,9 @@
 	<context:component-scan base-package="org.gwtcom.server.dao.gaeimpl" />
 	<context:component-scan base-package="org.gwtcom.server" />
 
-	<bean id="uploadServlet" class="org.gwtcom.server.file.GaeUploadServlet"/>
+	<!-- Custom Servlets -->
+	<bean id="uploadServlet" class="org.gwtcom.server.servlet.FileUploadGaeServlet" />
+	<bean id="profileImageServlet" class="org.gwtcom.server.servlet.ProfileImageGaeServlet" />
 
 	<bean id="entityManagerFactory" lazy-init="true"
 		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
@@ -39,8 +41,9 @@
 		factory-method="getMemcacheService">
 		<constructor-arg value="UserCache" />
 	</bean>
-	
-	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
 	<bean id="persistenceUnitManager"
 		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">

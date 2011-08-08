@@ -33,7 +33,6 @@ public class ProfileChangeActivity extends AbstractActivity implements ProfileCh
 		_profileChangeView = profileChangeView;
 		_profileChangeView.setPresenter(this);
 		
-
 		init();
 
 	}

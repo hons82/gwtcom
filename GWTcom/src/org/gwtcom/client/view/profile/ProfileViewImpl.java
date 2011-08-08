@@ -24,6 +24,8 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 
+	public static final String PROFILEIMAGESERVLET_URL = "/gwtcom/profileImage?id=";
+	
 	interface Binder extends UiBinder<Widget, ProfileViewImpl> {
 	}
 
@@ -59,14 +61,15 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 			gender.setText((item.getGender() == 0 ? "male" : "female"));
 
 			Image image = new Image(profileBundle.noprofile());
-			if (item.getProfileImage() != null && item.getProfileImage().getImage() != null) {
-				// add the real image to the panel
-				StringBuilder sb = new StringBuilder();
-				sb.append("data:image/gif;base64,");
-				sb.append(item.getProfileImage().getImage());
-
-				image.setUrl(sb.toString());
-			}
+			// if (item.getProfileImage() != null && item.getProfileImage().getImage() != null) {
+			// // add the real image to the panel
+			// StringBuilder sb = new StringBuilder();
+			// sb.append("data:image/gif;base64,");
+			// sb.append(item.getProfileImage().getImage());
+			//
+			// image.setUrl(sb.toString());
+			// }
+			image.setUrl(PROFILEIMAGESERVLET_URL+item.getProfileImage().getId());
 			image.setSize("175px", "200px");
 			imagePanel.clear();
 			imagePanel.add(image, "imageDiv");

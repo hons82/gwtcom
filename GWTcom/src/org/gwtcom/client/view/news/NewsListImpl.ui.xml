@@ -61,8 +61,7 @@
 			</g:HTMLPanel>
 		</g:north>
 		<g:center>
-			<nav:ShowMorePagerPanel addStyleNames='{style.scrollable}'
-				ui:field='pagerPanel' />
+			<nav:ShowMorePagerPanel addStyleNames='{style.scrollable}' ui:field='pagerPanel' />
 		</g:center>
 	</g:DockLayoutPanel>
 </ui:UiBinder>
