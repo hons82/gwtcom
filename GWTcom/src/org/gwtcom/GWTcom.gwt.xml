@@ -20,7 +20,7 @@
 	<inherits name="com.google.gwt.place.Place" />
 	<inherits name="com.google.gwt.inject.Inject" />
 	<inherits name="com.google.gwt.i18n.I18N" />
-	<inherits name="com.google.gwt.i18n.CldrLocales"/>
+	<!-- <inherits name="com.google.gwt.i18n.CldrLocales"/> -->
 	<inherits name="com.google.gwt.resources.Resources" />
 
 	<!-- Specify the app entry point class. -->
@@ -36,6 +36,7 @@
 	<set-property-fallback name="locale" value="en" />
 
 	<!-- User Agent (Reduce size) -->
-	<set-property name="user.agent" value="gecko1_8" />
+	<!-- <set-property name="user.agent" value="gecko1_8" /> -->
+	<set-property name="user.agent" value="safari" />
 
 </module>

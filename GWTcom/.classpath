@@ -17,27 +17,27 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-fileupload-1.2.2.jar" sourcepath="C:/Users/Hannes Tribus/.m2/repository/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2-sources.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtupload-0.6.3-compat.jar" sourcepath="C:/Users/Hannes Tribus/.m2/repository/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat-sources.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-io-2.0.1.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-aop-3.0.5.RELEASE.jar" sourcepath="C:/Users/Hannes Tribus/.m2/repository/org/springframework/spring-aop/3.0.5.RELEASE/spring-aop-3.0.5.RELEASE-sources.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-asm-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-aspects-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-beans-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-support-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-core-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-expression-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-jdbc-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-orm-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/aspectjrt-1.6.10.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-tx-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-web-3.0.5.RELEASE.jar" sourcepath="C:/Users/Hannes Tribus/.m2/repository/org/springframework/spring-web/3.0.5.RELEASE/spring-web-3.0.5.RELEASE-sources.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-acl-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-config-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-core-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-web-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/javax.inject.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gin-1.5-post-gwt-2.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guice-3.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guice-assistedinject-3.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-aop-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-asm-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-aspects-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-beans-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-support-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-core-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-expression-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-jdbc-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-orm-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-acl-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-config-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-core-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-web-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-tx-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-web-3.0.6.RELEASE.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
