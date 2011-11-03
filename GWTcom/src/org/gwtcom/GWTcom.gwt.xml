@@ -36,8 +36,9 @@
 	<set-property-fallback name="locale" value="en" />
 
 	<!-- User Agent (Reduce size) -->
-	<!-- <set-property name="user.agent" value="gecko1_8" /> -->
+	<!-- <set-property name="user.agent" value="gecko1_8" /> 
 	<set-property name="user.agent" value="safari" />
+	-->
 
 	<!-- Security Settings -->
 	<set-configuration-property name="UiBinder.useSafeHtmlTemplates" value="true" />
