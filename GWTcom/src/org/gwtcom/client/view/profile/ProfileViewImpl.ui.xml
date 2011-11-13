@@ -1,6 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:org.gwt.mosaic.ui.client.datepicker'
-	xmlns:gwtcom='urn:import:org.gwtcom.client.view' xmlns:wall='urn:import:org.gwtcom.client.view.profile.wall'>
+	xmlns:gwtcom='urn:import:org.gwtcom.client.view' xmlns:wall='urn:import:org.gwtcom.client.view.profile.wall'
+	xmlns:friends='urn:import:org.gwtcom.client.view.profile.friends'>
 
 	<ui:image field='profileiconimage' src='../img/icon/profileicon.png' />
 	<ui:image field='gradient' src='../img/other/gradient_bg_dark.png'
@@ -130,7 +131,7 @@
 							<g:header>
 								<span class='{style.tab}'>Friends</span>
 							</g:header>
-							<g:Label>No Friends</g:Label>
+							<friends:FriendsPanel ui:field="friends" />
 						</g:tab>
 						<g:tab>
 							<g:header>

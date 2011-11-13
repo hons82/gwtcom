@@ -7,6 +7,7 @@ import org.gwtcom.client.place.ProfileViewPlace;
 import org.gwtcom.client.service.ProfileService;
 import org.gwtcom.client.service.ProfileServiceAsync;
 import org.gwtcom.client.view.profile.ProfileView;
+import org.gwtcom.shared.FriendEntryRemote;
 import org.gwtcom.shared.UserProfileRemote;
 import org.gwtcom.shared.WallEntryRemote;
 
@@ -62,8 +63,8 @@ public class ProfileViewActivity extends AbstractActivity implements ProfileView
 		System.out.println(">>>>>NewsItemPresenter.start()");
 		final Place currentPlace = _placeController.getWhere();
 		if (currentPlace != null && currentPlace instanceof ProfileViewPlace) {
-		String loginId = ((ProfileViewPlace) currentPlace).getId();
-			
+			String loginId = ((ProfileViewPlace) currentPlace).getId();
+
 			getProfileView(loginId);
 		} else {
 			// back to news list
@@ -101,6 +102,21 @@ public class ProfileViewActivity extends AbstractActivity implements ProfileView
 			public void onSuccess(List<WallEntryRemote> result) {
 				// TODO Auto-generated method stub
 				_profileView.setProfileWallData(result);
+			}
+		});
+		
+		service.getPublicFriendEntries(id, new AsyncCallback<List<FriendEntryRemote>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				Window.alert(caught.getMessage());
+			}
+
+			@Override
+			public void onSuccess(List<FriendEntryRemote> result) {
+				// TODO Auto-generated method stub
+				_profileView.setProfileFriendsData(result);
 			}
 		});
 	}

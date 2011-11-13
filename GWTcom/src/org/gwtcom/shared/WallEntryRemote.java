@@ -3,13 +3,13 @@ package org.gwtcom.shared;
 import java.util.Date;
 
 public class WallEntryRemote extends BaseDomainRemote {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7658507519406365236L;
+	
 	private Date _dateAdded;
+	
 	private UserProfileRemote _owner;
+	
 	private UserProfileRemote _author;
+	
 	private String _content;
 
 	public WallEntryRemote() {

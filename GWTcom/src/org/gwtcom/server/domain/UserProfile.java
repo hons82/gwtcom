@@ -49,9 +49,13 @@ public class UserProfile extends BaseDomainObject {
 	@Column(name = "walllist")
 	private List<Key> _wall;
 
+	@Column(name = "friendlist")
+	private List<Key> _friends;
+
 	public UserProfile() {
 		super();
 		setWall(new ArrayList<Key>());
+		setFriends(new ArrayList<Key>());
 	}
 
 	public UserProfile(String name, String surname) {
@@ -116,20 +120,29 @@ public class UserProfile extends BaseDomainObject {
 	// return _dateslist;
 	// }
 	//
-	public void setWall(List<Key> wall) {
-		_wall = wall;
-	}
-
-	public List<Key> getWall() {
-		return _wall;
+	
+	public ProfileImage getProfileImage() {
+		return _profileImage;
 	}
 
 	public void setProfileImage(ProfileImage profileImage) {
 		_profileImage = profileImage;
 	}
 
-	public ProfileImage getProfileImage() {
-		return _profileImage;
+	public List<Key> getWall() {
+		return _wall;
+	}
+	
+	public void setWall(List<Key> wall) {
+		_wall = wall;
+	}
+	
+	public List<Key> getFriends() {
+		return _friends;
+	}
+
+	public void setFriends(List<Key> friends) {
+		_friends = friends;
 	}
 
 }

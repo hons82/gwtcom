@@ -2,8 +2,6 @@ package org.gwtcom.shared;
 
 public class ProfileImageRemote extends BaseDomainRemote {
 
-	private static final long serialVersionUID = 5597937747164985034L;
-
 	private String _image;
 
 	private String _imageThumb;

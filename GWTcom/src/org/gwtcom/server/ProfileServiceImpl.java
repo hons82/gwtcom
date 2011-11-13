@@ -6,6 +6,8 @@ import org.gwtcom.client.service.ProfileService;
 import org.gwtcom.server.dao.UserLoginDao;
 import org.gwtcom.server.dao.UserProfileDao;
 import org.gwtcom.server.dao.WallEntryDao;
+import org.gwtcom.server.domain.UserLogin;
+import org.gwtcom.shared.FriendEntryRemote;
 import org.gwtcom.shared.UserLoginRemote;
 import org.gwtcom.shared.UserProfileRemote;
 import org.gwtcom.shared.WallEntryRemote;
@@ -50,6 +52,12 @@ public class ProfileServiceImpl extends AbstractUserAwareService implements Prof
 	@Override
 	public boolean updateUserProfile(UserProfileRemote profile) {
 		return _userProfileDao.updateUserProfile(profile);
+	}
+
+	@Override
+	public List<FriendEntryRemote> getPublicFriendEntries(String userLoginId) {
+		UserLogin userLogin = _userLoginDao.retrieve(userLoginId);
+		return _userProfileDao.getFriendsOfUser(userLogin);
 	}
 
 }

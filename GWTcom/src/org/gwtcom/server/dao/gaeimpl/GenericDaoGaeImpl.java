@@ -53,7 +53,8 @@ public abstract class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends S
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<T> retrieveAll() {
-		List<T> resultList = _entityManager.createQuery("SELECT FROM " + getType().getName()+ " WHERE _userDeleted IS NULL").getResultList();
+		List<T> resultList = _entityManager.createQuery(
+				"SELECT FROM " + getType().getName() + " WHERE _userDeleted IS NULL").getResultList();
 		resultList.size();
 		return resultList;
 	}
@@ -80,7 +81,7 @@ public abstract class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends S
 	public void delete(T entity, PK userId) {
 		if (entity != null) {
 			entity.setDateDeleted(new Date());
-			entity.setUserDeleted(KeyFactory.stringToKey((String)userId));
+			entity.setUserDeleted(KeyFactory.stringToKey((String) userId));
 			saveOrUpdate(entity);
 		}
 	}
@@ -112,4 +113,9 @@ public abstract class GenericDaoGaeImpl<T extends BaseDomainObject, PK extends S
 		return null;
 	}
 
+	@Override
+	@Transactional(readOnly = false)
+	public void flush() {
+		_entityManager.flush();
+	}
 }

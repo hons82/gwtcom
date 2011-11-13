@@ -1,61 +1,21 @@
 package org.gwtcom.shared;
 
-public class UserProfileRemote extends ParentBaseDomainRemote {
-
-	private static final long serialVersionUID = -54859122938958369L;
-
-	private String _name;
-
-	private String _surname;
-
-	private String _email;
-
-	private int _gender;
-
-	private ProfileImageRemote _profileImage;
+public class UserProfileRemote extends FriendEntryRemote {
 
 	public UserProfileRemote() {
 
 	}
 
-	public String getName() {
-		return _name;
-	}
-
-	public void setName(String name) {
-		_name = name;
-	}
-
-	public void setSurname(String surname) {
-		_surname = surname;
-	}
-
-	public String getSurname() {
-		return _surname;
-	}
-
-	public void setEmail(String email) {
-		_email = email;
-	}
-
-	public String getEmail() {
-		return _email;
-	}
-
-	public void setGender(int gender) {
-		_gender = gender;
-	}
-
-	public int getGender() {
-		return _gender;
-	}
-
-	public void setProfileImage(ProfileImageRemote profileImage) {
-		_profileImage = profileImage;
-	}
-
-	public ProfileImageRemote getProfileImage() {
-		return _profileImage;
+	public UserProfileRemote(FriendEntryRemote friend) {
+		if (friend != null) {
+			setId(friend.getId());
+			setParentId(friend.getParentId());
+			setName(friend.getName());
+			setSurname(friend.getSurname());
+			setProfileImage(friend.getProfileImage());
+			setEmail(friend.getEmail());
+			setGender(friend.getGender());
+		}
 	}
 
 }

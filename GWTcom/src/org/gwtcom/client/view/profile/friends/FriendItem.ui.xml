@@ -1,0 +1,63 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+	<ui:image field='noprofileimage' src='../../img/profile/noprofile_small.png' />
+
+	<ui:style>
+		.detail {
+			border-top:1px solid #C6C6C6;
+			height: 100px;
+		}
+		
+		.panel {
+			padding: 10px;
+		}
+		
+		.content {
+			border-top: 1px solid #C6C6C6;
+			border-left: 1px solid #C6C6C6;
+		}
+		
+		@if user.agent ie6 {
+	  		.noProfileImage {
+	  	   	    background-image: url(noprofile_ie6.gif);
+	    		width: 31px;
+	    		height: 22px;
+	    		float: left;
+	 		 }
+	    } @else {
+    		@sprite .noProfileImage {
+      			gwt-image: 'noprofileimage';
+      			margin-right: 0.5em;
+      			float: left;
+    		}
+ 		}
+	</ui:style>
+
+	<g:DockLayoutPanel unit='EM' styleName='{style.detail}'>
+
+		<g:west size='5'>
+			<g:HTMLPanel styleName='{style.panel}'>
+				<div class="{style.noProfileImage}" />
+			</g:HTMLPanel>
+		</g:west>
+
+		<g:center>
+			<g:HTMLPanel>
+				<table>
+					<tr>
+						<td>
+							<g:Label ui:field="name" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<g:Label ui:field="surname" />
+						</td>
+					</tr>
+				</table>
+			</g:HTMLPanel>
+		</g:center>
+	</g:DockLayoutPanel>
+
+</ui:UiBinder>
