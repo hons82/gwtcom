@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @Repository("userProfileDao")
 public class UserProfileDaoGaeImpl extends GenericDaoGaeImpl<UserProfile, String> implements UserProfileDao {
@@ -66,7 +67,7 @@ public class UserProfileDaoGaeImpl extends GenericDaoGaeImpl<UserProfile, String
 
 		for (Key key : getFriendsForUserLogin(userLogin)) {
 			UserProfile item = _entityManager.find(UserProfile.class, key);
-			ret.add(_userProfileConverter.convertDomainToRemote(item));
+			ret.add(_friendsConverter.convertDomainToRemote(item));
 		}
 		return ret;
 	}
@@ -77,5 +78,15 @@ public class UserProfileDaoGaeImpl extends GenericDaoGaeImpl<UserProfile, String
 		friends.size();
 		System.out.println(">>>>> Friends size: " + friends.size());
 		return friends;
+	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public void addFriendtoUser(String userProfileId, String friendID) {
+		UserProfile userProfile = retrieve(userProfileId);
+		if (userProfile!=null) {
+			userProfile.getFriends().add(KeyFactory.stringToKey(friendID));
+			saveOrUpdate(userProfile);
+		}
 	}
 }

@@ -19,4 +19,6 @@ public interface UserProfileDao extends GenericDao<UserProfile, String>{
 
 	public List<FriendEntryRemote> getFriendsOfUser(UserLogin userLogin);
 
+	public void addFriendtoUser(String userProfileId, String friendID);
+
 }

@@ -13,8 +13,6 @@ import com.google.appengine.api.datastore.Key;
 @Entity
 public class UserProfile extends BaseDomainObject {
 
-	private static final long serialVersionUID = 382224708168422399L;
-
 	public static final int GENDER_MALE = 0;
 	public static final int GENDER_FEMALE = 1;
 

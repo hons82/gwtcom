@@ -8,8 +8,6 @@ import com.google.appengine.api.datastore.Text;
 @Entity
 public class DateItem extends BaseDomainObject {
 
-	private static final long serialVersionUID = 2075374069026921484L;
-
 	@Column(name = "author")
 	private UserProfile _author;
 

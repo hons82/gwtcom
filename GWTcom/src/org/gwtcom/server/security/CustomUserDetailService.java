@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.gwtcom.server.dao.AuthorityDao;
 import org.gwtcom.server.dao.UserLoginDao;
+import org.gwtcom.server.dao.UserProfileDao;
 import org.gwtcom.server.domain.Authority;
 import org.gwtcom.server.domain.ProfileImage;
 import org.gwtcom.server.domain.UserLogin;
@@ -21,6 +22,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.gwt.user.server.Base64Utils;
 
 @Service("customUserDetailsService")
@@ -30,6 +32,8 @@ public class CustomUserDetailService implements UserDetailsService {
 	private AuthorityDao _authorityDao;
 	@Autowired
 	private UserLoginDao _userLoginDao;
+	@Autowired
+	private UserProfileDao _userProfileDao;
 
 	//
 	private static final String IMAGE_B64 = "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==";
@@ -64,7 +68,10 @@ public class CustomUserDetailService implements UserDetailsService {
 				UserLogin user = createUser(_users[i][0], _users[i][1]);
 				addRoletoUser(_users[i][0], _authorityDao.getAuthoritybyName(_roles[0]));
 				addRoletoUser(_users[i][0], _authorityDao.getAuthoritybyName(_roles[1]));
-				UserProfile profile = addProfiletoUser(user,friends);
+				UserProfile profile = addProfiletoUser(user);
+				for (Key key : friends) {
+					_userProfileDao.addFriendtoUser(KeyFactory.keyToString(profile.getId()), KeyFactory.keyToString(key));
+				}
 				friends.add(profile.getId());
 				System.out.println("Created User <" + _users[i][0] + "> with encoded Password: "
 						+ _encoder.encodePassword(_users[i][1], null));
@@ -101,14 +108,13 @@ public class CustomUserDetailService implements UserDetailsService {
 		_userLoginDao.addRoletoUser(name, auth);
 	}
 
-	private UserProfile addProfiletoUser(UserLogin user,List<Key>friends) {
+	private UserProfile addProfiletoUser(UserLogin user) {
 		UserProfile profile = new UserProfile();
 		if (user != null) {
 			profile.setName("Johnny B.");
 			profile.setSurname("Good");
 			profile.setEmail("somemail@aa.org");
 			profile.setGender(UserProfile.GENDER_MALE);
-			profile.setFriends(friends);
 			profile.setLogin(user);
 			// _userProfileDao.saveOrUpdate(profile);
 
@@ -122,6 +128,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
 			user.setUserprofile(profile);
 			_userLoginDao.saveOrUpdate(user);
+			_userLoginDao.flush();
 		}
 		return profile;
 	}

@@ -8,8 +8,6 @@ import com.google.appengine.api.datastore.Key;
 @Entity
 public class WallEntry extends BaseDomainObject {
 
-	private static final long serialVersionUID = 4673308759394854464L;
-
 	@Column(name = "owner")
 	private Key _owner;
 

@@ -12,8 +12,6 @@ import com.google.appengine.api.datastore.ShortBlob;
 @Entity
 public class ProfileImage extends BaseDomainObject {
 
-	private static final long serialVersionUID = 382224708168422399L;
-
 	@Column(name = "userprofile")
 	@OneToOne(mappedBy = "_profileImage")
 	private UserProfile _userprofile;

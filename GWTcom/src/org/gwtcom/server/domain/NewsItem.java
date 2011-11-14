@@ -9,8 +9,6 @@ import com.google.appengine.api.datastore.Text;
 @Entity
 public class NewsItem extends BaseDomainObject {
 
-	private static final long serialVersionUID = 8922196591001353438L;
-
 	@Column(name = "author")
 	private Key _author;
 

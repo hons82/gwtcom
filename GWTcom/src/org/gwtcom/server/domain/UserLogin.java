@@ -13,8 +13,6 @@ import com.google.appengine.api.datastore.Key;
 @Entity
 public class UserLogin extends BaseDomainObject {
 
-	private static final long serialVersionUID = 5988243300695711066L;
-
 	@Column(name = "name")
 	private String _name;
 
