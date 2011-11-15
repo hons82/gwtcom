@@ -1,6 +1,6 @@
 package org.gwtcom.client.gin;
 
-import org.gwtcom.client.AppController;
+import org.gwtcom.client.AppActivityMapper;
 import org.gwtcom.client.activity.DateItemActivity;
 import org.gwtcom.client.activity.DateListActivity;
 import org.gwtcom.client.activity.NewsChangeActivity;
@@ -20,7 +20,7 @@ public interface GWTcomGinjector extends Ginjector {
 
 	GWTcomConstants getGWTcomConstants();
 
-	AppController getAppActivity();
+	AppActivityMapper getAppActivity();
 
 	EventBus getEventBus();
 

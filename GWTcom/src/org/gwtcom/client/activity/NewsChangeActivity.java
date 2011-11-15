@@ -2,7 +2,6 @@ package org.gwtcom.client.activity;
 
 import java.util.List;
 
-import org.gwt.mosaic.ui.client.InfoPanel;
 import org.gwtcom.client.service.NewsService;
 import org.gwtcom.client.service.NewsServiceAsync;
 import org.gwtcom.client.view.news.change.NewsChange;
@@ -20,6 +19,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
+import com.smartgwt.client.util.SC;
 
 public class NewsChangeActivity extends AbstractActivity implements NewsChange.Presenter {
 
@@ -51,12 +51,12 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 					public void onSuccess(NewsItemRemote result) {
 						fetchNewsList();
 						_newsListChangeView.getNewsList().getSelectionModel().setSelected(result, true);
-						InfoPanel.show("Add News", "NewsItem Created");
+						SC.say("Add News", "NewsItem Created");
 					}
 
 					@Override
 					public void onFailure(Throwable caught) {
-						InfoPanel.show("Add News", "Adding failed");
+						SC.say("Add News", "Adding failed");
 					}
 				});
 
@@ -73,12 +73,12 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 
 						@Override
 						public void onSuccess(Boolean result) {
-							InfoPanel.show("Delete News", "Item Deleted");
+							SC.say("Delete News", "Item Deleted");
 						}
 
 						@Override
 						public void onFailure(Throwable caught) {
-							InfoPanel.show("Delete News", "Item removing failed");
+							SC.say("Delete News", "Item removing failed");
 						}
 					});
 				}
@@ -92,7 +92,7 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 				if (_newsListChangeView.getSelectedItem() != null) {
 					_newsListChangeView.getNewsList().getSelectionModel()
 							.setSelected(_newsListChangeView.getSelectedItem(), false);
-					InfoPanel.show("Change News", "Changes discarded");
+					SC.say("Change News", "Changes discarded");
 				}
 			}
 		});
@@ -109,12 +109,12 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 
 						@Override
 						public void onSuccess(Boolean result) {
-							InfoPanel.show("Change News", "Changes saved");
+							SC.say("Change News", "Changes saved");
 						}
 
 						@Override
 						public void onFailure(Throwable caught) {
-							InfoPanel.show("Change News", "Saving changes failed");
+							SC.say("Change News", "Saving changes failed");
 						}
 					});
 				}

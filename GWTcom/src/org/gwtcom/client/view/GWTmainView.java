@@ -1,6 +1,5 @@
 package org.gwtcom.client.view;
 
-import org.gwt.mosaic.ui.client.InfoPanel;
 import org.gwtcom.client.event.ILoginLogoutClickEvent;
 import org.gwtcom.client.event.LoginLogoutClickEvent;
 import org.gwtcom.client.i18n.GWTcomConstants;
@@ -26,6 +25,7 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.smartgwt.client.util.SC;
 
 public class GWTmainView extends ResizeComposite {
 
@@ -78,7 +78,7 @@ public class GWTmainView extends ResizeComposite {
 			public void onLoginLogoutClick(LoginLogoutClickEvent event) {
 				topPanel.setLoggedIn(event.isLoggedIn());
 				shortcuts.setLoggedIn(event.isLoggedIn());
-				if (event.isLoggedIn()==null){
+				if (event.isLoggedIn() == null) {
 					// Go back to the main Page
 					_placeController.goTo(new NewsListPlace());
 				}
@@ -124,7 +124,9 @@ public class GWTmainView extends ResizeComposite {
 
 							@Override
 							public void onSuccess(UserLoginRemote result) {
-								InfoPanel.show("Login", (result != null ? "Logged in!" : "Credentials not correct"));
+								if (result == null) {
+									SC.say("Login", "Credentials not correct");
+								}
 								_eventbus.fireEvent(new LoginLogoutClickEvent(result));
 								dlg.hide();
 							}
@@ -132,7 +134,7 @@ public class GWTmainView extends ResizeComposite {
 							@Override
 							public void onFailure(Throwable caught) {
 								dlg.setLoading(false);
-								InfoPanel.show("Login", "Login Failed on Server");
+								SC.say("Login", "Login Failed on Server");
 								_eventbus.fireEvent(new LoginLogoutClickEvent(null));
 							}
 						});
@@ -156,12 +158,12 @@ public class GWTmainView extends ResizeComposite {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						InfoPanel.show("Logout", "Logout Failed on Server");
+						SC.say("Logout", "Logout Failed on Server");
 					}
 
 					@Override
 					public void onSuccess(Void result) {
-						InfoPanel.show("Logout", "Logged out!");
+						SC.say("Logout", "Logged out!");
 						_eventbus.fireEvent(new LoginLogoutClickEvent(null));
 					}
 				});

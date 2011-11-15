@@ -5,9 +5,9 @@ import org.gwtcom.shared.UserProfileRemote;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.IsWidget;
 
-public interface ProfileChangeView {
+public interface ProfileChangeView extends IsWidget{
 
 	public abstract void setProfileData(UserProfileRemote item);
 	
@@ -18,8 +18,6 @@ public interface ProfileChangeView {
 	public void saveButtonClickHandler(ClickHandler clickHandler);
 
 	public abstract HasClickHandlers getList();
-
-	public abstract Widget asWidget();
 
 	public void setPresenter(Presenter presenter);
 

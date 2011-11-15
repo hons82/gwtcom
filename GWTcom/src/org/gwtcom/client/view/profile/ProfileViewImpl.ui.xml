@@ -1,6 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:org.gwt.mosaic.ui.client.datepicker'
-	xmlns:gwtcom='urn:import:org.gwtcom.client.view' xmlns:wall='urn:import:org.gwtcom.client.view.profile.wall'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gwtcom='urn:import:org.gwtcom.client.view'
+	xmlns:wall='urn:import:org.gwtcom.client.view.profile.wall'
 	xmlns:friends='urn:import:org.gwtcom.client.view.profile.friends'>
 
 	<ui:image field='profileiconimage' src='../img/icon/profileicon.png' />
@@ -137,8 +137,7 @@
 							<g:header>
 								<span class='{style.tab}'>Pictures</span>
 							</g:header>
-							<!-- TEST: Just to test how Mosaic Elements can be used -->
-							<c:DatePicker />
+							<g:Label>No Pictures</g:Label>
 						</g:tab>
 					</g:TabLayoutPanel>
 				</g:center>

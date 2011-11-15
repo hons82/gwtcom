@@ -9,17 +9,15 @@ import org.gwtcom.shared.WallEntryRemote;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.IsWidget;
 
-public interface ProfileView {
+public interface ProfileView extends IsWidget{
 	
 	public String getProfileId();
 
 	public void setProfileData(UserProfileRemote item);
 
 	public HasClickHandlers getList();
-
-	public Widget asWidget();
 
 	public void setProfileWallData(List<WallEntryRemote> result);
 

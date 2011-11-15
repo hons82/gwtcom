@@ -4,15 +4,13 @@ import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.IsWidget;
 
-public interface NewsItem {
+public interface NewsItem extends IsWidget{
 
 	public void setData(NewsItemRemote item);
 
 	public HasClickHandlers getList();
-
-	public Widget asWidget();
 
 	public void setPresenter(Presenter presenter);
 

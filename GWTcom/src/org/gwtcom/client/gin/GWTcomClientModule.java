@@ -1,6 +1,6 @@
 package org.gwtcom.client.gin;
 
-import org.gwtcom.client.AppController;
+import org.gwtcom.client.AppActivityMapper;
 import org.gwtcom.client.activity.DateItemActivity;
 import org.gwtcom.client.activity.DateListActivity;
 import org.gwtcom.client.activity.NewsChangeActivity;
@@ -71,7 +71,7 @@ public class GWTcomClientModule extends AbstractGinModule {
 
 		// ***** DO NOT FORGET TO INITIALIZE PRESENTERS IN GWTcom.java *****
 
-		bind(AppController.class).asEagerSingleton();
+		bind(AppActivityMapper.class).asEagerSingleton();
 
 	}
 

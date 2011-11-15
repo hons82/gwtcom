@@ -1,6 +1,5 @@
 package org.gwtcom.client.activity;
 
-import org.gwt.mosaic.ui.client.InfoPanel;
 import org.gwtcom.client.place.NewsListPlace;
 import org.gwtcom.client.place.ProfileChangePlace;
 import org.gwtcom.client.service.ProfileService;
@@ -19,6 +18,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
+import com.smartgwt.client.util.SC;
 
 public class ProfileChangeActivity extends AbstractActivity implements ProfileChangeView.Presenter {
 
@@ -43,7 +43,7 @@ public class ProfileChangeActivity extends AbstractActivity implements ProfileCh
 			@Override
 			public void onClick(ClickEvent event) {
 				_profileChangeView.setProfileData(_profile);
-				InfoPanel.show("Change Profile", "Changes discarded");
+				SC.say("Change Profile", "Changes discarded");
 			}
 		});
 
@@ -57,12 +57,12 @@ public class ProfileChangeActivity extends AbstractActivity implements ProfileCh
 
 					@Override
 					public void onSuccess(Boolean result) {
-						InfoPanel.show("Change Profile", "Changes saved");
+						SC.say("Change Profile", "Changes saved");
 					}
 
 					@Override
 					public void onFailure(Throwable caught) {
-						InfoPanel.show("Change Profile", "Saving changes failed");
+						SC.say("Change Profile", "Saving changes failed");
 					}
 				});
 			}

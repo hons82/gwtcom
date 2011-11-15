@@ -8,10 +8,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/aopalliance.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring4gwt-0.0.1.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-beans-binding-0.3.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-0.4.0-rc4.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-mosaic-2.0.0.m2.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtx-1.5.4-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtupload-gae-0.6.3.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-fileupload-1.2.2.jar" sourcepath="C:/Users/Hannes Tribus/.m2/repository/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2-sources.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtupload-0.6.3-compat.jar" sourcepath="C:/Users/Hannes Tribus/.m2/repository/com/googlecode/gwtupload/gwtupload/0.6.3-compat/gwtupload-0.6.3-compat-sources.jar"/>
@@ -25,7 +21,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-aop-3.0.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-asm-3.0.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-aspects-3.0.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-beans-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-beans-3.0.6.RELEASE.jar" sourcepath="C:/Users/Hannes Tribus/.m2/repository/org/springframework/spring-beans/3.0.6.RELEASE/spring-beans-3.0.6.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-3.0.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-support-3.0.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-core-3.0.6.RELEASE.jar"/>
@@ -38,6 +34,8 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-web-3.0.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-tx-3.0.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-web-3.0.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-dnd-3.1.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/smartgwt.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/smartgwt-skins.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/GWTcomLinker"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

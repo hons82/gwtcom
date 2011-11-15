@@ -67,7 +67,7 @@ public class GWTcom implements EntryPoint {
 		// Start ActivityManager for the main widget with our ActivityMapper
 		ActivityMapper activityMapper = injector.getAppActivity();
 		ActivityManager activityManager = new ActivityManager(activityMapper, injector.getEventBus());
-		activityManager.setDisplay(((AppController) activityMapper).go(RootLayoutPanel.get()));
+		activityManager.setDisplay(((AppActivityMapper) activityMapper).go(RootLayoutPanel.get()));
 
 		// Start PlaceHistoryHandler with our PlaceHistoryMapper
 		AppPlaceHistoryMapper historyMapper = GWT.create(AppPlaceHistoryMapper.class);
