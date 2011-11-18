@@ -3,8 +3,9 @@
 	ui:generateLocales="default" xmlns:g='urn:import:com.google.gwt.user.client.ui'
 	xmlns:gwtcom='urn:import:org.gwtcom.client.view.navigation'>
 
-	<ui:image field='privatestackgroup' src='../img/icon/privatestackgroup.png' />
 	<ui:image field='publicstackgroup' src='../img/icon/publicstackgroup.png' />
+	<ui:image field='socialstackgroup' src='../img/icon/socialstackgroup.png' />
+	<ui:image field='privatestackgroup' src='../img/icon/privatestackgroup.png' />
 	<ui:image field='gradient' src='../img/other/gradient_bg_dark.png'
 		repeatStyle='Horizontal' />
 
@@ -42,16 +43,16 @@
 			}
 			}
 
-  			@if user.agent ie6 {
-  			.privateStackIcon {
-			    background-image: url(privategroup_ie6.gif);
+  		@if user.agent ie6 {
+  			.socialStackIcon {
+			    background-image: urlsocialgroup_ie6.gif);
 			    width: 31px;
 			    height: 22px;
 			    float: left;
   			}
 		} @else {
-   			@sprite .privateStackIcon {
-     				gwt-image: 'privatestackgroup';
+   			@sprite .socialStackIcon {
+     			gwt-image: 'socialstackgroup';
 			    margin-right: 0.5em;
 			    float: left;
    			}
@@ -66,9 +67,9 @@
   			}
   		} @else {
    			@sprite .adminStackIcon {
-     				gwt-image: 'privatestackgroup';
-     				margin-right: 0.5em;
-     				float: left;
+     			gwt-image: 'privatestackgroup';
+     			margin-right: 0.5em;
+     			float: left;
    			}
  		}
 	</ui:style>
@@ -89,11 +90,11 @@
 		<g:stack>
 			<g:header size='3'>
 				<div class='{style.stackHeader}'>
-					<div class='{style.privateStackIcon}' />
-					<ui:msg key='privateMenuTitle'>Private</ui:msg>
+					<div class='{style.socialStackIcon}' />
+					<ui:msg key='socialMenuTitle'>Social</ui:msg>
 				</div>
 			</g:header>
-			<gwtcom:PrivateMenu ui:field='privateMenu' />
+			<gwtcom:SocialMenu ui:field='socialMenu' />
 		</g:stack>
 
 		<g:stack>

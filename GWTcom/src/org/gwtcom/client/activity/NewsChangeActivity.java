@@ -25,22 +25,22 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 
 	private final ListDataProvider<NewsItemRemote> _newslist;
 	private final PlaceController _placeController;
-	private final NewsChange _newsListChangeView;
+	private final NewsChange _newsChangeView;
 
 	@Inject
 	public NewsChangeActivity(NewsChange newsListChangeView, PlaceController placeController) {
 		super();
 		System.out.println(">>>>>NewsChangeActivity()");
 		_placeController = placeController;
-		_newsListChangeView = newsListChangeView;
-		_newsListChangeView.setPresenter(this);
+		_newsChangeView = newsListChangeView;
+		_newsChangeView.setPresenter(this);
 		_newslist = new ListDataProvider<NewsItemRemote>();
 
 		init();
 	}
 
 	private void init() {
-		_newsListChangeView.addButtonClickHandler(new ClickHandler() {
+		_newsChangeView.addButtonClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -50,7 +50,7 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 					@Override
 					public void onSuccess(NewsItemRemote result) {
 						fetchNewsList();
-						_newsListChangeView.getNewsList().getSelectionModel().setSelected(result, true);
+						_newsChangeView.getNewsList().getSelectionModel().setSelected(result, true);
 						SC.say("Add News", "NewsItem Created");
 					}
 
@@ -63,13 +63,13 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 			}
 		});
 
-		_newsListChangeView.removeButtonClickHandler(new ClickHandler() {
+		_newsChangeView.removeButtonClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (_newsListChangeView.getSelectedItem() != null) {
+				if (_newsChangeView.getSelectedItem() != null) {
 					NewsServiceAsync service = GWT.create(NewsService.class);
-					service.deleteNewsItem(_newsListChangeView.getSelectedItem(), new AsyncCallback<Boolean>() {
+					service.deleteNewsItem(_newsChangeView.getSelectedItem(), new AsyncCallback<Boolean>() {
 
 						@Override
 						public void onSuccess(Boolean result) {
@@ -85,25 +85,25 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 			}
 		});
 
-		_newsListChangeView.cancelButtonClickHandler(new ClickHandler() {
+		_newsChangeView.cancelButtonClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (_newsListChangeView.getSelectedItem() != null) {
-					_newsListChangeView.getNewsList().getSelectionModel()
-							.setSelected(_newsListChangeView.getSelectedItem(), false);
+				if (_newsChangeView.getSelectedItem() != null) {
+					_newsChangeView.getNewsList().getSelectionModel()
+							.setSelected(_newsChangeView.getSelectedItem(), false);
 					SC.say("Change News", "Changes discarded");
 				}
 			}
 		});
-		_newsListChangeView.saveButtonClickHandler(new ClickHandler() {
+		_newsChangeView.saveButtonClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				NewsItemRemote selectedItem = _newsListChangeView.getSelectedItem();
+				NewsItemRemote selectedItem = _newsChangeView.getSelectedItem();
 				if (selectedItem != null) {
 					// update item with new values
-					selectedItem.setContent(_newsListChangeView.getContentasHTML());
+					selectedItem.setContent(_newsChangeView.getContentasHTML());
 					NewsServiceAsync service = GWT.create(NewsService.class);
 					service.updateNewsItem(selectedItem, new AsyncCallback<Boolean>() {
 
@@ -127,9 +127,9 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 		System.out.println(">>>>>NewsListPresenter.start()");
 
 		fetchNewsList();
-		panel.setWidget(_newsListChangeView.asWidget());
-		if (!_newslist.getDataDisplays().contains(_newsListChangeView.getNewsList()))
-			_newslist.addDataDisplay(_newsListChangeView.getNewsList());
+		panel.setWidget(_newsChangeView.asWidget());
+		if (!_newslist.getDataDisplays().contains(_newsChangeView.getNewsList()))
+			_newslist.addDataDisplay(_newsChangeView.getNewsList());
 	}
 
 	private void fetchNewsList() {

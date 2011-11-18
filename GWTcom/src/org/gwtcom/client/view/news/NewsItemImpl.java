@@ -12,10 +12,10 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.ResizeComposite;
+import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -39,7 +39,7 @@ public class NewsItemImpl extends ResizeComposite implements NewsItem {
 	@UiField
 	Element date;
 	@UiField
-	HTML content;
+	RichTextArea content;
 
 	private Presenter _presenter;
 
@@ -66,7 +66,7 @@ public class NewsItemImpl extends ResizeComposite implements NewsItem {
 				SafeHtmlBuilder sh = new SafeHtmlBuilder();
 				sh.appendEscaped(item.getContent());
 				// TODO: check HTML
-				content.setHTML(sh.toSafeHtml().asString());
+				content.setText(sh.toSafeHtml().asString());
 			}
 		} else {
 			id.setValue(String.valueOf(-1));
@@ -74,7 +74,7 @@ public class NewsItemImpl extends ResizeComposite implements NewsItem {
 			author.setInnerText("<empty>");
 			date.setInnerHTML("<empty>");
 
-			content.setHTML("");
+			content.setText("");
 		}
 	}
 

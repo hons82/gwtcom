@@ -24,7 +24,7 @@ public class Shortcuts extends ResizeComposite {
 	@UiField(provided = true)
 	PublicMenu publicMenu;
 	@UiField(provided = true)
-	PrivateMenu privateMenu;
+	SocialMenu socialMenu;
 	@UiField(provided = true)
 	AdminMenu adminMenu;
 
@@ -48,7 +48,7 @@ public class Shortcuts extends ResizeComposite {
 		_constants = constants;
 
 		publicMenu = new PublicMenu(_placeController, _constants);
-		privateMenu = new PrivateMenu(_placeController, _constants);
+		socialMenu = new SocialMenu(_placeController, _constants);
 		adminMenu = new AdminMenu(_placeController, _constants);
 
 		initWidget(binder.createAndBindUi(this));
@@ -70,7 +70,7 @@ public class Shortcuts extends ResizeComposite {
 
 	public void setLoggedIn(UserLoginRemote result) {
 		publicMenu.setLoggedIn(result);
-		privateMenu.setLoggedIn(result);
+		socialMenu.setLoggedIn(result);
 		adminMenu.setLoggedIn(result);
 		// Set visible menus
 		if (result != null) {

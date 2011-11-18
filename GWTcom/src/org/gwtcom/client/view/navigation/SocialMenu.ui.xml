@@ -3,7 +3,7 @@
   xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
   <ui:style field='style'
-    type='org.gwtcom.client.view.navigation.PrivateMenu.Style'>
+    type='org.gwtcom.client.view.navigation.SocialMenu.Style'>
 
   .publicmenu {
     padding: 0.5em;

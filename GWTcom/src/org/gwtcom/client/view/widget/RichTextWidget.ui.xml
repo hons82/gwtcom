@@ -23,10 +23,10 @@
 
 	<g:DockLayoutPanel unit='PX' styleName='{style.main}'>
 		<g:north size='60'>
-			<tool:RichTextToolbar ui:field="toolbar"  addStyleNames='{style.toolbar}'></tool:RichTextToolbar>
+			<tool:RichTextToolbar ui:field="toolbar"  addStyleNames='{style.toolbar}' />
 		</g:north>
 		<g:center>
-			<g:RichTextArea ui:field="textarea" addStyleNames='{style.textarea}'></g:RichTextArea>
+			<g:RichTextArea ui:field="textarea" addStyleNames='{style.textarea}' />
 		</g:center>
 	</g:DockLayoutPanel>
 </ui:UiBinder>

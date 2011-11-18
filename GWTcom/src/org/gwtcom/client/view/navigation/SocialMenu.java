@@ -22,9 +22,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * A tree displaying a set of email folders.
+ * The Social Menu
  */
-public class PrivateMenu extends AbstractStackPanelInlay {
+public class SocialMenu extends AbstractStackPanelInlay {
 
 	public static interface CwConstants extends Constants {
 		String cwProfileTitle();
@@ -34,7 +34,7 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 		String cwNoAccess();
 	}
 
-	interface Binder extends UiBinder<Widget, PrivateMenu> {
+	interface Binder extends UiBinder<Widget, SocialMenu> {
 	}
 
 	interface Style extends CssResource {
@@ -60,7 +60,7 @@ public class PrivateMenu extends AbstractStackPanelInlay {
 
 	private final CwConstants _constants;
 
-	public PrivateMenu(PlaceController placeController, CwConstants constants) {
+	public SocialMenu(PlaceController placeController, CwConstants constants) {
 		_placeController = placeController;
 		_constants = constants;
 

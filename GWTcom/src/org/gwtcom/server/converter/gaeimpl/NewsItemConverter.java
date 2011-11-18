@@ -6,6 +6,9 @@ import org.gwtcom.shared.NewsItemRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.google.appengine.api.datastore.Text;
+
+
 @Repository("newsItemConverter")
 public class NewsItemConverter extends AbstractIdConverter implements IConverter<NewsItemRemote, NewsItem> {
 
@@ -28,8 +31,15 @@ public class NewsItemConverter extends AbstractIdConverter implements IConverter
 
 	@Override
 	public NewsItem convertRemoteToDomain(NewsItem domain, NewsItemRemote remote) {
-		// TODO Auto-generated method stub
-		return null;
+		if (domain != null && remote != null) {
+			domain.setId(convertToId(remote.getId()));
+			domain.setAuthor(convertToId(remote.getAuthor().getId()));
+			domain.setContent(new Text(remote.getContent()));
+			domain.setDateAdded(remote.getDateAdded());
+//			domain.setDateLastUpdate(remote.getDateLastUpdate());
+			domain.setTitle(remote.getTitle());
+		}
+		return domain;
 	}
 
 }

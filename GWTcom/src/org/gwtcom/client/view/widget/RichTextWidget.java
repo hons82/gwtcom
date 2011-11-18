@@ -51,6 +51,6 @@ public class RichTextWidget extends ResizeComposite {
 	public void setContentAsHTML(String content) {
 		SafeHtmlBuilder sh = new SafeHtmlBuilder();
 		sh.appendEscaped(content);
-		textarea.setHTML(sh.toSafeHtml().asString());
+		textarea.setText(sh.toSafeHtml().asString());
 	}
 }
