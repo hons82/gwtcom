@@ -3,7 +3,6 @@ package org.gwtcom.client.view.widget;
 import org.gwtcom.client.view.widget.richTextToolbar.RichTextToolbar;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.ResizeComposite;
@@ -32,10 +31,10 @@ public class RichTextWidget extends ResizeComposite {
 		initWidget(binder.createAndBindUi(this));
 	}
 
-	public void setEnabled(Boolean enabled){
+	public void setEnabled(Boolean enabled) {
 		textarea.setEnabled(enabled);
 	}
-	
+
 	public String getContent() {
 		return textarea.getText();
 	}
@@ -45,12 +44,14 @@ public class RichTextWidget extends ResizeComposite {
 	}
 
 	public String getContentasHTML() {
+		// TODO check how it could work
+		// SafeHtmlBuilder sh = new SafeHtmlBuilder();
+		// sh.appendEscaped(textarea.getHTML());
+		// return sh.toSafeHtml().asString();
 		return textarea.getHTML();
 	}
 
 	public void setContentAsHTML(String content) {
-		SafeHtmlBuilder sh = new SafeHtmlBuilder();
-		sh.appendEscaped(content);
-		textarea.setText(sh.toSafeHtml().asString());
+		textarea.setHTML(content);
 	}
 }

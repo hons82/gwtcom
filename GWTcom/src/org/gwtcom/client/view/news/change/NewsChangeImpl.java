@@ -1,7 +1,7 @@
 package org.gwtcom.client.view.news.change;
 
 import org.gwtcom.client.view.navigation.ShowMorePagerPanel;
-import org.gwtcom.client.view.widget.RichTextWidget;
+import org.gwtcom.client.view.widget.TitleContentEditWidget;
 import org.gwtcom.shared.NewsItemRemote;
 
 import com.google.gwt.cell.client.AbstractCell;
@@ -75,8 +75,8 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 	@UiField
 	ShowMorePagerPanel pagerPanel;
 	@UiField
-	RichTextWidget content;
-	
+	TitleContentEditWidget content;
+
 	@UiField
 	PushButton addBtn;
 	@UiField
@@ -116,10 +116,12 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 				if (event.getSource() instanceof SingleSelectionModel<?>) {
 					NewsItemRemote dest = ((SingleSelectionModel<NewsItemRemote>) event.getSource()).getSelectedObject();
 					if (dest != null) {
+						content.setTitle(dest.getTitle());
 						content.setEnabled(true);
 						content.setContentAsHTML(dest.getContent());
 						_selectedItem = dest;
 					} else {
+						content.setTitle("");
 						content.setEnabled(false);
 						content.setContent("");
 						_selectedItem = null;
@@ -143,7 +145,7 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 	public void removeButtonClickHandler(ClickHandler clickHandler) {
 		removeBtn.addClickHandler(clickHandler);
 	}
-	
+
 	@Override
 	public void cancelButtonClickHandler(ClickHandler clickHandler) {
 		cancelBtn.addClickHandler(clickHandler);
@@ -153,7 +155,7 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 	public void saveButtonClickHandler(ClickHandler clickHandler) {
 		saveBtn.addClickHandler(clickHandler);
 	}
-	
+
 	@Override
 	public HasClickHandlers getList() {
 		// TODO Auto-generated method stub
@@ -174,7 +176,12 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 	public NewsItemRemote getSelectedItem() {
 		return _selectedItem;
 	}
-	
+
+	@Override
+	public String getNewsTitle() {
+		return content.getTitle();
+	}
+
 	@Override
 	public String getContentasHTML() {
 		return content.getContentasHTML();

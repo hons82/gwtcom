@@ -39,7 +39,7 @@
 					</g:Label>
 				</g:cell>
 				<g:cell width='75%'>
-					<g:TextBox ui:field="inputContent" styleName='{style.postPanelTextBox}'></g:TextBox>
+					<g:TextBox ui:field="inputContent" styleName='{style.postPanelTextBox}' />
 				</g:cell>
 				<g:cell>
 					<g:Button ui:field="inputSubmit" styleName='{style.postPanelButton}'>

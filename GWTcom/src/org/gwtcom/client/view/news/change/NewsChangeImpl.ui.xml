@@ -131,7 +131,7 @@
 			</g:HorizontalPanel>
 		</g:south>
 		<g:center>
-			<w:RichTextWidget ui:field="content" styleName='{style.contentarea}' />
+			<w:TitleContentEditWidget ui:field="content" styleName='{style.contentarea}' />
 		</g:center>
 	</g:DockLayoutPanel>
 </ui:UiBinder>

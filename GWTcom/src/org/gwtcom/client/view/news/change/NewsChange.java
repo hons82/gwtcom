@@ -29,6 +29,8 @@ public interface NewsChange extends IsWidget {
 	public void saveButtonClickHandler(ClickHandler clickHandler);
 
 	public NewsItemRemote getSelectedItem();
+	
+	public String getNewsTitle();
 
 	public String getContentasHTML();
 

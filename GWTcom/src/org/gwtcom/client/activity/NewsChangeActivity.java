@@ -103,6 +103,7 @@ public class NewsChangeActivity extends AbstractActivity implements NewsChange.P
 				NewsItemRemote selectedItem = _newsChangeView.getSelectedItem();
 				if (selectedItem != null) {
 					// update item with new values
+					selectedItem.setTitle(_newsChangeView.getNewsTitle());
 					selectedItem.setContent(_newsChangeView.getContentasHTML());
 					NewsServiceAsync service = GWT.create(NewsService.class);
 					service.updateNewsItem(selectedItem, new AsyncCallback<Boolean>() {
