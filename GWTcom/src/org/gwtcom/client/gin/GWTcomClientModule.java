@@ -6,6 +6,7 @@ import org.gwtcom.client.activity.DateListActivity;
 import org.gwtcom.client.activity.NewsChangeActivity;
 import org.gwtcom.client.activity.NewsItemActivity;
 import org.gwtcom.client.activity.NewsListActivity;
+import org.gwtcom.client.activity.PeopleViewActivity;
 import org.gwtcom.client.activity.ProfileChangeActivity;
 import org.gwtcom.client.activity.ProfileViewActivity;
 import org.gwtcom.client.place.AppPlaceController;
@@ -19,16 +20,18 @@ import org.gwtcom.client.view.news.NewsList;
 import org.gwtcom.client.view.news.NewsListImpl;
 import org.gwtcom.client.view.news.change.NewsChange;
 import org.gwtcom.client.view.news.change.NewsChangeImpl;
+import org.gwtcom.client.view.people.PeopleView;
+import org.gwtcom.client.view.people.PeopleViewImpl;
 import org.gwtcom.client.view.profile.ProfileView;
 import org.gwtcom.client.view.profile.ProfileViewImpl;
 import org.gwtcom.client.view.profile.change.ProfileChangeView;
 import org.gwtcom.client.view.profile.change.ProfileChangeViewImpl;
 
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Singleton;
+import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.event.shared.SimpleEventBus;
 
 public class GWTcomClientModule extends AbstractGinModule {
 
@@ -68,6 +71,10 @@ public class GWTcomClientModule extends AbstractGinModule {
 		bind(ProfileChangeActivity.class).in(Singleton.class);
 
 		bind(ProfileChangeView.class).to(ProfileChangeViewImpl.class).in(Singleton.class);
+		
+		bind(PeopleViewActivity.class).in(Singleton.class);
+
+		bind(PeopleView.class).to(PeopleViewImpl.class).in(Singleton.class);
 
 		// ***** DO NOT FORGET TO INITIALIZE PRESENTERS IN GWTcom.java *****
 

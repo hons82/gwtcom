@@ -1,0 +1,102 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:tile="urn:import:com.smartgwt.client.widgets.tile">
+
+	<ui:image field='peopleiconimage' src='../img/icon/peopleicon.png' />
+	<ui:image field='gradient' src='../img/other/gradient_bg_dark.png'
+		repeatStyle='Horizontal' />
+
+	<ui:style>
+		.main {
+			background-color: transparent;
+			height: 100%;
+		}
+		
+		.header {
+			gwt-image: 'gradient';
+			background-color: #C6C6C6;
+			cursor: pointer;
+			text-shadow: rgba(255, 255, 255, 1) 0 1px 1px;
+			font-size: 1.2em;
+			font-weight: bold;
+			color: #000000;
+			padding: .5em;
+		}
+		
+		.detail {
+			background-color: white;
+		}
+		
+		.postPanel {
+			background-color: #FAFAFA;
+			padding: 20px;
+		}
+		
+		.postPanelTextBox {
+			margin-left: 20px;
+			margin-right: 20px;
+			width: 90%;
+		}
+		
+		.postPanelButton {
+			width: 50px;
+		}
+		
+		.friendItems {
+			height: 100%;
+			width: 100%;
+		}
+		
+		@if user.agent ie6 {
+	  		.peopleIcon {
+	  	   	    background-image: url(peopleicon_ie6.gif);
+	    		width: 31px;
+	    		height: 22px;
+	    		float: left;
+	 		 }
+	    } @else {
+    		@sprite .peopleIcon {
+      			gwt-image: 'peopleiconimage';
+      			margin-right: 0.5em;
+      			float: left;
+    		}
+  
+ 		}
+	</ui:style>
+	<g:DockLayoutPanel unit='PX' styleName='{style.main}'>
+		<g:north size='38'>
+			<g:HTMLPanel styleName='{style.header}'>
+				<div class='{style.peopleIcon}' />
+				<ui:msg key='cwPeopleTitle'>People</ui:msg>
+			</g:HTMLPanel>
+		</g:north>
+		<g:center>
+			<g:DockLayoutPanel unit='EM' styleName='{style.detail}'>
+				<g:north size='5'>
+					<g:HorizontalPanel styleName='{style.postPanel}'>
+						<g:cell>
+							<g:Label>
+								<ui:msg key='findPeople'>
+									Find People:
+								</ui:msg>
+							</g:Label>
+						</g:cell>
+						<g:cell width='75%'>
+							<g:TextBox ui:field="inputContent" styleName='{style.postPanelTextBox}'></g:TextBox>
+						</g:cell>
+						<g:cell>
+							<g:Button ui:field="inputSubmit" styleName='{style.postPanelButton}'>
+								<ui:msg key='filter'>
+									Filter
+								</ui:msg>
+							</g:Button>
+						</g:cell>
+					</g:HorizontalPanel>
+				</g:north>
+
+				<g:center>
+					<tile:TileGrid ui:field="people" />
+				</g:center>
+			</g:DockLayoutPanel>
+		</g:center>
+	</g:DockLayoutPanel>
+</ui:UiBinder>

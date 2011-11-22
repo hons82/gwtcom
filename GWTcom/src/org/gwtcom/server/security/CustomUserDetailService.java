@@ -22,7 +22,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.gwt.user.server.Base64Utils;
 
 @Service("customUserDetailsService")
@@ -42,7 +41,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
 	private final String[] _roles = { "ROLE_ADMIN", "ROLE_USER" };
 	private final String[][] _users = { { "chito", "chito" }, { "anton", "anton" }, { "hons", "hons" },
-			{ "omar", "omar" } };
+			{ "omar", "omar" }, { "benni", "benni" } };
 
 	private final ShaPasswordEncoder _encoder;
 
@@ -69,9 +68,10 @@ public class CustomUserDetailService implements UserDetailsService {
 				addRoletoUser(_users[i][0], _authorityDao.getAuthoritybyName(_roles[0]));
 				addRoletoUser(_users[i][0], _authorityDao.getAuthoritybyName(_roles[1]));
 				UserProfile profile = addProfiletoUser(user);
-				for (Key key : friends) {
-					_userProfileDao.addFriendtoUser(KeyFactory.keyToString(profile.getId()), KeyFactory.keyToString(key));
-				}
+				// Unfortunately not working :-(
+				// for (Key key : friends) {
+				// _userProfileDao.addFriendtoUser(KeyFactory.keyToString(profile.getId()), KeyFactory.keyToString(key));
+				// }
 				friends.add(profile.getId());
 				System.out.println("Created User <" + _users[i][0] + "> with encoded Password: "
 						+ _encoder.encodePassword(_users[i][1], null));

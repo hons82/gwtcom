@@ -3,6 +3,7 @@ package org.gwtcom.client.view.navigation;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.gwtcom.client.place.PeopleViewPlace;
 import org.gwtcom.client.place.ProfileChangePlace;
 import org.gwtcom.client.place.ProfileViewPlace;
 import org.gwtcom.shared.UserLoginRemote;
@@ -31,6 +32,8 @@ public class SocialMenu extends AbstractStackPanelInlay {
 
 		String cwProfileChangeTitle();
 
+		String cwPeopleTitle();
+
 		String cwNoAccess();
 	}
 
@@ -54,7 +57,9 @@ public class SocialMenu extends AbstractStackPanelInlay {
 
 	private final Anchor _profileChange;
 
-	private final List<HandlerRegistration> _profileHandlerRegistration;
+	private final Anchor _people;
+
+	private final List<HandlerRegistration> _socialHandlerRegistration;
 
 	private final PlaceController _placeController;
 
@@ -66,13 +71,14 @@ public class SocialMenu extends AbstractStackPanelInlay {
 
 		initWidget(binder.createAndBindUi(this));
 
-		_profileHandlerRegistration = new ArrayList<HandlerRegistration>();
+		_socialHandlerRegistration = new ArrayList<HandlerRegistration>();
 
 		_noAccess = new Label(_constants.cwNoAccess());
 		panel.add(_noAccess);
 
 		_profile = addItem(_constants.cwProfileTitle());
 		_profileChange = addItem(_constants.cwProfileChangeTitle());
+		_people = addItem(_constants.cwPeopleTitle());
 	}
 
 	private Anchor addItem(final String item) {
@@ -89,23 +95,34 @@ public class SocialMenu extends AbstractStackPanelInlay {
 
 			// Show your Profile
 			_profile.setVisible(true);
-			_profileHandlerRegistration.add(_profile.addClickHandler(new ClickHandler() {
+			_socialHandlerRegistration.add(_profile.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					System.out.println(">>> PrivateMenu.Profile.OnClick()");
+					System.out.println(">>> PeopleMenu.Profile.OnClick()");
 					_placeController.goTo(new ProfileViewPlace(loggedIn));
 				}
 			}));
 
 			// Change the actual Profile
 			_profileChange.setVisible(true);
-			_profileHandlerRegistration.add(_profileChange.addClickHandler(new ClickHandler() {
+			_socialHandlerRegistration.add(_profileChange.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					System.out.println(">>> PrivateMenu.ProfileChange.OnClick()");
+					System.out.println(">>> PeopleMenu.ProfileChange.OnClick()");
 					_placeController.goTo(new ProfileChangePlace(loggedIn));
+				}
+			}));
+
+			// Change the actual Profile
+			_people.setVisible(true);
+			_socialHandlerRegistration.add(_people.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					System.out.println(">>> PeopleMenu.People.OnClick()");
+					_placeController.goTo(new PeopleViewPlace(loggedIn));
 				}
 			}));
 		} else {
@@ -113,6 +130,7 @@ public class SocialMenu extends AbstractStackPanelInlay {
 
 			_profile.setVisible(false);
 			_profileChange.setVisible(false);
+			_people.setVisible(false);
 
 			removeAllPrivateHandler();
 		}
@@ -120,8 +138,8 @@ public class SocialMenu extends AbstractStackPanelInlay {
 	}
 
 	private void removeAllPrivateHandler() {
-		if (_profileHandlerRegistration != null)
-			for (HandlerRegistration reg : _profileHandlerRegistration) {
+		if (_socialHandlerRegistration != null)
+			for (HandlerRegistration reg : _socialHandlerRegistration) {
 				reg.removeHandler();
 			}
 	}
