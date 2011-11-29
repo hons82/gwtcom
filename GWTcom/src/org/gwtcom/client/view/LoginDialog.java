@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * A simple example of an 'about' dialog box.
+ * A simple example of a 'login' dialog box.
  */
 public class LoginDialog extends DialogBox {
 

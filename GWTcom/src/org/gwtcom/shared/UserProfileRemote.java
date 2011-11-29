@@ -10,8 +10,8 @@ public class UserProfileRemote extends FriendEntryRemote {
 		if (friend != null) {
 			setId(friend.getId());
 			setParentId(friend.getParentId());
-			setName(friend.getName());
-			setSurname(friend.getSurname());
+			setName(friend.getFirstname());
+			setLastname(friend.getLastname());
 			setProfileImage(friend.getProfileImage());
 			setEmail(friend.getEmail());
 			setGender(friend.getGender());

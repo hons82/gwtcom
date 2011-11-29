@@ -2,9 +2,9 @@ package org.gwtcom.shared;
 
 public class FriendEntryRemote extends ParentBaseDomainRemote {
 	
-	private String _name;
+	private String _firstname;
 
-	private String _surname;
+	private String _lastname;
 
 	private String _email;
 
@@ -17,20 +17,20 @@ public class FriendEntryRemote extends ParentBaseDomainRemote {
 
 	}
 
-	public String getName() {
-		return _name;
+	public String getFirstname() {
+		return _firstname;
 	}
 
-	public void setName(String name) {
-		_name = name;
+	public void setName(String firstname) {
+		_firstname = firstname;
 	}
 
-	public void setSurname(String surname) {
-		_surname = surname;
+	public void setLastname(String lastname) {
+		_lastname = lastname;
 	}
 
-	public String getSurname() {
-		return _surname;
+	public String getLastname() {
+		return _lastname;
 	}
 
 	public void setEmail(String email) {

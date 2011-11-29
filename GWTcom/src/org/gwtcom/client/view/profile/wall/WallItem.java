@@ -30,8 +30,8 @@ public class WallItem extends ResizeComposite {
 		initWidget(binder.createAndBindUi(this));
 
 		// TODO: can still be ""
-		setUsername(entry.getAuthor() != null ? (entry.getAuthor().getName() != null ? entry.getAuthor().getName() : "")
-				+ " " + (entry.getAuthor().getSurname() != null ? entry.getAuthor().getSurname() : "") : "<anonymous>");
+		setUsername(entry.getAuthor() != null ? (entry.getAuthor().getFirstname() != null ? entry.getAuthor().getFirstname() : "")
+				+ " " + (entry.getAuthor().getLastname() != null ? entry.getAuthor().getLastname() : "") : "<anonymous>");
 		setContent(entry.getContent());
 	}
 

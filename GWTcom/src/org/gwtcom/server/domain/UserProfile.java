@@ -16,11 +16,11 @@ public class UserProfile extends BaseDomainObject {
 	public static final int GENDER_MALE = 0;
 	public static final int GENDER_FEMALE = 1;
 
-	@Column(name = "name")
-	private String _name;
+	@Column(name = "firstname")
+	private String _firstname;
 
-	@Column(name = "surname")
-	private String _surname;
+	@Column(name = "lastname")
+	private String _lastname;
 
 	@Column(name = "email")
 	private String _email;
@@ -56,26 +56,26 @@ public class UserProfile extends BaseDomainObject {
 		setFriends(new ArrayList<Key>());
 	}
 
-	public UserProfile(String name, String surname) {
+	public UserProfile(String firstname, String lastname) {
 		this();
-		setName(name);
-		setSurname(surname);
+		setFirstname(firstname);
+		setLastname(lastname);
 	}
 
-	public String getName() {
-		return _name;
+	public String getFirstname() {
+		return _firstname;
 	}
 
-	public void setName(String name) {
-		_name = name;
+	public void setFirstname(String firstname) {
+		_firstname = firstname;
 	}
 
-	public void setSurname(String surname) {
-		_surname = surname;
+	public void setLastname(String lastname) {
+		_lastname = lastname;
 	}
 
-	public String getSurname() {
-		return _surname;
+	public String getLastname() {
+		return _lastname;
 	}
 
 	public void setEmail(String email) {

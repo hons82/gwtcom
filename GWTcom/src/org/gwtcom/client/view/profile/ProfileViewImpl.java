@@ -60,7 +60,7 @@ public class ProfileViewImpl extends ResizeComposite implements ProfileView {
 		System.out.println(">>>>> ProfileItem.setData()");
 		if (item != null) {
 			profileId.setValue(String.valueOf(item.getId()));
-			name.setText(item.getName() + " " + item.getSurname());
+			name.setText(item.getFirstname() + " " + item.getLastname());
 			email.setText(item.getEmail());
 			gender.setText((item.getGender() == 0 ? "male" : "female"));
 

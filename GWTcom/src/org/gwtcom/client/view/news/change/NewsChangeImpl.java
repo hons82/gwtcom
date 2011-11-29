@@ -56,10 +56,10 @@ public class NewsChangeImpl extends ResizeComposite implements NewsChange {
 			sb.appendHtmlConstant("<td style='font-size:95%;'>");
 
 			sb.appendEscaped(value.getAuthor() != null
-					&& (value.getAuthor().getSurname() != null || value.getAuthor().getName() != null) ? (value.getAuthor()
-					.getSurname() != null ? value.getAuthor().getSurname() : "")
+					&& (value.getAuthor().getLastname() != null || value.getAuthor().getFirstname() != null) ? (value.getAuthor()
+					.getLastname() != null ? value.getAuthor().getLastname() : "")
 					+ " "
-					+ (value.getAuthor().getName() != null ? value.getAuthor().getName() : "") : "<anonymous>");
+					+ (value.getAuthor().getFirstname() != null ? value.getAuthor().getFirstname() : "") : "<anonymous>");
 			sb.appendHtmlConstant("</td></tr><tr><td>");
 			sb.appendEscaped(value.getTitle());
 			sb.appendHtmlConstant("</td></tr></table>");

@@ -29,8 +29,8 @@ public class FriendItem extends ResizeComposite {
 	public FriendItem(FriendEntryRemote entry) {
 		initWidget(binder.createAndBindUi(this));
 
-		setName(entry != null && entry.getName() != null ? entry.getName() : "");
-		setSurname(entry != null && entry.getSurname() != null ? entry.getSurname() : "");
+		setName(entry != null && entry.getFirstname() != null ? entry.getFirstname() : "");
+		setSurname(entry != null && entry.getLastname() != null ? entry.getLastname() : "");
 	}
 
 	public Label getName() {

@@ -17,8 +17,10 @@ public interface UserProfileDao extends GenericDao<UserProfile, String>{
 	
 	public UserProfile getProfileWithWall(String userProfileId);
 
-	public List<FriendEntryRemote> getFriendsOfUser(UserLogin userLogin);
-
 	public void addFriendtoUser(String userProfileId, String friendID);
 
+	// this will go into a new DAO 
+	public List<FriendEntryRemote> getFriendsOfUser(UserLogin userLogin);
+	
+	public List<FriendEntryRemote> getPeople(String pattern);
 }

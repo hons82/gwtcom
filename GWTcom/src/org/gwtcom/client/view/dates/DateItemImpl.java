@@ -55,10 +55,10 @@ public class DateItemImpl extends ResizeComposite implements DateItem {
 			id.setValue(String.valueOf(item.getId()));
 			title.setInnerText(item.getTitle());
 			author.setInnerText(item.getAuthor() != null
-					&& (item.getAuthor().getSurname() != null || item.getAuthor().getName() != null) ? (item.getAuthor()
-					.getSurname() != null ? item.getAuthor().getSurname() : "")
+					&& (item.getAuthor().getLastname() != null || item.getAuthor().getFirstname() != null) ? (item.getAuthor()
+					.getLastname() != null ? item.getAuthor().getLastname() : "")
 					+ " "
-					+ (item.getAuthor().getName() != null ? item.getAuthor().getName() : "") : "<anonymous>");
+					+ (item.getAuthor().getFirstname() != null ? item.getAuthor().getFirstname() : "") : "<anonymous>");
 			date.setInnerHTML(fmt.format(item.getDateAdded()));
 
 			// WARNING: For the purposes of this demo, we're using HTML

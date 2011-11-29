@@ -111,8 +111,8 @@ public class CustomUserDetailService implements UserDetailsService {
 	private UserProfile addProfiletoUser(UserLogin user) {
 		UserProfile profile = new UserProfile();
 		if (user != null) {
-			profile.setName("Johnny B.");
-			profile.setSurname("Good");
+			profile.setFirstname("Johnny B.");
+			profile.setLastname("Good");
 			profile.setEmail("somemail@aa.org");
 			profile.setGender(UserProfile.GENDER_MALE);
 			profile.setLogin(user);

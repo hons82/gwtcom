@@ -17,8 +17,8 @@ public class FriendsConverter  extends AbstractIdConverter implements IConverter
 		FriendEntryRemote remote = new FriendEntryRemote();
 		if (domain != null) {
 			remote.setId(convertFromID(domain.getId()));
-			remote.setName(domain.getName());
-			remote.setSurname(domain.getSurname());
+			remote.setName(domain.getFirstname());
+			remote.setLastname(domain.getLastname());
 			remote.setEmail(domain.getEmail());
 			remote.setGender(domain.getGender());
 			remote.setProfileImage(_profileImageConverter.convertDomainToRemote(domain.getProfileImage()));
@@ -30,8 +30,8 @@ public class FriendsConverter  extends AbstractIdConverter implements IConverter
 	public UserProfile convertRemoteToDomain(UserProfile domain, FriendEntryRemote remote) {
 		if (domain != null && remote != null) {
 			domain.setId(convertToId(remote.getId()));
-			domain.setName(remote.getName());
-			domain.setSurname(remote.getSurname());
+			domain.setFirstname(remote.getFirstname());
+			domain.setLastname(remote.getLastname());
 			domain.setEmail(remote.getEmail());
 			domain.setGender(remote.getGender());
 		}

@@ -72,8 +72,8 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 		if (item != null) {
 			loginId.setValue(String.valueOf(item.getParentId()));
 			profileId.setValue(String.valueOf(item.getId()));
-			name.setText(item.getName());
-			surname.setText(item.getSurname());
+			name.setText(item.getFirstname());
+			surname.setText(item.getLastname());
 			email.setText(item.getEmail());
 			gender_male.setValue(item.getGender() == 0 ? true : false);
 			gender_female.setValue(item.getGender() == 0 ? false : true);
@@ -102,7 +102,7 @@ public class ProfileChangeViewImpl extends ResizeComposite implements ProfileCha
 			System.out.println(">>>>> ProfileChangeView.updateProfileData --> IDs equal");
 		}
 		profile.setName(name.getText());
-		profile.setSurname(surname.getText());
+		profile.setLastname(surname.getText());
 		profile.setEmail(email.getText());
 		profile.setGender(gender_male.getValue() ? 0 : 1);
 		return profile;

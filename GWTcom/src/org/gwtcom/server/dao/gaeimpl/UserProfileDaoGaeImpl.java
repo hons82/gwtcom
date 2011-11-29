@@ -14,15 +14,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
 
 @Repository("userProfileDao")
 public class UserProfileDaoGaeImpl extends GenericDaoGaeImpl<UserProfile, String> implements UserProfileDao {
 
 	@Autowired
 	private UserProfileConverter _userProfileConverter;
-	
+
 	@Autowired
 	private FriendsConverter _friendsConverter;
 
@@ -79,14 +84,34 @@ public class UserProfileDaoGaeImpl extends GenericDaoGaeImpl<UserProfile, String
 		System.out.println(">>>>> Friends size: " + friends.size());
 		return friends;
 	}
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public void addFriendtoUser(String userProfileId, String friendID) {
 		UserProfile userProfile = retrieve(userProfileId);
-		if (userProfile!=null) {
+		if (userProfile != null) {
 			userProfile.getFriends().add(KeyFactory.stringToKey(friendID));
 			saveOrUpdate(userProfile);
 		}
+	}
+
+	@Override
+	public List<FriendEntryRemote> getPeople(String pattern) {
+		List<FriendEntryRemote> ret = new ArrayList<FriendEntryRemote>();
+		// Get the Datastore Service
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+		Query q = new Query("UserProfile");
+
+		// PreparedQuery contains the methods for fetching query results
+		// from the datastore
+		PreparedQuery pq = datastore.prepare(q);
+		for (Entity result : pq.asIterable()) {
+			String firstName = (String) result.getProperty("firstName");
+			String lastName = (String) result.getProperty("lastName");
+			Long height = (Long) result.getProperty("height");
+			System.out.println(lastName + " " + firstName + ", " + height.toString() + " inches tall");
+		}
+		return ret;
 	}
 }
