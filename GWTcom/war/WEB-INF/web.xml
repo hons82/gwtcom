@@ -21,25 +21,20 @@
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-	<!-- <filter> <filter-name>OpenEntityManagerInViewFilter</filter-name> <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class> 
-		</filter> <filter-mapping> <filter-name>OpenEntityManagerInViewFilter</filter-name> 
-		<url-pattern>/*</url-pattern> </filter-mapping> -->
-
 	<filter>
 		<filter-name>requestContextFilter</filter-name>
 		<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
-		<filter-name>requestContextFilter</filter-name>
+		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<filter-mapping>
+		<filter-name>requestContextFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
@@ -61,24 +56,26 @@
 		<servlet-class>org.spring4gwt.server.SpringGwtRemoteServiceServlet</servlet-class>
 	</servlet>
 
+	<servlet>
+		<servlet-name>uploadServlet</servlet-name>
+		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>profileImageServlet</servlet-name>
+		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>springGwtRemoteServiceServlet</servlet-name>
 		<url-pattern>/gwtcom/service/*</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>uploadServlet</servlet-name>
-		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-	</servlet>
 	<servlet-mapping>
 		<servlet-name>uploadServlet</servlet-name>
 		<url-pattern>*.gupld</url-pattern>
 	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>profileImageServlet</servlet-name>
-		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>profileImageServlet</servlet-name>
 		<url-pattern>/gwtcom/profileImage</url-pattern>
