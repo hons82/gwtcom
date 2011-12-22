@@ -35,7 +35,7 @@ public class GWTcom implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
-
+		System.out.println(">>>>> GWTcom.onModuleLoad()");
 		// Inject global styles.
 		GWT.<GlobalResources> create(GlobalResources.class).css().ensureInjected();
 

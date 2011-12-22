@@ -10,7 +10,7 @@ import org.gwtcom.server.domain.Authority;
 import org.gwtcom.server.domain.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +32,8 @@ public class AuthorityDaoGaeImpl extends GenericDaoGaeImpl<Authority, String> im
 		List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
 		for (String key : userauth) {
 			Authority authority = retrieve(key);
-			authList.add(new GrantedAuthorityImpl(authority.getAuthname()));
+			authList.add(new SimpleGrantedAuthority(authority.getAuthname()));
+//			authList.add(new GrantedAuthorityImpl(authority.getAuthname()));
 		}
 		return authList;
 	}

@@ -6,12 +6,12 @@
 	<inherits name="com.smartgwt.SmartGwt" />
 	<!-- Include GWTUpload library -->
 	<inherits name="gwtupload.GWTUpload" />
-	
+
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->
 	<!-- any one of the following lines. -->
-	<!-- <inherits name='com.google.gwt.user.theme.clean.Clean' /> -->
-	<inherits name='com.google.gwt.user.theme.standard.Standard' />
+	<!-- <inherits name='com.google.gwt.user.theme.clean.Clean' />-->
+	<inherits name='com.google.gwt.user.theme.standard.Standard'/>
 	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
 
@@ -22,12 +22,11 @@
 	<!-- <inherits name="com.google.gwt.i18n.I18N" /> -->
 	<!-- <inherits name="com.google.gwt.i18n.CldrLocales"/> -->
 	<inherits name="com.google.gwt.resources.Resources" />
-
 	<!-- Specify the app entry point class. -->
 	<entry-point class='org.gwtcom.client.GWTcom' />
 
 	<!-- Specify the paths for translatable code -->
-	<source path='client' />
+	<source path='client' /> 
 	<source path='shared' />
 
 	<!-- Internationalization support. -->
@@ -45,8 +44,11 @@
 
 	<!-- Remove Symbolmaps - quick and dirty -->
 	<!-- Another idea: http://gwtnews.blogspot.com/2011/11/re-gwt-compiler-doesnt-create-symbol.html -->
-	<!-- Override the regular symbolMaps linker to put the data somewhere we can find it -->
-  	<!-- <define-linker name="symbolMaps" class="com.google.gwt.junit.linker.JUnitSymbolMapsLinker" /> -->
-	<define-linker name='symbolmapremover' class='org.gwtcom.linker.RemoveSymbolMapsGAEImpl' />
+	<!-- Override the regular symbolMaps linker to put the data somewhere we 
+		can find it -->
+	<!-- <define-linker name="symbolMaps" class="com.google.gwt.junit.linker.JUnitSymbolMapsLinker" 
+		/> -->
+	<define-linker name='symbolmapremover'
+		class='org.gwtcom.linker.RemoveSymbolMapsGAEImpl' />
 	<add-linker name='symbolmapremover' />
 </module>

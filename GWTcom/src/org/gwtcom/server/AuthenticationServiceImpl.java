@@ -56,7 +56,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		attr.getRequest()
 				.getSession()
-				.setAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY,
+				.setAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY,
 						userdetail.getUsername());
 
 		sc.setAuthentication(auth);
